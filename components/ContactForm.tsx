@@ -10,7 +10,7 @@ import { EASE } from "./ui";
 const timelines = ["As soon as possible", "In the next 1–3 months", "Just exploring"];
 
 const fieldBase =
-  "w-full bg-transparent py-3 text-[clamp(1.0625rem,1.3vw,1.25rem)] font-medium tracking-[-0.01em] text-paper outline-none placeholder:text-paper/55";
+  "w-full bg-transparent py-3 text-[clamp(1.0625rem,1.3vw,1.25rem)] font-medium tracking-[-0.01em] text-paper outline-none placeholder:text-paper/65";
 
 function Field({ id, label, optional, children }: { id: string; label: string; optional?: boolean; children: ReactNode }) {
   return (
@@ -48,9 +48,9 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
       whileInView={{ clipPath: "inset(0% 0 0 0)", opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
       transition={{ duration: 1, ease: EASE }}
-      className="relative bg-ink text-paper"
+      className="relative border border-paper/20 bg-ink text-paper ring-1 ring-inset ring-paper/10 supports-[backdrop-filter]:bg-ink/82 supports-[backdrop-filter]:backdrop-blur-[6px] supports-[backdrop-filter]:backdrop-saturate-150"
     >
-      <div aria-hidden="true" className="relative bg-ink-3 py-3">
+      <div aria-hidden="true" className="relative bg-ink-3/60 py-3">
         <div className="sprockets absolute inset-x-0 top-0.5 h-2" />
         <p className="edge flex justify-between px-6 pt-2.5 text-dim md:px-10">
           <span>Reeveri 400 · Brief sheet</span>
@@ -59,8 +59,8 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
       </div>
 
       <div className="px-6 pb-10 pt-10 md:px-10 md:pb-12 md:pt-12 lg:grid lg:grid-cols-12 lg:gap-14">
-        <div className="lg:col-span-4">
-          <p className="display relative inline-block text-[clamp(1.875rem,3.2vw,2.75rem)] leading-[0.98]">
+        <div className="flex flex-col lg:col-span-4">
+          <p className="display relative inline-block self-start text-[clamp(1.875rem,3.2vw,2.75rem)] leading-[0.98]">
             Start a<br className="hidden lg:block" /> project.
             <Pencil kind="underline" inView delay={0.5} className="-bottom-[0.08em] left-0 h-[0.2em] w-full" strokeWidth={3} />
           </p>
@@ -143,7 +143,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
         </form>
       </div>
 
-      <div aria-hidden="true" className="relative h-5 bg-ink-3">
+      <div aria-hidden="true" className="relative h-5 bg-ink-3/60">
         <div className="sprockets absolute inset-x-0 bottom-1.5 h-2" />
       </div>
     </motion.div>

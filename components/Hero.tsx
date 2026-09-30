@@ -11,7 +11,7 @@ export function Hero() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const headY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "16%"]);
-  const stripY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "34%"]);
+  const stripY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-28%"]);
 
   const rise = (i: number) => ({
     initial: reduce ? { y: "0%" } : { y: "108%" },
@@ -78,7 +78,7 @@ export function Hero() {
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: EASE, delay: 0.7 }}
-        className="mt-20 pb-8 md:mt-24"
+        className="mt-28 pb-8 md:mt-32"
       >
         <FilmStrip />
       </motion.div>

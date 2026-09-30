@@ -48,17 +48,19 @@ export function Why() {
             </span>
           </p>
         </FadeUp>
-        <FadeUp delay={0.12}>
-          <p className="display text-[clamp(2rem,4vw,3.75rem)] leading-[1]">
-            Strategy without creativity is <motion.span style={{ opacity: invisible }}>invisible.</motion.span>
-          </p>
-        </FadeUp>
-        <FadeUp delay={0.2} className="md:col-span-2 md:mt-6">
-          <p className="max-w-lg text-lg text-dim md:ml-auto">
-            So we never do one without the other. Every idea is built on a reason, and every strategy is made to be
-            seen.
-          </p>
-        </FadeUp>
+        <div className="flex flex-col gap-12">
+          <FadeUp delay={0.12}>
+            <p className="display text-[clamp(2rem,4vw,3.75rem)] leading-[1]">
+              Strategy without creativity is <motion.span style={{ opacity: invisible }}>invisible.</motion.span>
+            </p>
+          </FadeUp>
+          <FadeUp delay={0.2}>
+            <p className="max-w-sm text-lg text-dim">
+              So we never do one without the other. Every idea is built on a reason, and every strategy is made to be
+              seen.
+            </p>
+          </FadeUp>
+        </div>
       </div>
     </section>
   );

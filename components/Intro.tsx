@@ -38,14 +38,14 @@ export function Intro() {
         )}
       </h2>
 
-      <div className="mt-16 grid gap-10 md:mt-24 md:grid-cols-12">
+      <div className="mt-16 grid gap-10 md:mt-24 md:grid-cols-12 md:gap-8">
         <FadeUp className="md:col-span-5 md:col-start-6 lg:col-span-4 lg:col-start-7">
           <p className="text-xl leading-[1.45] text-paper md:text-2xl">
             Everyone is shouting. Feeds refresh every second. The brands that win are not the loudest; they are
             the ones worth noticing.
           </p>
         </FadeUp>
-        <FadeUp delay={0.1} className="md:col-span-4 md:col-start-6 lg:col-span-3 lg:col-start-11">
+        <FadeUp delay={0.1} className="md:col-span-5 md:col-start-6 lg:col-span-3 lg:col-start-11">
           <p className="text-dim">
             Reeveri helps brands earn attention through strategy, creative, content, and distribution, then turns
             that attention into growth you can see.

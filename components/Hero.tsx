@@ -55,7 +55,7 @@ export function Hero() {
         </h1>
 
         <motion.div
-          className="mt-8 max-w-md lg:absolute lg:bottom-[0.6rem] lg:right-[clamp(1rem,4vw,3.5rem)] lg:mt-0 lg:max-w-[25rem]"
+          className="mt-8 max-w-md lg:ml-auto lg:mt-12 lg:max-w-[25rem] 2xl:absolute 2xl:bottom-[0.6rem] 2xl:right-[clamp(1rem,4vw,3.5rem)] 2xl:ml-0 2xl:mt-0"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}

@@ -3,8 +3,8 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { site } from "@/lib/site";
-import { Pencil } from "./Pencil";
-import { MagneticLink, RiseLines } from "./ui";
+import { ContactForm } from "./ContactForm";
+import { RiseLines } from "./ui";
 
 export function CTA() {
   const ref = useRef<HTMLElement>(null);
@@ -34,27 +34,16 @@ export function CTA() {
           <RiseLines lines={["Got a brand", "worth talking", "about?"]} />
         </h2>
 
-        <div className="mt-14 flex flex-col gap-10 md:mt-20 md:flex-row md:items-end md:justify-between">
-          <p className="display text-[clamp(2rem,4.6vw,4.25rem)] text-ink/70">Let&apos;s make some noise.</p>
-          <div className="flex flex-col items-start gap-6 md:items-end">
-            <div className="relative">
-              <MagneticLink href={site.contactHref} size="lg" variant="onPaper" className="relative z-10">
-                Start a project
-              </MagneticLink>
-              <Pencil
-                kind="circle"
-                inView
-                delay={0.5}
-                duration={1}
-                color="var(--color-ink)"
-                strokeWidth={2}
-                className="-left-[12%] -top-[34%] z-0 h-[168%] w-[124%]"
-              />
-            </div>
-            <p className="text-ink/70 md:text-right">
-              Or write to <a href={site.contactHref} className="font-semibold text-ink underline">{site.contactEmail}</a>
+        <div className="mt-14 grid gap-14 md:mt-20 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-4">
+            <p className="display text-[clamp(2rem,3.6vw,3.25rem)] leading-[0.95] text-ink/70">Let&apos;s make some noise.</p>
+            <p className="mt-8 text-ink/70">
+              Prefer email? Write to <a href={site.contactHref} className="font-semibold text-ink underline">{site.contactEmail}</a>
               {site.contactIsPlaceholder && <span className="edge ml-2 bg-ink/10 px-1.5 py-0.5 text-ink/70">Placeholder</span>}
             </p>
+          </div>
+          <div className="lg:col-span-8">
+            <ContactForm />
           </div>
         </div>
 

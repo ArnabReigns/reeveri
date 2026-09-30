@@ -34,17 +34,21 @@ export function CTA() {
           <RiseLines lines={["Got a brand", "worth talking", "about?"]} />
         </h2>
 
-        <div className="mt-14 grid gap-14 md:mt-20 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
-            <p className="display text-[clamp(2rem,3.6vw,3.25rem)] leading-[0.95] text-ink/70">Let&apos;s make some noise.</p>
-            <p className="mt-8 text-ink/70">
-              Prefer email? Write to <a href={site.contactHref} className="font-semibold text-ink underline">{site.contactEmail}</a>
-              {site.contactIsPlaceholder && <span className="edge ml-2 bg-ink/10 px-1.5 py-0.5 text-ink/70">Placeholder</span>}
-            </p>
-          </div>
-          <div className="lg:col-span-8">
-            <ContactForm />
-          </div>
+        <div className="mt-14 md:mt-20">
+          <ContactForm
+            aside={
+              <>
+                <p className="display mt-6 text-[clamp(1.5rem,2.4vw,2.25rem)] leading-[1] text-dim">Let&apos;s make some noise.</p>
+                <p className="mt-8 text-dim">
+                  Prefer email? Write to{" "}
+                  <a href={site.contactHref} className="font-semibold text-paper underline">
+                    {site.contactEmail}
+                  </a>
+                  {site.contactIsPlaceholder && <span className="edge ml-2 bg-paper/10 px-1.5 py-0.5 text-dim">Placeholder</span>}
+                </p>
+              </>
+            }
+          />
         </div>
 
       </div>

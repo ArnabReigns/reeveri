@@ -37,7 +37,7 @@ function Chip({ type, name, value, children }: { type: "checkbox" | "radio"; nam
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ aside }: { aside?: ReactNode }) {
   const uid = useId();
   const reduce = useReducedMotion();
   const id = (k: string) => `${uid}-${k}`;
@@ -58,17 +58,20 @@ export function ContactForm() {
         </p>
       </div>
 
-      <div className="px-6 pb-10 pt-10 md:px-12 md:pb-14 md:pt-14">
-        <p className="display relative inline-block text-[clamp(2.25rem,5vw,4.5rem)] leading-[0.95]">
-          Start a project.
-          <Pencil kind="underline" inView delay={0.5} className="-bottom-[0.08em] left-0 h-[0.2em] w-full" strokeWidth={3} />
-        </p>
+      <div className="px-6 pb-10 pt-10 md:px-12 md:pb-14 md:pt-14 lg:grid lg:grid-cols-12 lg:gap-14">
+        <div className="lg:col-span-4">
+          <p className="display relative inline-block text-[clamp(2.25rem,5vw,4.5rem)] leading-[0.95] lg:text-[clamp(2.5rem,3.9vw,4rem)]">
+            Start a<br className="hidden lg:block" /> project.
+            <Pencil kind="underline" inView delay={0.5} className="-bottom-[0.08em] left-0 h-[0.2em] w-full" strokeWidth={3} />
+          </p>
+          {aside}
+        </div>
 
         <form
           aria-label="Start a project"
           noValidate
           onSubmit={(e: FormEvent) => e.preventDefault()}
-          className="mt-10 grid gap-x-12 md:mt-14 md:grid-cols-2"
+          className="mt-10 grid gap-x-12 md:mt-14 md:grid-cols-2 lg:col-span-8 lg:mt-0"
         >
           <Field id={id("name")} label="Your name">
             <input id={id("name")} name="name" autoComplete="name" placeholder="Who are we talking to?" className={fieldBase} />

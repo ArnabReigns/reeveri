@@ -34,8 +34,8 @@ export function CTA() {
           <RiseLines lines={["Got a brand", "worth talking", "about?"]} />
         </h2>
 
-        <div className="mt-14 grid gap-14 md:mt-20 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+        <div className="mt-14 grid gap-14 md:mt-20 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
             <p className="display text-[clamp(2rem,3.6vw,3.25rem)] leading-[0.95] text-ink/70">Let&apos;s make some noise.</p>
             <p className="mt-8 text-ink/70">
               Prefer email? Write to <a href={site.contactHref} className="font-semibold text-ink underline">{site.contactEmail}</a>

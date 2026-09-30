@@ -62,17 +62,22 @@ export function Why() {
 
       <ProofRow />
 
-      <div className="mt-28 grid gap-6 md:mt-40 md:grid-cols-12">
-        <FadeUp className="md:col-span-7 md:col-start-6">
-          <p className="display text-[clamp(2rem,4.4vw,4rem)] leading-[1]">
+      <div className="mt-16 grid gap-6 border-t border-line pt-8 md:mt-24 md:grid-cols-12 md:gap-8 md:pt-10">
+        <FadeUp className="order-1 md:order-2 md:col-span-9">
+          <p className="display text-[clamp(2.25rem,5.2vw,4.75rem)] leading-[1]">
             We don&apos;t{" "}
             <span className="relative inline-block text-dim">
               chase
-              <Pencil kind="strike" inView delay={0.35} className="left-[-4%] top-[46%] h-[0.2em] w-[108%]" strokeWidth={3} />
+              <Pencil kind="strike" inView delay={0.2} className="left-[-4%] top-[46%] h-[0.2em] w-[108%]" strokeWidth={3} />
             </span>{" "}
             trends. We understand why they work.
           </p>
         </FadeUp>
+        <p aria-hidden="true" className="edge order-2 flex items-center gap-3 text-dim md:order-1 md:col-span-3 md:pt-3">
+          <span>→ 19</span>
+          <span className="h-px w-8 bg-line-strong" />
+          <span>The thesis</span>
+        </p>
       </div>
 
       <div ref={ref} className="mt-28 grid gap-x-8 gap-y-14 border-t border-line pt-14 md:mt-40 md:grid-cols-2">

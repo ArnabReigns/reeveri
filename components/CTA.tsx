@@ -38,7 +38,7 @@ export function CTA() {
           <ContactForm
             aside={
               <>
-                <p className="display mt-6 text-[clamp(1.5rem,2.4vw,2.25rem)] leading-[1] text-dim">Let&apos;s make some noise.</p>
+                <p className="display mt-6 text-[clamp(1.125rem,1.6vw,1.375rem)] leading-[1.15] text-dim">Let&apos;s make some noise.</p>
                 <p className="mt-8 text-dim">
                   Prefer email? Write to{" "}
                   <a href={site.contactHref} className="font-semibold text-paper underline">

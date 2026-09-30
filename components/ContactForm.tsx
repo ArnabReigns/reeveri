@@ -10,7 +10,7 @@ import { EASE } from "./ui";
 const timelines = ["As soon as possible", "In the next 1–3 months", "Just exploring"];
 
 const fieldBase =
-  "w-full bg-transparent py-3 text-[clamp(1.4rem,2.6vw,2.25rem)] font-medium tracking-[-0.02em] text-paper outline-none placeholder:text-paper/55";
+  "w-full bg-transparent py-3 text-[clamp(1.0625rem,1.3vw,1.25rem)] font-medium tracking-[-0.01em] text-paper outline-none placeholder:text-paper/55";
 
 function Field({ id, label, optional, children }: { id: string; label: string; optional?: boolean; children: ReactNode }) {
   return (
@@ -30,7 +30,7 @@ function Chip({ type, name, value, children }: { type: "checkbox" | "radio"; nam
   return (
     <label className="cursor-pointer">
       <input type={type} name={name} value={value} className="peer sr-only" />
-      <span className="inline-flex h-12 items-center rounded-full border border-paper/35 px-5 text-base font-medium text-paper transition-colors duration-300 hover:border-paper peer-checked:border-paper peer-checked:bg-paper peer-checked:text-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-marker">
+      <span className="inline-flex h-11 items-center rounded-full border border-paper/35 px-4 text-[0.95rem] font-medium text-paper transition-colors duration-300 hover:border-paper peer-checked:border-paper peer-checked:bg-paper peer-checked:text-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-marker">
         {children}
       </span>
     </label>
@@ -52,15 +52,15 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
     >
       <div aria-hidden="true" className="relative bg-ink-3 py-3">
         <div className="sprockets absolute inset-x-0 top-0.5 h-2" />
-        <p className="edge flex justify-between px-6 pt-2.5 text-dim md:px-12">
+        <p className="edge flex justify-between px-6 pt-2.5 text-dim md:px-10">
           <span>Reeveri 400 · Brief sheet</span>
           <span>→ 44</span>
         </p>
       </div>
 
-      <div className="px-6 pb-10 pt-10 md:px-12 md:pb-14 md:pt-14 lg:grid lg:grid-cols-12 lg:gap-14">
+      <div className="px-6 pb-10 pt-10 md:px-10 md:pb-12 md:pt-12 lg:grid lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-4">
-          <p className="display relative inline-block text-[clamp(2.25rem,5vw,4.5rem)] leading-[0.95] lg:text-[clamp(2.5rem,3.9vw,4rem)]">
+          <p className="display relative inline-block text-[clamp(1.875rem,3.2vw,2.75rem)] leading-[0.98]">
             Start a<br className="hidden lg:block" /> project.
             <Pencil kind="underline" inView delay={0.5} className="-bottom-[0.08em] left-0 h-[0.2em] w-full" strokeWidth={3} />
           </p>
@@ -71,7 +71,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
           aria-label="Start a project"
           noValidate
           onSubmit={(e: FormEvent) => e.preventDefault()}
-          className="mt-10 grid gap-x-12 md:mt-14 md:grid-cols-2 lg:col-span-8 lg:mt-0"
+          className="mt-8 grid gap-x-10 md:grid-cols-2 lg:col-span-8 lg:mt-0"
         >
           <Field id={id("name")} label="Your name">
             <input id={id("name")} name="name" autoComplete="name" placeholder="Who are we talking to?" className={fieldBase} />
@@ -124,7 +124,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
               <motion.button
                 type="submit"
                 whileTap={{ scale: 0.97 }}
-                className="group relative z-10 inline-flex h-16 items-center gap-3 rounded-full bg-marker px-9 text-lg font-semibold tracking-[-0.01em] text-ink transition-colors duration-300 hover:bg-paper sm:h-20 sm:px-12 sm:text-xl"
+                className="group relative z-10 inline-flex h-14 items-center gap-3 rounded-full bg-marker px-8 text-base font-semibold tracking-[-0.01em] text-ink transition-colors duration-300 hover:bg-paper sm:h-16 sm:px-10 sm:text-lg"
               >
                 Send the brief
                 <ArrowRight aria-hidden="true" className="size-[1.1em] transition-transform duration-500 ease-out-expo group-hover:translate-x-1" strokeWidth={2.2} />

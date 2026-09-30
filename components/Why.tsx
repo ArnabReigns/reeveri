@@ -13,7 +13,7 @@ export function Why() {
   const invisible = useTransform(scrollYProgress, [0.5, 1], [1, reduce ? 1 : 0.22]);
 
   return (
-    <section aria-labelledby="why-title" className="gutter mx-auto max-w-[110rem] py-[clamp(7rem,16vw,14rem)]">
+    <section aria-labelledby="why-title" className="gutter mx-auto max-w-[110rem] pb-[clamp(3rem,6vw,5rem)] pt-[clamp(7rem,16vw,14rem)]">
       <h2 id="why-title" className="sr-only">
         Why Reeveri
       </h2>

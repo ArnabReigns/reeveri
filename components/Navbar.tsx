@@ -23,7 +23,9 @@ export function Navbar() {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) setActive(e.target.id);
+          const id = e.target.id;
+          if (e.isIntersecting) setActive(id);
+          else setActive((cur) => (cur === id ? null : cur));
         }
       },
       { rootMargin: "-45% 0px -50% 0px" },

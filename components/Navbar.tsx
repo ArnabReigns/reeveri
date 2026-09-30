@@ -20,19 +20,19 @@ export function Navbar() {
   useMotionValueEvent(scrollY, "change", (v) => setCompact(v > 40));
 
   useEffect(() => {
-    const ids = site.nav.map((n) => n.href.slice(1));
-    const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          const id = e.target.id;
-          if (e.isIntersecting) setActive(id);
-          else setActive((cur) => (cur === id ? null : cur));
+          if (e.isIntersecting) setActive(e.target.id);
         }
       },
       { rootMargin: "-45% 0px -50% 0px" },
     );
-    els.forEach((el) => io.observe(el));
+    site.nav.forEach((item) => {
+      const id = item.href.slice(1);
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
     return () => io.disconnect();
   }, []);
 

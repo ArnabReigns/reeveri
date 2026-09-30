@@ -164,7 +164,7 @@ export function SectionHead({
       <h2 id={id} className="display text-[clamp(2.75rem,7vw,6.5rem)] md:col-span-8">
         {title}
       </h2>
-      {aside && <div className="max-w-sm text-dim md:col-span-4 md:justify-self-end">{aside}</div>}
+      {aside && <div className="text-dim md:col-span-4 md:justify-self-end">{aside}</div>}
     </div>
   );
 }

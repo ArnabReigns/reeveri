@@ -138,7 +138,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-3">
             <MagneticLink
-              href="#contact"
+              href="#start-project"
               className="max-md:h-10 max-md:px-4 max-md:text-sm"
             >
               Start a project
@@ -204,7 +204,7 @@ export function Navbar() {
               transition={{ duration: 0.5, ease: EASE, delay: 0.45 }}
               className="space-y-6"
             >
-              <MagneticLink href="#contact" size="lg" className="w-full" onClick={() => setOpen(false)}>
+              <MagneticLink href="#start-project" size="lg" className="w-full" onClick={() => setOpen(false)}>
                 Start a project
               </MagneticLink>
               <p className="edge text-rebate">{site.tagline}</p>

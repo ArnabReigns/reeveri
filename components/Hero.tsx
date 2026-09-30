@@ -65,7 +65,7 @@ export function Hero() {
             strategy, content, and creative that people actually stop for.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <MagneticLink href="#contact">Start a project</MagneticLink>
+            <MagneticLink href="#start-project">Start a project</MagneticLink>
             <MagneticLink href="#work" variant="ghost" arrow={false}>
               See our work
             </MagneticLink>

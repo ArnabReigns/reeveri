@@ -49,7 +49,7 @@ export function Footer() {
             </p>
             <p className="mt-5 max-w-xs text-lg text-dim">{site.tagline}</p>
             <a
-              href="#contact"
+              href="#start-project"
               className="group mt-8 inline-flex items-center gap-2 font-semibold text-paper"
             >
               <span className="border-b border-marker pb-0.5">Start a project</span>

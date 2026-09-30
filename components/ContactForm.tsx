@@ -44,11 +44,12 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
 
   return (
     <motion.div
+      id="start-project"
       initial={reduce ? false : { clipPath: "inset(14% 0 0 0)", opacity: 0, y: 40 }}
       whileInView={{ clipPath: "inset(0% 0 0 0)", opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
       transition={{ duration: 1, ease: EASE }}
-      className="relative border border-paper/20 bg-ink text-paper ring-1 ring-inset ring-paper/10 supports-[backdrop-filter]:bg-ink/82 supports-[backdrop-filter]:backdrop-blur-[6px] supports-[backdrop-filter]:backdrop-saturate-150"
+      className="relative scroll-mt-36 border border-paper/20 bg-ink text-paper ring-1 ring-inset ring-paper/10 supports-[backdrop-filter]:bg-ink/82 supports-[backdrop-filter]:backdrop-blur-[6px] supports-[backdrop-filter]:backdrop-saturate-150"
     >
       <div aria-hidden="true" className="relative bg-ink-2 py-3">
         <div className="sprockets absolute inset-x-0 top-0.5 h-2" />

@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local tooling
+/.claude/settings.local.json
+/.codex/
+/.impeccable/config.local.json
+/.impeccable/hook.cache.json
+/.impeccable/questions/
+/.impeccable/review/

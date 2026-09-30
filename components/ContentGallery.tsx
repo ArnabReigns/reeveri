@@ -116,43 +116,38 @@ export function ContentGallery() {
     />
   );
 
-  if (!pinned) {
-    return (
-      <section ref={sectionRef} aria-labelledby="content-title" className="py-[clamp(6rem,12vw,11rem)]">
-        <div className="gutter mx-auto max-w-[110rem]">{head}</div>
-        <ul
-          className="gutter mt-14 flex snap-x snap-mandatory scroll-px-[clamp(1rem,4vw,3.5rem)] gap-4 overflow-x-auto pb-6 [scrollbar-width:none] md:gap-6 [&::-webkit-scrollbar]:hidden"
-          aria-label="Content examples, swipe to browse"
-        >
-          {contentItems.map((item, i) => (
-            <ContentCard key={item.title} item={item} index={i} pinned={false} />
-          ))}
-        </ul>
-      </section>
-    );
-  }
-
   return (
     <>
-      <section aria-labelledby="content-title" className="gutter mx-auto max-w-[110rem] pb-14 pt-[clamp(6rem,12vw,11rem)]">
+      <section aria-labelledby="content-title" className="gutter mx-auto max-w-[110rem] pt-[clamp(6rem,12vw,11rem)]">
         {head}
       </section>
       <section
         ref={sectionRef}
         aria-label="Content examples"
-        className="relative"
-        style={{ height: `calc(100vh + ${distance}px)` }}
+        className={pinned ? "relative mt-14" : "pb-[clamp(6rem,12vw,11rem)]"}
+        style={pinned ? { height: `calc(100vh + ${distance}px)` } : undefined}
       >
-        <div
-          className="sticky top-0 flex h-screen items-center overflow-hidden pt-[4.5rem]"
-          style={{ "--card-h": "clamp(16rem, calc(100vh - 15rem), 40rem)" } as CSSProperties}
-        >
-          <motion.ul ref={trackRef} style={{ x }} className="gutter flex w-max items-start gap-10" aria-label="Content examples">
+        {pinned ? (
+          <div
+            className="sticky top-0 flex h-screen items-center overflow-hidden pt-[4.5rem]"
+            style={{ "--card-h": "clamp(16rem, calc(100vh - 15rem), 40rem)" } as CSSProperties}
+          >
+            <motion.ul ref={trackRef} style={{ x }} className="gutter flex w-max items-start gap-10" aria-label="Content examples">
+              {contentItems.map((item, i) => (
+                <ContentCard key={item.title} item={item} index={i} pinned />
+              ))}
+            </motion.ul>
+          </div>
+        ) : (
+          <ul
+            className="gutter mt-14 flex snap-x snap-mandatory scroll-px-[clamp(1rem,4vw,3.5rem)] gap-4 overflow-x-auto pb-6 [scrollbar-width:none] md:gap-6 [&::-webkit-scrollbar]:hidden"
+            aria-label="Content examples, swipe to browse"
+          >
             {contentItems.map((item, i) => (
-              <ContentCard key={item.title} item={item} index={i} pinned />
+              <ContentCard key={item.title} item={item} index={i} pinned={false} />
             ))}
-          </motion.ul>
-        </div>
+          </ul>
+        )}
       </section>
     </>
   );

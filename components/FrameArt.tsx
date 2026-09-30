@@ -324,8 +324,8 @@ function Countdown() {
   return (
     <div className="absolute inset-0 bg-ink-2">
       <span
-        className="display absolute -right-[4cqw] top-1/2 -translate-y-1/2 leading-none text-paper"
-        style={{ fontSize: "82cqh" }}
+        className="display absolute right-[7cqw] top-1/2 -translate-y-1/2 leading-none text-paper"
+        style={{ fontSize: "58cqh" }}
       >
         03
       </span>

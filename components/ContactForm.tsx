@@ -50,7 +50,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
       transition={{ duration: 1, ease: EASE }}
       className="relative border border-paper/20 bg-ink text-paper ring-1 ring-inset ring-paper/10 supports-[backdrop-filter]:bg-ink/82 supports-[backdrop-filter]:backdrop-blur-[6px] supports-[backdrop-filter]:backdrop-saturate-150"
     >
-      <div aria-hidden="true" className="relative bg-ink-3/60 py-3">
+      <div aria-hidden="true" className="relative bg-ink-2 py-3">
         <div className="sprockets absolute inset-x-0 top-0.5 h-2" />
         <p className="edge flex justify-between px-6 pt-2.5 text-dim md:px-10">
           <span>Reeveri 400 · Brief sheet</span>
@@ -143,7 +143,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
         </form>
       </div>
 
-      <div aria-hidden="true" className="relative h-5 bg-ink-3/60">
+      <div aria-hidden="true" className="relative h-5 bg-ink-2">
         <div className="sprockets absolute inset-x-0 bottom-1.5 h-2" />
       </div>
     </motion.div>

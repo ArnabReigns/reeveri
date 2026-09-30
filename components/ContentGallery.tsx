@@ -73,7 +73,7 @@ export function ContentGallery() {
   const fine = useMediaQuery(FINE_POINTER);
   const wide = useMediaQuery("(min-width: 1024px)");
   const reduce = useMediaQuery(REDUCED_MOTION);
-  const tall = useMediaQuery("(min-height: 640px)");
+  const tall = useMediaQuery("(min-height: 520px)");
   const pinned = fine && wide && tall && !reduce;
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -133,23 +133,27 @@ export function ContentGallery() {
   }
 
   return (
-    <section
-      ref={sectionRef}
-      aria-labelledby="content-title"
-      className="relative"
-      style={{ height: `calc(100vh + ${distance}px)` }}
-    >
-      <div
-        className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-[4.5rem]"
-        style={{ "--card-h": "clamp(13rem, calc(100vh - 30rem), 30rem)" } as CSSProperties}
+    <>
+      <section aria-labelledby="content-title" className="gutter mx-auto max-w-[110rem] pb-14 pt-[clamp(6rem,12vw,11rem)]">
+        {head}
+      </section>
+      <section
+        ref={sectionRef}
+        aria-label="Content examples"
+        className="relative"
+        style={{ height: `calc(100vh + ${distance}px)` }}
       >
-        <div className="gutter mx-auto w-full max-w-[110rem]">{head}</div>
-        <motion.ul ref={trackRef} style={{ x }} className="gutter mt-12 flex w-max items-start gap-8" aria-label="Content examples">
-          {contentItems.map((item, i) => (
-            <ContentCard key={item.title} item={item} index={i} pinned />
-          ))}
-        </motion.ul>
-      </div>
-    </section>
+        <div
+          className="sticky top-0 flex h-screen items-center overflow-hidden pt-[4.5rem]"
+          style={{ "--card-h": "clamp(16rem, calc(100vh - 15rem), 40rem)" } as CSSProperties}
+        >
+          <motion.ul ref={trackRef} style={{ x }} className="gutter flex w-max items-start gap-10" aria-label="Content examples">
+            {contentItems.map((item, i) => (
+              <ContentCard key={item.title} item={item} index={i} pinned />
+            ))}
+          </motion.ul>
+        </div>
+      </section>
+    </>
   );
 }

@@ -46,7 +46,7 @@ export function FilmStrip() {
 
   return (
     <div
-      className="relative select-none [--fw:clamp(9.5rem,19vw,18rem)] [--gap:0.625rem]"
+      className="relative select-none [--fw:clamp(7rem,min(19vw,26dvh),18rem)] [--gap:0.625rem]"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
     >

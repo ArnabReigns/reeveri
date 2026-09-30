@@ -136,6 +136,32 @@
   background-repeat: repeat-y;
 }
 
+.hero-fit {
+  min-height: max(100vh, 34rem);
+  min-height: max(100dvh, 34rem);
+}
+
+.wall-tile {
+  opacity: 0.14;
+  filter: brightness(0.7);
+  transition:
+    opacity 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+    filter 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.6s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.wall-tile[data-hot] {
+  filter: none;
+  opacity: 0.5;
+  transform: scale(1.22);
+  z-index: 2;
+  outline: 1px solid rgb(239 238 232 / 0.55);
+  outline-offset: 5px;
+}
+.wall-tile[data-keeper] {
+  filter: none;
+  opacity: 0.5;
+}
+
 .grain::after {
   content: "";
   position: fixed;

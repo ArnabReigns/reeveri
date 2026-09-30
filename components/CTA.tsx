@@ -37,9 +37,9 @@ export function CTA() {
         <div className="mt-14 md:mt-20">
           <ContactForm
             aside={
-              <div className="flex flex-1 flex-col lg:justify-between">
+              <div className="flex flex-col">
                 <p className="display mt-6 text-[clamp(1.125rem,1.6vw,1.375rem)] leading-[1.15] text-dim">Let&apos;s make some noise.</p>
-                <p className="mt-8 text-dim lg:mt-0">
+                <p className="mt-8 text-dim">
                   Prefer email? Write to{" "}
                   <a href={site.contactHref} className="font-semibold text-paper underline">
                     {site.contactEmail}

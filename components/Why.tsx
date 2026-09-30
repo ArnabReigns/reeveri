@@ -2,8 +2,43 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { FrameArt } from "./FrameArt";
 import { Pencil } from "./Pencil";
 import { FadeUp, RiseLines } from "./ui";
+
+const KEEPER = 11;
+
+function ProofRow() {
+  return (
+    <FadeUp className="mt-14 md:mt-20">
+      <div aria-hidden="true">
+        <div className="grid grid-cols-6 gap-x-2 gap-y-3 md:grid-cols-9 xl:grid-cols-18">
+          {Array.from({ length: 18 }).map((_, i) => {
+            const keeper = i === KEEPER;
+            const a = 30 + ((i * 37) % 52);
+            const b = 24 + ((i * 53) % 46);
+            return (
+              <div key={i} className={`relative ${keeper ? "z-10" : ""}`}>
+                <div className={`aspect-[4/3] overflow-hidden border ${keeper ? "border-paper bg-paper" : "border-line bg-ink-2"}`}>
+                  <span className={`absolute bottom-[22%] left-[12%] h-[7%] ${keeper ? "bg-ink" : "bg-ink-3"}`} style={{ width: `${a}%` }} />
+                  <span className={`absolute bottom-[38%] left-[12%] h-[7%] ${keeper ? "bg-ink" : "bg-ink-3"}`} style={{ width: `${b}%` }} />
+                  {keeper && <span className="absolute left-[12%] top-[14%] size-[22%] rounded-full bg-ink" />}
+                </div>
+                {keeper && (
+                  <Pencil kind="circle" inView delay={0.5} className="-left-[26%] -top-[46%] h-[190%] w-[152%]" strokeWidth={2.4} />
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <p className="edge mt-4 flex justify-between text-dim">
+          <span>Eighteen frames shot</span>
+          <span>One worth noticing</span>
+        </p>
+      </div>
+    </FadeUp>
+  );
+}
 
 export function Why() {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,6 +60,8 @@ export function Why() {
         <RiseLines lines={["No noise.", "Just ideas", "worth noticing."]} />
       </motion.p>
 
+      <ProofRow />
+
       <div className="mt-28 grid gap-6 md:mt-40 md:grid-cols-12">
         <FadeUp className="md:col-span-7 md:col-start-6">
           <p className="display text-[clamp(2rem,4.4vw,4rem)] leading-[1]">
@@ -40,6 +77,9 @@ export function Why() {
 
       <div ref={ref} className="mt-28 grid gap-x-8 gap-y-14 border-t border-line pt-14 md:mt-40 md:grid-cols-2">
         <FadeUp>
+          <div aria-hidden="true" className="mb-8 aspect-[21/9] border border-line">
+            <FrameArt variant="ornament" />
+          </div>
           <p className="display text-[clamp(2rem,4vw,3.75rem)] leading-[1]">
             Creative without strategy is{" "}
             <span className="relative inline-block">
@@ -48,8 +88,11 @@ export function Why() {
             </span>
           </p>
         </FadeUp>
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-10">
           <FadeUp delay={0.12}>
+            <div aria-hidden="true" className="mb-8 aspect-[21/9] border border-line">
+              <FrameArt variant="unseen" />
+            </div>
             <p className="display text-[clamp(2rem,4vw,3.75rem)] leading-[1]">
               Strategy without creativity is <motion.span style={{ opacity: invisible }}>invisible.</motion.span>
             </p>

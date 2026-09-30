@@ -15,7 +15,10 @@ export type FrameArtVariant =
   | "carousel"
   | "countdown"
   | "split"
-  | "viewfinder";
+  | "viewfinder"
+  | "focus"
+  | "ornament"
+  | "unseen";
 
 type Props = {
   variant: FrameArtVariant;
@@ -46,6 +49,9 @@ export function FrameArt({ variant, className = "" }: Props) {
       {variant === "countdown" && <Countdown />}
       {variant === "split" && <Split />}
       {variant === "viewfinder" && <Viewfinder />}
+      {variant === "focus" && <Focus />}
+      {variant === "ornament" && <Ornament />}
+      {variant === "unseen" && <Unseen />}
     </div>
   );
 }
@@ -362,6 +368,53 @@ function Viewfinder() {
         Rec
       </span>
       <span className="edge absolute bottom-[10cqh] right-[12cqw] text-paper/70">00:14:08</span>
+    </div>
+  );
+}
+
+function Focus() {
+  return (
+    <div className="absolute inset-0 bg-ink-2">
+      {[94, 70, 48, 28].map((d, i) => (
+        <span
+          key={d}
+          className="absolute left-1/2 top-1/2 aspect-square -translate-x-1/2 -translate-y-1/2 rounded-full border border-paper"
+          style={{ width: `${d}cqh`, opacity: 0.1 + i * 0.14 }}
+        />
+      ))}
+      <span className="absolute left-[6cqw] right-[6cqw] top-1/2 h-px bg-paper/20" />
+      <span className="absolute bottom-[8cqh] top-[8cqh] left-1/2 w-px bg-paper/20" />
+      <span className="absolute left-1/2 top-1/2 size-[6cqh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-paper" />
+      <span className="edge absolute left-[4cqw] top-[6cqh] text-dim">Focus</span>
+      <span className="edge absolute bottom-[6cqh] right-[4cqw] text-dim">ƒ/1.4 · 1/250</span>
+    </div>
+  );
+}
+
+function Ornament() {
+  return (
+    <div className="absolute inset-0 bg-ink-2">
+      <span className="absolute left-[30cqw] top-1/2 aspect-square -translate-y-1/2 rounded-full border border-paper/40" style={{ width: "78cqh" }} />
+      <span className="absolute left-[38cqw] top-1/2 aspect-square -translate-y-1/2 rounded-full bg-paper/90" style={{ width: "46cqh" }} />
+      <span className="absolute left-[52cqw] top-[22cqh] aspect-square rounded-full border border-paper/60" style={{ width: "30cqh" }} />
+      {[0, 1, 2].map((i) => (
+        <span key={i} className="absolute left-[6cqw] h-px w-[20cqw] bg-paper/30" style={{ top: `${58 + i * 7}cqh` }} />
+      ))}
+      <span className="edge absolute left-[4cqw] top-[8cqh] text-dim">Looks good</span>
+      <span className="edge absolute bottom-[8cqh] right-[4cqw] text-dim">Says nothing</span>
+    </div>
+  );
+}
+
+function Unseen() {
+  return (
+    <div className="absolute inset-0 bg-ink">
+      <span className="absolute left-[28cqw] right-[28cqw] top-[16cqh] bottom-[16cqh] border border-paper/10 bg-ink-2" />
+      <span className="absolute left-[34cqw] top-[30cqh] h-[6cqh] w-[24cqw] bg-ink-3" />
+      <span className="absolute left-[34cqw] top-[44cqh] h-[3cqh] w-[32cqw] bg-ink-3" />
+      <span className="absolute left-[34cqw] top-[52cqh] h-[3cqh] w-[20cqw] bg-ink-3" />
+      <span className="edge absolute left-[4cqw] top-[8cqh] text-dim">Posted</span>
+      <span className="edge absolute bottom-[8cqh] right-[4cqw] text-dim">Unseen</span>
     </div>
   );
 }

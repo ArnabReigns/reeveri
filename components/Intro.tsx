@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { useRef } from "react";
+import { FrameArt } from "./FrameArt";
 import { Pencil } from "./Pencil";
 import { FadeUp } from "./ui";
 
@@ -38,8 +39,19 @@ export function Intro() {
         )}
       </h2>
 
-      <div className="mt-16 md:mt-24 md:grid md:grid-cols-12 md:gap-8">
-        <div className="flex flex-col gap-8 md:col-span-6 md:col-start-7 lg:col-span-5 lg:col-start-8">
+      <div className="mt-16 flex flex-col gap-14 md:mt-24 md:grid md:grid-cols-12 md:items-start md:gap-8">
+        <FadeUp className="order-2 md:order-1 md:col-span-5 lg:col-span-5">
+          <figure aria-hidden="true">
+            <div className="aspect-[4/3] border border-line">
+              <FrameArt variant="focus" />
+            </div>
+            <figcaption className="edge mt-3 flex justify-between text-dim">
+              <span>→ 15 · Attention study</span>
+              <span>Placeholder concept</span>
+            </figcaption>
+          </figure>
+        </FadeUp>
+        <div className="order-1 flex flex-col gap-8 md:order-2 md:col-span-6 md:col-start-7 lg:col-span-5 lg:col-start-8">
           <FadeUp>
             <p className="text-xl leading-[1.45] text-paper md:text-2xl">
               Everyone is shouting. Feeds refresh every second. The brands that win are not the loudest; they are

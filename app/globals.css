@@ -126,6 +126,16 @@
   background-repeat: repeat-x;
 }
 
+@utility sprockets-v {
+  background-image: radial-gradient(
+    ellipse 2.5px 3.5px at center,
+    var(--color-ink) 98%,
+    transparent 100%
+  );
+  background-size: 100% 18px;
+  background-repeat: repeat-y;
+}
+
 .grain::after {
   content: "";
   position: fixed;

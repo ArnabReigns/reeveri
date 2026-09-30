@@ -26,17 +26,22 @@ export function About() {
         </FadeUp>
 
         <FadeUp delay={0.1} className="md:col-span-6 md:col-start-7">
-          <ul className="border-t border-line">
+          <div className="relative border-y border-line bg-ink-2 px-9 md:px-12">
+            <span aria-hidden="true" className="sprockets-v absolute inset-y-0 left-2.5 w-3 md:left-4" />
+            <span aria-hidden="true" className="sprockets-v absolute inset-y-0 right-2.5 w-3 md:right-4" />
+          <ul>
             {ingredients.map((word, i) => (
-              <li key={word} className="flex items-baseline justify-between border-b border-line py-4 md:py-5">
+              <li key={word} className="flex items-baseline justify-between border-b border-line py-4 last:border-b-0 md:py-5">
                 <span className="relative display text-[clamp(1.75rem,3.2vw,3rem)]">
                   {word}
                   <Pencil kind="tick" inView delay={0.15 + i * 0.12} duration={0.4} className="-right-[1.4em] top-[0.05em] size-[0.8em]" strokeWidth={3} />
                 </span>
-                <span className="edge text-rebate">{String(i + 1).padStart(2, "0")} / 05</span>
+                <span className="edge text-dim">→ {31 + i}</span>
               </li>
             ))}
           </ul>
+          </div>
+          <p className="edge mt-3 text-dim">Five frames, one roll.</p>
         </FadeUp>
       </div>
 

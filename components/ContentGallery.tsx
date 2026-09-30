@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Heart, MessageCircle, Play } from "lucide-react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { contentItems, type ContentItem } from "@/lib/content";
 import { FINE_POINTER, REDUCED_MOTION, useMediaQuery } from "@/lib/hooks";
 import { FrameArt } from "./FrameArt";
@@ -15,15 +15,28 @@ const shapeClass: Record<ContentItem["shape"], string> = {
   wide: "w-[84vw] max-w-[34rem] aspect-[16/10]",
 };
 
-function ContentCard({ item, index }: { item: ContentItem; index: number }) {
+const shapeAspect: Record<ContentItem["shape"], string> = {
+  story: "aspect-[9/16]",
+  portrait: "aspect-[4/5]",
+  square: "aspect-square",
+  wide: "aspect-[16/10]",
+};
+const shapeScale: Record<ContentItem["shape"], number> = { story: 1, portrait: 0.83, square: 0.63, wide: 0.7 };
+
+function ContentCard({ item, index, pinned }: { item: ContentItem; index: number; pinned: boolean }) {
   const isVideo = item.kind === "Reel" || item.kind === "Short-form";
   return (
-    <li className={`shrink-0 snap-start ${index % 2 === 1 ? "lg:mt-24" : ""}`}>
+    <li className={`shrink-0 snap-start ${index % 2 === 1 ? "lg:mt-[min(6rem,8vh)]" : ""}`}>
       <div className="mb-2 flex justify-between gap-4 text-rebate">
         <span className="edge">{item.kind}</span>
         <span className="edge">→ {String(index + 21).padStart(2, "0")}</span>
       </div>
-      <figure className={`relative overflow-hidden border border-line bg-ink-2 ${shapeClass[item.shape]}`}>
+      <figure
+        className={`relative overflow-hidden border border-line bg-ink-2 ${
+          pinned ? shapeAspect[item.shape] : shapeClass[item.shape]
+        }`}
+        style={pinned ? { height: `calc(var(--card-h) * ${shapeScale[item.shape]})` } : undefined}
+      >
         <FrameArt variant={item.art} />
         {isVideo && (
           <>
@@ -60,7 +73,8 @@ export function ContentGallery() {
   const fine = useMediaQuery(FINE_POINTER);
   const wide = useMediaQuery("(min-width: 1024px)");
   const reduce = useMediaQuery(REDUCED_MOTION);
-  const pinned = fine && wide && !reduce;
+  const tall = useMediaQuery("(min-height: 640px)");
+  const pinned = fine && wide && tall && !reduce;
 
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
@@ -111,7 +125,7 @@ export function ContentGallery() {
           aria-label="Content examples, swipe to browse"
         >
           {contentItems.map((item, i) => (
-            <ContentCard key={item.title} item={item} index={i} />
+            <ContentCard key={item.title} item={item} index={i} pinned={false} />
           ))}
         </ul>
       </section>
@@ -125,11 +139,14 @@ export function ContentGallery() {
       className="relative"
       style={{ height: `calc(100vh + ${distance}px)` }}
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div
+        className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-[4.5rem]"
+        style={{ "--card-h": "clamp(13rem, calc(100vh - 30rem), 30rem)" } as CSSProperties}
+      >
         <div className="gutter mx-auto w-full max-w-[110rem]">{head}</div>
         <motion.ul ref={trackRef} style={{ x }} className="gutter mt-12 flex w-max items-start gap-8" aria-label="Content examples">
           {contentItems.map((item, i) => (
-            <ContentCard key={item.title} item={item} index={i} />
+            <ContentCard key={item.title} item={item} index={i} pinned />
           ))}
         </motion.ul>
       </div>

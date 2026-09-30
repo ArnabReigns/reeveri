@@ -61,7 +61,7 @@ export function Hero() {
             className="display leading-[0.88]"
             style={{
               fontSize:
-                "clamp(3.1rem, min(10.4vw, (100dvh - 19rem) / 2.64), 9.25rem)",
+                "clamp(3.1rem, min(7.6vw, (100dvh - 24rem) / 2.64), 7rem)",
             }}
           >
             <span className="block overflow-hidden pb-[0.06em]">
@@ -92,22 +92,22 @@ export function Hero() {
 
           <motion.div
             data-hero-copy=""
-            className="mt-[clamp(1rem,3.5dvh,2.5rem)]"
+            className="mt-[clamp(1.5rem,4.5dvh,2.75rem)]"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
           >
-            <p className="flex items-center gap-4 text-[clamp(1rem,2.2dvh,1.25rem)] font-medium text-paper/85">
+            <p className="flex items-center gap-4 text-[clamp(1.125rem,1.7vw,1.625rem)] font-medium text-paper/90">
               <span
                 aria-hidden="true"
                 className="h-px w-10 shrink-0 bg-paper/40 md:w-14"
               />
               {site.tagline}
             </p>
-            <div className="mt-[clamp(1rem,3dvh,2rem)] flex flex-wrap gap-3">
+            <div className="mt-[clamp(1.25rem,3.5dvh,2rem)] flex flex-wrap gap-3">
               <MagneticLink
                 href="#start-project"
-                className="h-[clamp(2.5rem,5.4dvh,3rem)]!"
+                className="h-12! px-6! text-base! sm:h-14! sm:px-8! lg:h-16! lg:px-10! lg:text-lg!"
               >
                 Start a project
               </MagneticLink>
@@ -115,7 +115,7 @@ export function Hero() {
                 href="#work"
                 variant="ghost"
                 arrow={false}
-                className="h-[clamp(2.5rem,5.4dvh,3rem)]!"
+                className="h-12! px-6! text-base! sm:h-14! sm:px-8! lg:h-16! lg:px-10! lg:text-lg!"
               >
                 See our work
               </MagneticLink>

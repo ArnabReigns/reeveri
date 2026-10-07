@@ -29,22 +29,12 @@ function FooterLink({ href, label }: { href: string; label: string }) {
 export function Footer() {
   return (
     <footer className="relative">
-      <div aria-hidden="true" className="relative overflow-hidden bg-ink-3 py-3">
-        <div className="sprockets absolute inset-x-0 top-0.5 h-2" />
-        <div className="sprockets absolute inset-x-0 bottom-0.5 h-2" />
-        <p className="edge flex gap-10 whitespace-nowrap text-rebate">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i}>
-              Reeveri 400 · End of roll · → {37 + i}
-            </span>
-          ))}
-        </p>
-      </div>
+      <div className="border-t border-line" />
 
-      <div className="gutter mx-auto max-w-[110rem] pb-10 pt-16 md:pt-24">
-        <div className="grid gap-14 md:grid-cols-12 md:gap-8">
+      <div className="gutter mx-auto max-w-[110rem] pb-10 pt-12 md:pt-16">
+        <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-5">
-            <p className="display text-[clamp(3rem,7vw,6rem)] leading-[0.85]">
+            <p className="display text-[clamp(2.2rem,4vw,3.25rem)] leading-[0.85]">
               {site.wordmark}
               <span aria-hidden="true" className="ml-1 inline-block size-[0.14em] rounded-full bg-marker align-top" />
             </p>
@@ -91,7 +81,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-16 flex flex-col-reverse items-start justify-between gap-6 border-t border-line pt-6 sm:flex-row sm:items-center md:mt-24">
+        <div className="mt-10 flex flex-col-reverse items-start justify-between gap-6 border-t border-line pt-6 sm:flex-row sm:items-center md:mt-14">
           <p className="edge text-rebate">© 2026 Reeveri. All rights reserved.</p>
           <a
             href="#top"

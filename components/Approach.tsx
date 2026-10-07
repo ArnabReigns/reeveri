@@ -14,9 +14,9 @@ export function Approach() {
 
   return (
     <section aria-labelledby="approach-title" className="border-y border-line bg-ink-2">
-      <div className="gutter mx-auto grid max-w-[110rem] gap-14 py-[clamp(6rem,12vw,11rem)] lg:grid-cols-12 lg:gap-8">
+      <div className="gutter mx-auto grid max-w-[110rem] gap-10 py-[clamp(3.6rem,6vw,5.5rem)] lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
-          <h2 id="approach-title" className="display text-[clamp(2.75rem,5.6vw,5.5rem)] lg:sticky lg:top-32">
+          <h2 id="approach-title" className="display text-[clamp(2rem,3.6vw,3.1rem)] lg:sticky lg:top-32">
             Strategy first.
             <span className="block text-dim">Creativity second.</span>
             <span className="block">
@@ -39,7 +39,7 @@ export function Approach() {
           {steps.map((s, i) => (
             <motion.li
               key={s.n}
-              className="relative grid grid-cols-[1fr] gap-3 pb-16 pl-10 last:pb-0 md:pl-16"
+              className="relative grid grid-cols-[1fr] gap-3 pb-10 pl-10 last:pb-0 md:pl-16"
               initial={reduce ? false : { opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
@@ -51,7 +51,7 @@ export function Approach() {
               >
                 {s.n}
               </span>
-              <h3 className="display text-[clamp(2rem,4vw,3.5rem)]">
+              <h3 className="display text-[clamp(1.4rem,2vw,1.8rem)]">
                 <span className="sr-only">Step {s.n}: </span>
                 {s.title}
               </h3>

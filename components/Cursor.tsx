@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FINE_POINTER, REDUCED_MOTION, useMediaQuery } from "@/lib/hooks";
+import { FINE_POINTER, REDUCED_MOTION, useIsDark, useMediaQuery } from "@/lib/hooks";
 
 type Mode = "default" | "link" | "view";
 
@@ -11,6 +11,11 @@ export function Cursor() {
   const fine = useMediaQuery(FINE_POINTER);
   const reduce = useMediaQuery(REDUCED_MOTION);
   const enabled = fine && !reduce;
+
+  // Concrete rgb values (not keywords or CSS variables) so the colours can animate.
+  // Dark: a light dot inverted over the page. Light: solid black.
+  const dark = useIsDark();
+  const ink = dark ? "239,238,232" : "11,11,10";
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -80,18 +85,17 @@ export function Cursor() {
       style={{ x: sx, y: sy }}
     >
       <motion.div
-        className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
+        className={`flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full ${mode === "view" || !dark ? "mix-blend-normal" : "mix-blend-difference"}`}
         animate={{
           width: size,
           height: size,
           opacity: visible ? 1 : 0,
           scale: pressed ? 0.86 : 1,
-          backgroundColor:
-            mode === "view" ? "rgba(239,238,232,1)" : mode === "link" ? "rgba(239,238,232,0)" : "rgba(239,238,232,1)",
-          borderColor: mode === "link" ? "rgba(239,238,232,0.8)" : "rgba(239,238,232,0)",
+          backgroundColor: mode === "link" ? `rgba(${ink},0)` : `rgba(${ink},1)`,
+          borderColor: mode === "link" ? `rgba(${ink},0.8)` : `rgba(${ink},0)`,
         }}
         transition={{ type: "spring", stiffness: 380, damping: 30 }}
-        style={{ borderWidth: 1, borderStyle: "solid", mixBlendMode: mode === "view" ? "normal" : "difference" }}
+        style={{ borderWidth: 1, borderStyle: "solid" }}
       >
         <motion.span
           className="edge whitespace-nowrap text-ink"

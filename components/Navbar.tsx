@@ -7,9 +7,10 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { Pencil } from "./Pencil";
+import { ThemeToggle } from "./ThemeToggle";
 import { EASE, MagneticLink } from "./ui";
 
-// "/#work" -> "work"; page links such as "/audits" have no section id.
+// "/#services" -> "services"; page links such as "/audits" have no section id.
 const sectionId = (href: string) => (href.includes("#") ? href.split("#")[1] : null);
 
 export function Navbar() {
@@ -146,7 +147,8 @@ export function Navbar() {
             })}
           </ul>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ThemeToggle />
             <MagneticLink
               href="/#start-project"
               className="max-md:h-10 max-md:px-4 max-md:text-sm"

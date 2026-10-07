@@ -28,7 +28,7 @@ Visitors browse on phones (often from social) and desktops. They skim the hero, 
 
 ## Capabilities and Constraints
 
-- Services: Brand Strategy, Social Media, Content & Creative, Performance Marketing, Website & Digital Experiences, Growth Strategy.
+- Services: Social Media, Content & Creative, Performance Marketing, Website & Digital Experiences, Growth Strategy.
 - Process: Understand, Strategize, Create, Launch, Learn.
 - Pricing is not published; projects are scoped individually.
 - Contact channel, email address, and social URLs are not yet provided (placeholders).

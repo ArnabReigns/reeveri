@@ -11,9 +11,9 @@ export function FAQ() {
 
   return (
     <section aria-labelledby="faq-title" className="border-t border-line">
-      <div className="gutter mx-auto grid max-w-[110rem] gap-12 py-[clamp(6rem,12vw,11rem)] lg:grid-cols-12 lg:gap-8">
+      <div className="gutter mx-auto grid max-w-[110rem] gap-10 py-[clamp(3.6rem,6vw,5.5rem)] lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-4">
-          <h2 id="faq-title" className="display text-[clamp(2.75rem,5.6vw,5.5rem)] lg:sticky lg:top-32">
+          <h2 id="faq-title" className="display text-[clamp(2rem,3.6vw,3.1rem)] lg:sticky lg:top-32">
             Fair
             <br />
             questions.
@@ -33,10 +33,10 @@ export function FAQ() {
                     aria-controls={`${id}-panel`}
                     id={`${id}-button`}
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="group flex w-full items-center justify-between gap-6 py-6 text-left md:py-8"
+                    className="group flex w-full items-center justify-between gap-6 py-5 text-left md:py-6"
                   >
                     <span
-                      className={`text-[clamp(1.2rem,2vw,1.6rem)] font-semibold tracking-[-0.02em] transition-colors duration-300 ${
+                      className={`text-[clamp(1.1rem,1.6vw,1.35rem)] font-semibold tracking-[-0.02em] transition-colors duration-300 ${
                         isOpen ? "text-paper" : "text-paper/80 group-hover:text-paper"
                       }`}
                     >

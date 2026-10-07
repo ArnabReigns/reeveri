@@ -47,9 +47,9 @@ export function MagneticLink({
   };
 
   const styles = {
-    primary: "bg-marker text-ink hover:bg-paper",
+    primary: "bg-marker text-on-marker hover:bg-paper hover:text-ink",
     ghost: "text-paper ring-1 ring-inset ring-line-strong hover:ring-paper",
-    onPaper: "bg-marker text-ink hover:bg-ink hover:text-paper",
+    onPaper: "bg-marker text-on-marker hover:bg-ink hover:text-paper",
   }[variant];
   const sizes = {
     md: "h-12 px-6 text-[0.95rem]",
@@ -161,7 +161,7 @@ export function SectionHead({
 }) {
   return (
     <div className={`grid gap-6 md:grid-cols-12 md:items-end ${className}`}>
-      <h2 id={id} className="display text-[clamp(2.75rem,7vw,6.5rem)] md:col-span-8">
+      <h2 id={id} className="display text-[clamp(2rem,3.8vw,3.25rem)] md:col-span-8">
         {title}
       </h2>
       {aside && <div className="text-dim md:col-span-4 md:justify-self-end">{aside}</div>}

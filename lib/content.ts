@@ -17,14 +17,6 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    n: "01",
-    title: "Brand Strategy",
-    line: "A point of view people remember.",
-    description:
-      "Positioning, naming, messaging, and identity direction. We find what your brand should stand for, who it is really for, and the one idea everything else hangs on.",
-    art: "letter",
-  },
-  {
     n: "02",
     title: "Social Media",
     line: "Channels run like publications.",
@@ -100,7 +92,7 @@ export const projects: Project[] = [
     description:
       "One sharp idea, a content system built around it, and a plan to make it travel across every feed.",
     year: "2026",
-    art: "phones",
+    art: "pov",
     placeholder: true,
   },
   {
@@ -180,7 +172,7 @@ export const contentItems: ContentItem[] = [
 export const faqs = [
   {
     q: "What does Reeveri do?",
-    a: "We're a creative marketing agency. We help brands work out what to say, make the work that says it, and put it in front of the right people. That covers brand strategy, social media, content and creative, performance marketing, websites and digital experiences, and growth strategy.",
+    a: "We're a creative marketing agency. We help brands work out what to say, make the work that says it, and put it in front of the right people. That covers social media, content and creative, performance marketing, websites and digital experiences, and growth strategy.",
   },
   {
     q: "Who do you work with?",

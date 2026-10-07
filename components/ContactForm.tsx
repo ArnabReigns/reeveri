@@ -59,9 +59,9 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
         </p>
       </div>
 
-      <div className="px-6 pb-10 pt-10 md:px-10 md:pb-12 md:pt-12 lg:grid lg:grid-cols-12 lg:gap-14">
+      <div className="px-6 pb-10 pt-10 md:px-10 md:pb-12 md:pt-12 lg:grid lg:grid-cols-12 lg:gap-10">
         <div className="flex flex-col lg:col-span-4">
-          <p className="display relative inline-block self-start text-[clamp(1.875rem,3.2vw,2.75rem)] leading-[0.98]">
+          <p className="display relative inline-block self-start text-[clamp(1.78rem,2.88vw,2.48rem)] leading-[0.98]">
             Start a<br className="hidden lg:block" /> project.
             <Pencil kind="underline" inView delay={0.5} className="-bottom-[0.08em] left-0 h-[0.2em] w-full" strokeWidth={3} />
           </p>
@@ -125,7 +125,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
               <motion.button
                 type="submit"
                 whileTap={{ scale: 0.97 }}
-                className="group relative z-10 inline-flex h-14 items-center gap-3 rounded-full bg-marker px-8 text-base font-semibold tracking-[-0.01em] text-ink transition-colors duration-300 hover:bg-paper sm:h-16 sm:px-10 sm:text-lg"
+                className="group relative z-10 inline-flex h-14 items-center gap-3 rounded-full bg-marker px-8 text-base font-semibold tracking-[-0.01em] text-on-marker transition-colors duration-300 hover:bg-paper sm:h-16 sm:px-10 sm:text-lg"
               >
                 Send the brief
                 <ArrowRight aria-hidden="true" className="size-[1.1em] transition-transform duration-500 ease-out-expo group-hover:translate-x-1" strokeWidth={2.2} />

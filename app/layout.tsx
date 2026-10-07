@@ -34,17 +34,31 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0a",
-  colorScheme: "dark",
+  themeColor: "#f1f0ea",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} antialiased`}>
+    <html
+      lang="en"
+      data-theme="light"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className={`${archivo.variable} antialiased`}
+    >
+      <head>
+        {/* Apply a saved theme before first paint so there is no flash. Light is the default. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("reeveri-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;if(t==="dark"){var m=document.querySelector('meta[name="theme-color"]');m&&m.setAttribute("content","#0b0b0a")}}}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="grain">
         <a
           href="#main"
-          className="sr-only z-[80] rounded-full bg-marker px-5 py-3 font-semibold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-[80] rounded-full bg-marker px-5 py-3 font-semibold text-on-marker focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           Skip to content
         </a>

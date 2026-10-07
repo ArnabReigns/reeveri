@@ -64,7 +64,7 @@ export function DemoFrame({ src, label }: Props) {
             title={`${label}. Interactive preview: browse products, filter, and add to bag.`}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-            className={`block w-full bg-paper ${phone ? "h-[min(46rem,82dvh)]" : "h-[min(52rem,80dvh)]"}`}
+            className={`block w-full bg-[#fbf6ee] ${phone ? "h-[min(46rem,82dvh)]" : "h-[min(52rem,80dvh)]"}`}
           />
         </div>
       </div>

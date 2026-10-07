@@ -54,7 +54,7 @@ function ContentCard({ item, index, pinned }: { item: ContentItem; index: number
           </>
         )}
         {item.kind === "Post" && (
-          <div aria-hidden="true" className="absolute bottom-3 right-3 flex gap-3 text-paper mix-blend-difference">
+          <div aria-hidden="true" className="absolute bottom-3 right-3 flex gap-3 text-[#efeee8] mix-blend-difference">
             <Heart className="size-4" />
             <MessageCircle className="size-4" />
           </div>
@@ -118,13 +118,13 @@ export function ContentGallery() {
 
   return (
     <>
-      <section aria-labelledby="content-title" className="gutter mx-auto max-w-[110rem] pt-[clamp(6rem,12vw,11rem)]">
+      <section aria-labelledby="content-title" className="gutter mx-auto max-w-[110rem] pt-[clamp(4.8rem,7.2vw,6.6rem)]">
         {head}
       </section>
       <section
         ref={sectionRef}
         aria-label="Content examples"
-        className={pinned ? "relative mt-14" : "pb-[clamp(6rem,12vw,11rem)]"}
+        className={pinned ? "relative mt-14" : "pb-[clamp(4.8rem,7.2vw,6.6rem)]"}
         style={pinned ? { height: `calc(100vh + ${distance}px)` } : undefined}
       >
         {pinned ? (

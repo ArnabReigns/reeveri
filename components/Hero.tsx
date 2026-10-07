@@ -1,69 +1,78 @@
 "use client";
 
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/lib/site";
-import { ContactWall } from "./ContactWall";
-import { FilmStrip } from "./FilmStrip";
+import { FrameArt, type FrameArtVariant } from "./FrameArt";
 import { Pencil } from "./Pencil";
-import { EASE, FadeUp, MagneticLink } from "./ui";
+import { EASE, MagneticLink } from "./ui";
+
+// One small contact sheet: six frames, one keeper. Static and quiet; it carries the brand idea
+// without filling the page.
+const SHEET: { art: FrameArtVariant; frame: string }[] = [
+  { art: "letter", frame: "01" },
+  { art: "grid", frame: "02" },
+  { art: "split", frame: "03" },
+  { art: "browser", frame: "04" },
+  { art: "focus", frame: "05" },
+  { art: "halftone", frame: "06" },
+];
+const KEEPER = 4;
+
+function Sheet() {
+  const reduce = useReducedMotion();
+  return (
+    <div aria-hidden="true" className="w-full max-w-[30rem] lg:justify-self-end">
+      <div className="grid grid-cols-3 gap-[0.625rem]">
+        {SHEET.map((f, i) => (
+          <motion.div
+            key={f.frame}
+            className="relative"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.5 + i * 0.07 }}
+          >
+            <div className="aspect-[4/5] overflow-hidden border border-line bg-ink-2">
+              <FrameArt variant={f.art} />
+            </div>
+            <span className="edge mt-1.5 block text-rebate">→ {f.frame}</span>
+            {i === KEEPER && (
+              <Pencil
+                kind="circle"
+                className="-left-[14%] -top-[10%] h-[104%] w-[128%]"
+                delay={1.5}
+                duration={0.9}
+                strokeWidth={2.2}
+              />
+            )}
+          </motion.div>
+        ))}
+      </div>
+      <p className="edge mt-3 flex justify-between border-t border-line pt-2 text-rebate">
+        <span>Reeveri 400 · Roll 01</span>
+        <span>One worth keeping</span>
+      </p>
+    </div>
+  );
+}
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const headY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", reduce ? "0%" : "6%"],
-  );
-  const wallY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", reduce ? "0%" : "12%"],
-  );
 
   const rise = (i: number) => ({
     initial: reduce ? { y: "0%" } : { y: "108%" },
     animate: { y: "0%" },
-    transition: { duration: 1, ease: EASE, delay: 0.25 + i * 0.1 },
+    transition: { duration: 1, ease: EASE, delay: 0.2 + i * 0.1 },
   });
 
   return (
-    <>
-      <section
-        ref={ref}
-        id="top"
-        aria-labelledby="hero-title"
-        className="hero-fit relative flex flex-col justify-center overflow-hidden pb-[clamp(2rem,6dvh,4rem)] pt-[clamp(5.25rem,9dvh,7rem)]"
-      >
-        <motion.div
-          style={{ y: wallY }}
-          className="pointer-events-none absolute inset-0 z-0"
-        >
-          <ContactWall hostRef={ref} />
-        </motion.div>
-
-        <motion.div
-          style={{ y: headY }}
-          className="gutter relative mx-auto w-full max-w-[110rem]"
-        >
-          <h1
-            id="hero-title"
-            className="display leading-[0.88]"
-            style={{
-              fontSize:
-                "clamp(3.1rem, min(7.6vw, (100dvh - 24rem) / 2.64), 7rem)",
-            }}
-          >
+    <section
+      id="top"
+      aria-labelledby="hero-title"
+      className="relative flex min-h-[min(44rem,86dvh)] flex-col justify-center pb-[clamp(3rem,6dvh,4.5rem)] pt-[clamp(6.5rem,12dvh,9rem)]"
+    >
+      <div className="gutter mx-auto grid w-full max-w-[110rem] items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-7">
+          <h1 id="hero-title" className="display text-[clamp(2.6rem,5.6vw,4.6rem)] leading-[0.92]">
             <span className="block overflow-hidden pb-[0.06em]">
               <motion.span className="block" {...rise(0)}>
                 We make brands
@@ -83,7 +92,7 @@ export function Hero() {
               <Pencil
                 kind="circle"
                 className="-left-[9%] -top-[10%] h-[126%] w-[116%]"
-                delay={1.15}
+                delay={1.1}
                 duration={0.95}
                 strokeWidth={2.4}
               />
@@ -91,47 +100,25 @@ export function Hero() {
           </h1>
 
           <motion.div
-            data-hero-copy=""
-            className="mt-[clamp(1.5rem,4.5dvh,2.75rem)]"
-            initial={reduce ? false : { opacity: 0, y: 16 }}
+            className="mt-8 md:mt-10"
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.8 }}
           >
-            <p className="flex items-center gap-4 text-[clamp(1.125rem,1.7vw,1.625rem)] font-medium text-paper/90">
-              <span
-                aria-hidden="true"
-                className="h-px w-10 shrink-0 bg-paper/40 md:w-14"
-              />
-              {site.tagline}
-            </p>
-            <div className="mt-[clamp(1.25rem,3.5dvh,2rem)] flex flex-wrap gap-3">
-              <MagneticLink
-                href="#start-project"
-                className="h-12! px-6! text-base! sm:h-14! sm:px-8! lg:h-16! lg:px-10! lg:text-lg!"
-              >
-                Start a project
-              </MagneticLink>
-              <MagneticLink
-                href="#work"
-                variant="ghost"
-                arrow={false}
-                className="h-12! px-6! text-base! sm:h-14! sm:px-8! lg:h-16! lg:px-10! lg:text-lg!"
-              >
-                See our work
+            <p className="max-w-md text-lg text-dim md:text-xl">{site.tagline}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <MagneticLink href="#start-project">Start a project</MagneticLink>
+              <MagneticLink href="#audits" variant="ghost" arrow={false}>
+                See our audits
               </MagneticLink>
             </div>
           </motion.div>
-        </motion.div>
-      </section>
+        </div>
 
-      <section
-        aria-label="Contact sheet preview"
-        className="py-[clamp(3rem,6vw,5rem)]"
-      >
-        <FadeUp>
-          <FilmStrip />
-        </FadeUp>
-      </section>
-    </>
+        <div className="lg:col-span-5 lg:flex lg:justify-end">
+          <Sheet />
+        </div>
+      </div>
+    </section>
   );
 }

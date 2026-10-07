@@ -15,21 +15,21 @@ colors:
 typography:
   display:
     fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3.1rem, 10.4vw, 9.25rem)"
+    fontSize: "clamp(2.6rem, 5.6vw, 4.6rem)"
     fontWeight: 800
     lineHeight: 0.88
     letterSpacing: "-0.04em"
     fontVariation: "\"wdth\" 104"
   headline:
     fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.75rem, 7vw, 6.5rem)"
+    fontSize: "clamp(2rem, 3.8vw, 3.25rem)"
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: "-0.04em"
     fontVariation: "\"wdth\" 104"
   title:
     fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.75rem, 3vw, 2.75rem)"
+    fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: "-0.04em"
@@ -61,9 +61,9 @@ rounded:
 spacing:
   gutter: "clamp(1rem, 4vw, 3.5rem)"
   frame-gap: "0.625rem"
-  section-top: "clamp(4rem, 8vw, 7rem)"
-  section-bottom: "clamp(6rem, 12vw, 11rem)"
-  statement: "clamp(7rem, 16vw, 14rem)"
+  section-top: "clamp(1.5rem, 3vw, 2.5rem)"
+  section-bottom: "clamp(3.6rem, 6vw, 5.5rem)"
+  statement: "clamp(3rem, 6vw, 5rem)"
   container: "110rem"
 components:
   button-primary:
@@ -114,7 +114,7 @@ components:
 
 Creative direction is selection, so the page is laid out the way a photographer reviews a roll: frames in rows on unlit film base, numbers edge-printed along the margins, and one red china-marker deciding what matters. Everything is either the sheet (black ground, print-white type, hairline frames, sprocket rows) or the hand that marks it (red circles, underlines, strikes, ticks, crop brackets, and the one action that starts a project).
 
-Density is editorial and generous: very large, tight, heavy display type carries the voice; long runs of hairline-ruled lists carry the detail; small condensed caps carry the metadata. Motion is photographic rather than decorative: the strip advances frame by frame, frames unmask from a crop, headlines rise out of a clipped line, and marker strokes draw themselves when they come into view. On desktop a loupe cursor stands in for the pointer and swells into a "View project" lens over frames.
+Density is calm and editorial: heavy, tight display type carries the voice at a moderate size; hairline-ruled lists carry the detail; small condensed caps carry the metadata. Few things compete at once: the hero holds one headline and one small six-frame contact sheet, and every other section holds one idea. Motion is photographic rather than decorative: headlines rise out of a clipped line, frames fade up, and marker strokes draw themselves when they come into view. On desktop a loupe cursor stands in for the pointer and swells into a "View project" lens over frames.
 
 The world is flat. Depth comes from three shades of film black, a 6% film-grain overlay, and hairlines, never from shadows or rounded containers.
 
@@ -157,9 +157,9 @@ A near-monochrome film palette with a single warm red that behaves like a grease
 **Character:** One family doing three jobs through its width axis. Wide, heavy and tight for the voice; condensed, tracked caps with tabular figures for the edge print; neutral width for reading.
 
 ### Hierarchy
-- **Display** (800, clamp(3.1rem, 10.4vw, 9.25rem), 0.88, wdth 104): the hero headline and the contact headline, set across most of the viewport and revealed line by line.
-- **Headline** (800, clamp(2.75rem, 7vw, 6.5rem), 0.9, wdth 104): section titles such as "What we do" and "Selected work", paired with a short aside in faded print on the right.
-- **Title** (800, clamp(1.75rem, 3vw, 2.75rem), 1, wdth 104): project titles, process steps, and service rows (service rows run larger, up to 4.25rem).
+- **Display** (800, clamp(2.6rem, 5.6vw, 4.6rem), 0.92, wdth 104): the hero headline, revealed line by line. Held under 6rem so it leads without shouting.
+- **Headline** (800, clamp(2rem, 3.8vw, 3.25rem), 0.9, wdth 104): section titles such as "What we do" and "Audits", paired with a short aside in faded print on the right.
+- **Title** (800, clamp(1.4rem, 2.2vw, 1.9rem), 1, wdth 104): project titles, process steps, and service rows.
 - **Body** (400, 1rem, 1.55): descriptions and answers, capped around 28rem to 42rem (max-w-md to max-w-2xl); text-wrap pretty.
 - **Lead** (400, 1.05rem to 1.125rem, 1.5): the hero supporting line and FAQ answers on desktop.
 - **Label** (600, 0.6875rem, 0.14em, uppercase, wdth 62, tabular figures): edge print, meaning frame numbers, roll names, years, categories, and placeholder notices.
@@ -172,9 +172,9 @@ A near-monochrome film palette with a single warm red that behaves like a grease
 
 ## Layout
 
-A single 110rem container with a fluid gutter (clamp(1rem, 4vw, 3.5rem)) and a 12-column grid from md up. Section heads split 8/4: headline left, aside right and bottom-aligned. Work frames break the grid deliberately (full width, 5 columns, then 6 columns offset down by 16vw, then a 21:9 panorama) so the sheet reads as selected, not tiled. Services and FAQ are full-width hairline-ruled lists. The film strip is the one full-bleed element on the ink ground; the contact section is full-bleed paper.
+A single 110rem container with a fluid gutter (clamp(1rem, 4vw, 3.5rem)) and a 12-column grid from md up. Section heads split 8/4: headline left, aside right and bottom-aligned. Services and FAQ are hairline-ruled lists. The contact section sits on the page ground under a hairline, with no inverted block.
 
-Rhythm is loose: sections open at clamp(4rem, 8vw, 7rem) and close at clamp(6rem, 12vw, 11rem); the statement block gets clamp(7rem, 16vw, 14rem). On mobile the grid collapses to one column, the hero action column stacks under the headline, service rows expand inline, and the nav becomes a full-screen sheet with display-size links numbered in edge print. A 26rem `xs` breakpoint supplements Tailwind's defaults.
+Rhythm is composed rather than loose: sections close at clamp(3.6rem, 6vw, 5.5rem) and heading-to-content gaps are 2rem to 3rem. The scale was tightened twice (first spacing and display type, then a simplification pass that removed the hero wall, film strip, oversized frames and secondary sections) because generous gaps and very large images read as drama on the dark sheet but as overwhelm and emptiness on the light one; it now holds in both themes. On mobile the grid collapses to one column, the hero action column stacks under the headline, service rows expand inline, and the nav becomes a full-screen sheet with display-size links numbered in edge print. A 26rem `xs` breakpoint supplements Tailwind's defaults.
 
 ## Elevation & Depth
 
@@ -204,10 +204,10 @@ Magnetic and confident: they lean toward the pointer (spring, 0.28x/0.36x offset
 - **Behavior:** unmask from a 12% by 8% inset clip on entry, parallax inside the crop, scale to 1.04 on hover, and carry edge print above (frame number, roll name and year) and a numbered display title below.
 
 ### Film Strip
-The hero's signature: an `ink-3` band with sprocket rows top and bottom, 3:2 frames at clamp(9.5rem, 19vw, 18rem) wide with 0.625rem gaps, each captioned in edge print. It advances one frame every 2.6s on the advance easing, pauses on hover, loops seamlessly, and stops under reduced motion. Keeper frames carry a marker circle.
+Retired from the home page in the simplification pass (the hero now shows a small static six-frame sheet); the component stays in the repo. It was the hero's signature: an `ink-3` band with sprocket rows top and bottom, 3:2 frames at clamp(9.5rem, 19vw, 18rem) wide with 0.625rem gaps, each captioned in edge print. It advances one frame every 2.6s on the advance easing, pauses on hover, loops seamlessly, and stops under reduced motion. Keeper frames carry a marker circle.
 
 ### Lists (Services, FAQ)
-Hairline-ruled rows. Service rows show an edge-print index, a display title, and a one-line summary; on desktop hover the row darkens to `ink-2`, the title shifts 16px right, the summary swaps for the description, and a tilted frame preview follows the pointer. FAQ rows use a 40px circular hairline toggle with a plus that rotates 45 degrees when open.
+Hairline-ruled rows. Service rows show a title and its description side by side, always visible: no hover swap, no expanding rows, no pointer-following preview. FAQ rows use a 40px circular hairline toggle with a plus that rotates 45 degrees when open.
 
 ### Navigation
 Transparent fixed header over the hero that condenses from 96px to 64px after 40px of scroll, gaining an `ink` 92% ground and a bottom hairline. Links are 0.95rem medium at 80% paper with a 1px paper underline that draws from the left. The wordmark REEVERI is set in display. The primary action lives in the header at every size. Mobile opens a full-screen sheet that wipes down with display-size links and edge-print numbers.

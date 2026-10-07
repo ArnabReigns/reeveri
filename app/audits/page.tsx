@@ -17,8 +17,8 @@ export default function AuditsPage() {
     <>
       <Navbar />
       <main id="main">
-        <section id="top" className="gutter mx-auto max-w-[110rem] pb-[clamp(4rem,8vw,7rem)] pt-32 md:pt-44">
-          <h1 className="display text-[clamp(3.1rem,10.4vw,9.25rem)]">
+        <section id="top" className="gutter mx-auto max-w-[110rem] pb-[clamp(3.2rem,4.8vw,4.2rem)] pt-32 md:pt-44">
+          <h1 className="display text-[clamp(2.4rem,5.2vw,4rem)]">
             <RiseLines lines={["Audits."]} inView={false} />
           </h1>
           <div className="mt-10 grid gap-6 md:grid-cols-12">
@@ -29,10 +29,10 @@ export default function AuditsPage() {
           </div>
         </section>
 
-        <section aria-label="All audits" className="gutter mx-auto max-w-[110rem] pb-[clamp(6rem,12vw,11rem)]">
-          <div className="grid gap-x-8 gap-y-20 md:grid-cols-12">
+        <section aria-label="All audits" className="gutter mx-auto max-w-[110rem] pb-[clamp(4.8rem,7.2vw,6.6rem)]">
+          <div className="grid gap-x-8 gap-y-14 md:grid-cols-12">
             {audits.map((a) => (
-              <FadeUp key={a.slug} className="md:col-span-7">
+              <FadeUp key={a.slug} className="md:col-span-6">
                 <a
                   href={`/audits/${a.slug}`}
                   data-cursor="view"
@@ -46,7 +46,7 @@ export default function AuditsPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-[0.625rem]">
                     {a.cover.map((c) => (
-                      <div key={c.src} className="relative aspect-[4/5] overflow-hidden bg-ink-2">
+                      <div key={c.src} className="relative aspect-square overflow-hidden bg-ink-2">
                         <Image
                           src={c.src}
                           alt={c.alt}
@@ -58,9 +58,9 @@ export default function AuditsPage() {
                     ))}
                   </div>
                   <div className="mt-6 grid grid-cols-[auto_1fr] gap-x-5">
-                    <span className="display text-[clamp(1.5rem,2.4vw,2.25rem)] text-rebate">{a.n}</span>
+                    <span className="display text-[clamp(1.42rem,2.16vw,2.03rem)] text-rebate">{a.n}</span>
                     <div>
-                      <h2 className="display text-[clamp(1.75rem,3vw,2.75rem)] leading-none">{a.headline.join(" ")}</h2>
+                      <h2 className="display text-[clamp(1.4rem,2.2vw,1.9rem)] leading-none">{a.headline.join(" ")}</h2>
                       <p className="edge mt-3 text-dim">{a.category}</p>
                       <p className="mt-4 max-w-md text-dim">{a.summary}</p>
                       <p className="mt-5 inline-flex items-center gap-2 font-semibold">
@@ -75,11 +75,11 @@ export default function AuditsPage() {
               </FadeUp>
             ))}
 
-            <FadeUp className="md:col-span-5 md:mt-[8vw]">
-              <div className="flex aspect-[4/5] flex-col justify-between border border-line-strong p-6 md:p-8">
+            <FadeUp className="md:col-span-4 md:col-start-9">
+              <div className="flex aspect-square flex-col justify-between border border-line-strong p-6 md:p-8">
                 <p className="edge text-rebate">→ Audit {String(audits.length + 1).padStart(2, "0")} · Open frame</p>
                 <div>
-                  <p className="display text-[clamp(1.75rem,3vw,2.75rem)] leading-none">Your brand could be next.</p>
+                  <p className="display text-[clamp(1.4rem,2.2vw,1.9rem)] leading-none">Your brand could be next.</p>
                   <p className="mt-4 max-w-xs text-dim">
                     Send us your site. We will tell you what we would change, and show you.
                   </p>

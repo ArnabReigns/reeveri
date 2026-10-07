@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { DemoFrame } from "@/components/audits/DemoFrame";
 import { Footer } from "@/components/Footer";
@@ -26,7 +27,7 @@ export async function generateMetadata(props: PageProps<"/audits/[slug]">): Prom
 }
 
 const wrap = "gutter mx-auto max-w-[110rem]";
-const sectionPad = "pb-[clamp(6rem,12vw,11rem)] pt-[clamp(4rem,8vw,7rem)]";
+const sectionPad = "pb-[clamp(3.6rem,6vw,5rem)] pt-[clamp(2.4rem,4vw,3.5rem)]";
 
 export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
   const { slug } = await props.params;
@@ -38,58 +39,80 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
       <Navbar />
       <main id="main">
         {/* Header */}
-        <section id="top" aria-labelledby="audit-title" className={`${wrap} pb-[clamp(3rem,6vw,5rem)] pt-32 md:pt-44`}>
-          <Link
-            href="/audits"
-            className="edge inline-flex items-center gap-2 text-dim transition-colors duration-300 hover:text-paper"
-          >
-            <span aria-hidden="true">←</span> All audits
-          </Link>
-          <h1 id="audit-title" className="display mt-8 text-[clamp(3.1rem,10.4vw,9.25rem)]">
-            <RiseLines
-              inView={false}
-              lines={[
-                audit.headline[0],
-                <span key="b" className="relative inline-block">
-                  {audit.headline[1]}
-                  <Pencil kind="underline" delay={0.9} strokeWidth={3} className="-bottom-[0.02em] left-0 h-[0.16em] w-full" />
-                </span>,
-              ]}
-            />
-          </h1>
+        <section id="top" aria-labelledby="audit-title" className={`${wrap} pb-[clamp(2.63rem,4.5vw,3.75rem)] pt-28 md:pt-36`}>
+          <div className="grid gap-10 md:grid-cols-12 md:gap-8">
+            <div className="flex flex-col md:col-span-8">
+              <div className="flex items-center justify-between border-b border-line pb-4">
+                <Link
+                  href="/audits"
+                  className="edge inline-flex items-center gap-2 text-dim transition-colors duration-300 hover:text-paper"
+                >
+                  <span aria-hidden="true">←</span> All audits
+                </Link>
+                <span className="edge text-rebate">Reeveri 400 · Audit {audit.n}</span>
+              </div>
 
-          <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-12">
-            <dl className="edge grid grid-cols-2 gap-x-6 gap-y-4 text-rebate md:col-span-4 md:grid-cols-1">
-              <div>
-                <dt>Audit</dt>
-                <dd className="mt-1 text-paper">{audit.n}</dd>
+              <h1 id="audit-title" className="display mt-10 text-[clamp(2.2rem,4.6vw,3.75rem)]">
+                <RiseLines
+                  inView={false}
+                  lines={[
+                    audit.headline[0],
+                    <span key="b" className="relative inline-block">
+                      {audit.headline[1]}
+                      <Pencil kind="underline" delay={0.9} strokeWidth={3} className="-bottom-[0.02em] left-0 h-[0.16em] w-full" />
+                    </span>,
+                  ]}
+                />
+              </h1>
+
+              <p className="mt-8 max-w-xl text-[1.125rem] text-paper/90">{audit.lead}</p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-4">
+                <MagneticLink href="#demo">Open the live rebuild</MagneticLink>
+                <p className="edge max-w-[16rem] text-dim">
+                  Independent concept. Not affiliated with or endorsed by {audit.brand}.
+                </p>
               </div>
-              <div>
-                <dt>Brand</dt>
-                <dd className="mt-1 text-paper">{audit.brand}</dd>
+
+              <dl className="edge mt-12 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-5 text-rebate sm:grid-cols-4 md:mt-auto md:pt-6">
+                <div>
+                  <dt>Brand</dt>
+                  <dd className="mt-1.5 text-paper">{audit.brand}</dd>
+                </div>
+                <div>
+                  <dt>Sector</dt>
+                  <dd className="mt-1.5 text-paper">{audit.category}</dd>
+                </div>
+                <div>
+                  <dt>Reviewed</dt>
+                  <dd className="mt-1.5 text-paper">{audit.date}</dd>
+                </div>
+                <div>
+                  <dt>Rebuilt</dt>
+                  <dd className="mt-1.5 text-paper">Home + product page</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="flex flex-col md:col-span-4">
+              <div className="mb-2 flex items-center justify-between text-rebate">
+                <span className="edge">→ Frame {audit.n}</span>
+                <span className="edge">{audit.site}</span>
               </div>
-              <div>
-                <dt>Sector</dt>
-                <dd className="mt-1 text-paper">{audit.category}</dd>
+              <div className="grid flex-1 grid-cols-2 gap-[0.625rem]">
+                {audit.cover.map((c) => (
+                  <div key={c.src} className="relative aspect-[3/4] overflow-hidden bg-ink-2 md:aspect-auto md:min-h-[16rem]">
+                    <Image src={c.src} alt={c.alt} fill priority sizes="(min-width: 768px) 21vw, 48vw" className="object-cover" />
+                  </div>
+                ))}
               </div>
-              <div>
-                <dt>Reviewed</dt>
-                <dd className="mt-1 text-paper">
-                  {audit.date} · {audit.site}
-                </dd>
-              </div>
-            </dl>
-            <div className="md:col-span-8">
-              <p className="max-w-2xl text-[1.125rem] text-paper/90">{audit.lead}</p>
-              <p className="edge mt-6 inline-block border border-line-strong px-3 py-2 text-dim">
-                Independent concept. Not affiliated with or endorsed by {audit.brand}.
-              </p>
             </div>
           </div>
         </section>
 
+
         {/* By the numbers */}
-        <section aria-labelledby="numbers-title" className={`${wrap} pb-[clamp(4rem,8vw,7rem)]`}>
+        <section aria-labelledby="numbers-title" className={`${wrap} pb-[clamp(3.2rem,4.8vw,4.2rem)]`}>
           <h2 id="numbers-title" className="sr-only">
             The homepage, before and after
           </h2>
@@ -104,7 +127,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
                 <span className="col-span-2 text-dim md:col-span-5">{s.label}</span>
                 <span className="relative md:col-span-3">
                   <span className="edge text-rebate md:sr-only">Today</span>
-                  <span className="display relative block w-max text-[clamp(1.75rem,3.2vw,3rem)] text-dim">
+                  <span className="display relative block w-max text-[clamp(1.4rem,2.2vw,1.9rem)] text-dim">
                     {s.before}
                     {i === 0 && (
                       <Pencil kind="circle" inView delay={0.3} strokeWidth={2} className="-inset-x-4 -inset-y-2 h-[calc(100%+1rem)] w-[calc(100%+2rem)]" />
@@ -113,7 +136,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
                 </span>
                 <span className="md:col-span-4">
                   <span className="edge text-rebate md:sr-only">Concept</span>
-                  <span className="display block text-[clamp(1.75rem,3.2vw,3rem)]">{s.after}</span>
+                  <span className="display block text-[clamp(1.4rem,2.2vw,1.9rem)]">{s.after}</span>
                   {s.note && <span className="edge mt-1 block text-rebate">{s.note}</span>}
                 </span>
               </li>
@@ -152,7 +175,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
                 <FadeUp className="grid gap-8 lg:grid-cols-12 lg:gap-8">
                   <div className="lg:col-span-4">
                     <span className="edge text-rebate">→ {f.n}</span>
-                    <h3 className="display mt-3 text-[clamp(1.75rem,3vw,2.75rem)]">{f.title}</h3>
+                    <h3 className="display mt-3 text-[clamp(1.4rem,2.2vw,1.9rem)]">{f.title}</h3>
                   </div>
                   <div className="grid gap-8 md:grid-cols-3 lg:col-span-8">
                     <div>
@@ -185,7 +208,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
             {audit.next.map((item, i) => (
               <li key={item.title} className="grid gap-2 border-t border-line py-6 md:grid-cols-12 md:items-baseline md:gap-8">
                 <span className="edge text-rebate md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="display text-[clamp(1.5rem,2.4vw,2.25rem)] md:col-span-5">{item.title}</h3>
+                <h3 className="display text-[clamp(1.42rem,2.16vw,2.03rem)] md:col-span-5">{item.title}</h3>
                 <p className="text-dim md:col-span-6">{item.line}</p>
               </li>
             ))}
@@ -193,9 +216,9 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
         </section>
 
         {/* Notes */}
-        <section aria-labelledby="notes-title" className={`${wrap} pb-[clamp(4rem,8vw,7rem)]`}>
+        <section aria-labelledby="notes-title" className={`${wrap} pb-[clamp(3.2rem,4.8vw,4.2rem)]`}>
           <div className="grid gap-8 border-t border-line pt-10 md:grid-cols-12">
-            <h2 id="notes-title" className="display text-[clamp(1.5rem,2.4vw,2.25rem)] md:col-span-4">
+            <h2 id="notes-title" className="display text-[clamp(1.42rem,2.16vw,2.03rem)] md:col-span-4">
               How to read this
             </h2>
             <ul className="space-y-4 text-dim md:col-span-8">
@@ -210,8 +233,8 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
 
         {/* CTA */}
         <section aria-labelledby="audit-cta" className="bg-ink-3">
-          <div className={`${wrap} flex flex-col items-start justify-between gap-10 py-[clamp(4rem,8vw,7rem)] md:flex-row md:items-end`}>
-            <h2 id="audit-cta" className="display max-w-[16ch] text-[clamp(2.5rem,6vw,5.5rem)]">
+          <div className={`${wrap} flex flex-col items-start justify-between gap-10 py-[clamp(3.2rem,4.8vw,4.2rem)] md:flex-row md:items-end`}>
+            <h2 id="audit-cta" className="display max-w-[16ch] text-[clamp(2rem,3.8vw,3.1rem)]">
               Want yours looked at?
             </h2>
             <div className="flex flex-col items-start gap-4">

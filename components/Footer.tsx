@@ -1,4 +1,5 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 function FooterLink({ href, label }: { href: string; label: string }) {
@@ -48,8 +49,8 @@ export function Footer() {
               <span aria-hidden="true" className="ml-1 inline-block size-[0.14em] rounded-full bg-marker align-top" />
             </p>
             <p className="mt-5 max-w-xs text-lg text-dim">{site.tagline}</p>
-            <a
-              href="#start-project"
+            <Link
+              href="/#start-project"
               className="group mt-8 inline-flex items-center gap-2 font-semibold text-paper"
             >
               <span className="border-b border-marker pb-0.5">Start a project</span>
@@ -57,7 +58,7 @@ export function Footer() {
                 aria-hidden="true"
                 className="size-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
-            </a>
+            </Link>
           </div>
 
           <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3 md:col-span-7 md:gap-8">

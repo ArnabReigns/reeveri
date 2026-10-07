@@ -33,6 +33,11 @@ export function Cursor() {
       setVisible(true);
     };
     const over = (e: PointerEvent) => {
+      // Embedded demos (iframes) own their pointer; hide the loupe while it is over one.
+      if ((e.target as HTMLElement).closest?.("[data-cursor-hide]")) {
+        setVisible(false);
+        return;
+      }
       const el = (e.target as HTMLElement).closest<HTMLElement>("[data-cursor], a, button");
       if (!el) {
         setMode("default");

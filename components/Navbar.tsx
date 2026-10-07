@@ -2,12 +2,19 @@
 
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { Pencil } from "./Pencil";
 import { EASE, MagneticLink } from "./ui";
 
+// "/#work" -> "work"; page links such as "/audits" have no section id.
+const sectionId = (href: string) => (href.includes("#") ? href.split("#")[1] : null);
+
 export function Navbar() {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40, mass: 0.4 });
   const [compact, setCompact] = useState(false);
@@ -31,14 +38,17 @@ export function Navbar() {
       { rootMargin: "-45% 0px -50% 0px" },
     );
     site.nav.forEach((item) => {
-      const id = item.href.slice(1);
-      const el = document.getElementById(id);
+      const id = sectionId(item.href);
+      const el = id ? document.getElementById(id) : null;
       if (el) io.observe(el);
     });
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
-  const activeIndex = site.nav.findIndex((n) => n.href === `#${active}`);
+  // On the home page the active link follows the section in view; on other pages it follows the route.
+  const activeIndex = onHome
+    ? site.nav.findIndex((n) => sectionId(n.href) === active)
+    : site.nav.findIndex((n) => !n.href.includes("#") && pathname.startsWith(n.href));
 
   useEffect(() => {
     if (!open) return;
@@ -74,8 +84,8 @@ export function Navbar() {
           }`}
         >
           <div className="relative z-10 flex items-center gap-5">
-            <a
-              href="#top"
+            <Link
+              href="/#top"
               className="group display relative text-[1.35rem] tracking-[-0.02em] md:text-2xl"
               onClick={() => setOpen(false)}
             >
@@ -85,7 +95,7 @@ export function Navbar() {
                 className="absolute -right-2.5 top-0.5 size-1.5 rounded-full bg-marker transition-transform duration-500 ease-out-expo group-hover:scale-150"
               />
               <span className="sr-only"> home</span>
-            </a>
+            </Link>
             <span aria-hidden="true" className="hidden h-5 w-px bg-line-strong lg:block" />
             <span aria-hidden="true" className="edge hidden w-40 overflow-hidden text-rebate lg:block">
               <AnimatePresence mode="wait" initial={false}>
@@ -138,7 +148,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-3">
             <MagneticLink
-              href="#start-project"
+              href="/#start-project"
               className="max-md:h-10 max-md:px-4 max-md:text-sm"
             >
               Start a project
@@ -204,7 +214,7 @@ export function Navbar() {
               transition={{ duration: 0.5, ease: EASE, delay: 0.45 }}
               className="space-y-6"
             >
-              <MagneticLink href="#start-project" size="lg" className="w-full" onClick={() => setOpen(false)}>
+              <MagneticLink href="/#start-project" size="lg" className="w-full" onClick={() => setOpen(false)}>
                 Start a project
               </MagneticLink>
               <p className="edge text-rebate">{site.tagline}</p>

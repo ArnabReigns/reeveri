@@ -12,10 +12,11 @@ export const site = {
   contactHref: "mailto:hello@example.com?subject=Start%20a%20project%20with%20Reeveri",
   contactIsPlaceholder: true,
   nav: [
-    { label: "Work", href: "#work" },
-    { label: "Services", href: "#services" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Work", href: "/#work" },
+    { label: "Audits", href: "/audits" },
+    { label: "Services", href: "/#services" },
+    { label: "About", href: "/#about" },
+    { label: "Contact", href: "/#contact" },
   ],
   // TODO(owner): add real profile URLs. Links with href "#" render as placeholders.
   social: [

@@ -1,5 +1,6 @@
 import { About } from "@/components/About";
 import { Approach } from "@/components/Approach";
+import { AuditsTeaser } from "@/components/audits/AuditsTeaser";
 import { ContentGallery } from "@/components/ContentGallery";
 import { CTA } from "@/components/CTA";
 import { FAQ } from "@/components/FAQ";
@@ -20,6 +21,7 @@ export default function Home() {
         <Intro />
         <Services />
         <Work />
+        <AuditsTeaser />
         <Approach />
         <Why />
         <ContentGallery />

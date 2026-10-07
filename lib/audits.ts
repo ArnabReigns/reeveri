@@ -1,0 +1,125 @@
+// Audits: public teardown + rebuild concepts for brands. Every figure here was measured by us on
+// the date shown; keep it that way. Never add numbers we have not measured.
+
+export type Finding = {
+  n: string;
+  title: string;
+  found: string;
+  why: string;
+  did: string;
+};
+
+export type Stat = {
+  label: string;
+  before: string;
+  after: string;
+  note?: string;
+};
+
+export type Audit = {
+  slug: string;
+  n: string;
+  brand: string;
+  wordmark: string;
+  category: string;
+  date: string;
+  headline: [string, string];
+  summary: string;
+  lead: string;
+  site: string;
+  cover: { src: string; alt: string }[];
+  logo: string;
+  demo: { src: string; label: string };
+  stats: Stat[];
+  findings: Finding[];
+  next: { title: string; line: string }[];
+  notes: string[];
+};
+
+export const audits: Audit[] = [
+  {
+    slug: "jaipur-kurti",
+    n: "01",
+    brand: "Jaipur Kurti",
+    wordmark: "JAIPUR KURTI",
+    category: "Fashion · D2C e-commerce",
+    date: "7 Oct 2026",
+    headline: ["Jaipur Kurti,", "redrawn."],
+    summary:
+      "A 250-store ethnic wear brand with a homepage that tries to show the whole catalogue. We rebuilt the home page and product page to see how much lighter and easier to buy from it could be.",
+    lead:
+      "Jaipur Kurti sells kurtas, kurta sets and sarees online and in 250+ stores, including Shoppers Stop, Reliance Trends and Centro. The brand and the photography are strong. The store around them makes shoppers work: a very heavy homepage, the same styles repeated, and no help choosing a size. This is what we found, and a working rebuild you can click through below.",
+    site: "jaipurkurti.com",
+    cover: [
+      { src: "/audits/jaipur-kurti/cover-1.jpg", alt: "Rust embroidered kurta set from the Jaipur Kurti collection" },
+      { src: "/audits/jaipur-kurti/cover-2.jpg", alt: "Mustard embroidered net saree from the Jaipur Kurti collection" },
+    ],
+    logo: "/audits/jaipur-kurti/logo.png",
+    demo: { src: "/demos/jaipur-kurti/index.html", label: "Jaipur Kurti, concept rebuild" },
+    stats: [
+      { label: "Images on the homepage", before: "382", after: "42" },
+      { label: "Scripts loaded", before: "80", after: "2" },
+      { label: "Page elements (DOM)", before: "7,744", after: "720" },
+      { label: "Product links to 88 products", before: "893", after: "35", note: "Concept links 14 products" },
+      { label: "Images with no alt attribute", before: "12", after: "0" },
+      { label: "Social share image", before: "None", after: "Set" },
+      { label: "Page heading (H1)", before: "“jaipurkurti”", after: "Descriptive" },
+    ],
+    findings: [
+      {
+        n: "01",
+        title: "The homepage is the whole catalogue",
+        found:
+          "One page loads 382 images, 80 scripts and about 7,700 page elements. Product carousels repeat, so 88 products are linked 893 times.",
+        why: "Most of this audience shops on a phone. A page that heavy is slow to become usable and hard to scroll, and every repeat of a product is a place to get lost.",
+        did: "Five category tiles, one picks rail and one filterable grid that shows eight products and loads more on request. Images load as you reach them. The whole page ships as a small bundle with no extra apps.",
+      },
+      {
+        n: "02",
+        title: "Choosing a size is guesswork",
+        found:
+          "On the homepage, cards say “Choose options” and list sizes as plain text rather than as something you can pick. We only reviewed the homepage, so we have not judged their product page.",
+        why: "Fit uncertainty is the main reason people hesitate to buy clothes online, and the main reason they return them.",
+        did: "Tappable size chips with sold-out sizes crossed out, quick add straight from the card, a size guide, a pincode check for delivery and cash on delivery, and a sticky add-to-bag bar on phones.",
+      },
+      {
+        n: "03",
+        title: "Trust sits in a banner, not near the price",
+        found:
+          "The retail credentials (Shoppers Stop, Reliance Trends, Centro, 250+ stores) live in the top banner. Cards show no ratings. Discount badges run from about 40% to 74% on almost every card.",
+        why: "Being in 250 stores is a rare advantage for an online brand, but it is not doing any work where the buying decision happens. Constant very deep discounts also read as a list price nobody pays.",
+        did: "A trust bar under the hero, a partner-store strip, a store finder by city, review slots on cards and product pages, and returns, shipping and COD next to the price. We kept their real prices. The list-price strategy is a conversation to have with the brand.",
+      },
+      {
+        n: "04",
+        title: "Search and sharing leave value behind",
+        found:
+          "The page heading is the lowercase brand name. No social share image is set, so links shared on WhatsApp and Instagram show no preview picture. 12 images have no alt attribute. To their credit, the canonical URL, structured data and mobile viewport are in place.",
+        why: "Shared links are how fashion spreads. A plain heading and missing image text also give search engines less to work with.",
+        did: "A descriptive heading, a share image and per-page titles, Product structured data with price and rating, and an alt attribute on every image.",
+      },
+      {
+        n: "05",
+        title: "Built to be used with a keyboard and a thumb",
+        found:
+          "This was a visual review, not a full accessibility audit. The pale gold section headings looked low in contrast against the cream background.",
+        why: "Contrast, focus and tap size decide whether everyone can use the store, and they are cheap to get right at the start.",
+        did: "Skip link, keyboard-operable bag and menus, visible focus, labelled controls, 44px touch targets and reduced-motion support throughout.",
+      },
+    ],
+    next: [
+      { title: "Checkout and payments", line: "The bag works. Checkout, UPI, cards and COD are the next build." },
+      { title: "Live catalogue", line: "Connect to their store so products, prices and stock stay in sync." },
+      { title: "Real reviews and ratings", line: "Replace the sample rating slots with a reviews provider." },
+      { title: "Store finder with real locations", line: "Swap the sample city list for their actual store data." },
+      { title: "Prerendered pages and analytics", line: "So search engines see every product page, plus an A/B test plan for the first 90 days." },
+    ],
+    notes: [
+      "Measured on the live homepage and on the concept on 7 Oct 2026, in one browser session. Load times are not compared, because the live site is served from the internet and the concept from a local build.",
+      "The concept uses Jaipur Kurti’s real product names, prices, sizes and photography. The ratings, reviews, size chart and store list in the concept are sample content, not their real data.",
+      "Jaipur Kurti’s name, logo and product photography belong to Jaipur Kurti. This is an independent concept by Reeveri, not affiliated with or endorsed by the brand.",
+    ],
+  },
+];
+
+export const getAudit = (slug: string) => audits.find((a) => a.slug === slug);

@@ -1,0 +1,98 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
+import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
+import { audits } from "@/lib/audits";
+
+export const metadata: Metadata = {
+  title: "Audits — Reeveri",
+  description:
+    "Independent teardowns of brand websites, with a working rebuild you can click through. See what we would change and why.",
+  alternates: { canonical: "/audits" },
+};
+
+export default function AuditsPage() {
+  return (
+    <>
+      <Navbar />
+      <main id="main">
+        <section id="top" className="gutter mx-auto max-w-[110rem] pb-[clamp(4rem,8vw,7rem)] pt-32 md:pt-44">
+          <h1 className="display text-[clamp(3.1rem,10.4vw,9.25rem)]">
+            <RiseLines lines={["Audits."]} inView={false} />
+          </h1>
+          <div className="mt-10 grid gap-6 md:grid-cols-12">
+            <p className="max-w-2xl text-[1.125rem] text-dim md:col-span-7 md:col-start-6">
+              We pick a brand we admire, find what is holding its site back, then build the version we would
+              have made. Every audit comes with a working front end you can open and use.
+            </p>
+          </div>
+        </section>
+
+        <section aria-label="All audits" className="gutter mx-auto max-w-[110rem] pb-[clamp(6rem,12vw,11rem)]">
+          <div className="grid gap-x-8 gap-y-20 md:grid-cols-12">
+            {audits.map((a) => (
+              <FadeUp key={a.slug} className="md:col-span-7">
+                <a
+                  href={`/audits/${a.slug}`}
+                  data-cursor="view"
+                  data-cursor-label="Open audit"
+                  aria-label={`${a.brand} audit`}
+                  className="group block"
+                >
+                  <div className="mb-2 flex items-center justify-between text-rebate">
+                    <span className="edge">→ Audit {a.n}</span>
+                    <span className="edge">Reeveri 400 · {a.date}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-[0.625rem]">
+                    {a.cover.map((c) => (
+                      <div key={c.src} className="relative aspect-[4/5] overflow-hidden bg-ink-2">
+                        <Image
+                          src={c.src}
+                          alt={c.alt}
+                          fill
+                          sizes="(min-width: 768px) 30vw, 50vw"
+                          className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.04]"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 grid grid-cols-[auto_1fr] gap-x-5">
+                    <span className="display text-[clamp(1.5rem,2.4vw,2.25rem)] text-rebate">{a.n}</span>
+                    <div>
+                      <h2 className="display text-[clamp(1.75rem,3vw,2.75rem)] leading-none">{a.headline.join(" ")}</h2>
+                      <p className="edge mt-3 text-dim">{a.category}</p>
+                      <p className="mt-4 max-w-md text-dim">{a.summary}</p>
+                      <p className="mt-5 inline-flex items-center gap-2 font-semibold">
+                        <span className="border-b border-marker pb-0.5">Read the audit, open the rebuild</span>
+                        <span aria-hidden="true" className="transition-transform duration-500 ease-out-expo group-hover:translate-x-1">
+                          →
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </FadeUp>
+            ))}
+
+            <FadeUp className="md:col-span-5 md:mt-[8vw]">
+              <div className="flex aspect-[4/5] flex-col justify-between border border-line-strong p-6 md:p-8">
+                <p className="edge text-rebate">→ Audit {String(audits.length + 1).padStart(2, "0")} · Open frame</p>
+                <div>
+                  <p className="display text-[clamp(1.75rem,3vw,2.75rem)] leading-none">Your brand could be next.</p>
+                  <p className="mt-4 max-w-xs text-dim">
+                    Send us your site. We will tell you what we would change, and show you.
+                  </p>
+                  <MagneticLink href="/#start-project" className="mt-8">
+                    Start a project
+                  </MagneticLink>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}

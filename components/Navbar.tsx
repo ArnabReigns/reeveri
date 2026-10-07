@@ -87,14 +87,17 @@ export function Navbar() {
           <div className="relative z-10 flex items-center gap-5">
             <Link
               href="/#top"
-              className="group display relative text-[1.35rem] tracking-[-0.02em] md:text-2xl"
+              className="group display relative inline-flex min-h-11 shrink-0 items-center text-[1.35rem] tracking-[-0.02em] md:text-2xl"
               onClick={() => setOpen(false)}
             >
-              {site.wordmark}
-              <span
-                aria-hidden="true"
-                className="absolute -right-2.5 top-0.5 size-1.5 rounded-full bg-marker transition-transform duration-500 ease-out-expo group-hover:scale-150"
-              />
+              <span className="whitespace-nowrap">
+                {site.wordmark}
+                {/* The red dot is the wordmark's full stop: it sits on the baseline, right after the last letter. */}
+                <span
+                  aria-hidden="true"
+                  className="ml-[0.08em] inline-block size-[0.2em] rounded-full bg-marker transition-transform duration-500 ease-out-expo group-hover:scale-125"
+                />
+              </span>
               <span className="sr-only"> home</span>
             </Link>
             <span aria-hidden="true" className="hidden h-5 w-px bg-line-strong lg:block" />
@@ -147,13 +150,14 @@ export function Navbar() {
             })}
           </ul>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             <ThemeToggle />
             <MagneticLink
-              href="/#start-project"
+              href={site.audit.href}
               className="max-md:h-10 max-md:px-4 max-md:text-sm"
             >
-              Start a project
+              <span className="sm:hidden">Free audit</span>
+              <span className="max-sm:hidden">{site.audit.label}</span>
             </MagneticLink>
             <button
               ref={toggle}
@@ -216,8 +220,8 @@ export function Navbar() {
               transition={{ duration: 0.5, ease: EASE, delay: 0.45 }}
               className="space-y-6"
             >
-              <MagneticLink href="/#start-project" size="lg" className="w-full" onClick={() => setOpen(false)}>
-                Start a project
+              <MagneticLink href={site.audit.href} size="lg" className="w-full" onClick={() => setOpen(false)}>
+                {site.audit.label}
               </MagneticLink>
               <p className="edge text-rebate">{site.tagline}</p>
             </motion.div>

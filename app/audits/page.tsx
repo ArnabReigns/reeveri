@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
 import { audits } from "@/lib/audits";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Audits — Reeveri",
@@ -83,8 +84,8 @@ export default function AuditsPage() {
                   <p className="mt-4 max-w-xs text-dim">
                     Send us your site. We will tell you what we would change, and show you.
                   </p>
-                  <MagneticLink href="/#start-project" className="mt-8">
-                    Start a project
+                  <MagneticLink href={site.audit.href} className="mt-8">
+                    {site.audit.label}
                   </MagneticLink>
                 </div>
               </div>

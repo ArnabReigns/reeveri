@@ -107,7 +107,7 @@ export function Hero() {
           >
             <p className="max-w-md text-lg text-dim md:text-xl">{site.tagline}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <MagneticLink href="#start-project">Start a project</MagneticLink>
+              <MagneticLink href="#book-audit">{site.audit.label}</MagneticLink>
               <MagneticLink href="#audits" variant="ghost" arrow={false}>
                 See our audits
               </MagneticLink>

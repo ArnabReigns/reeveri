@@ -11,6 +11,8 @@ export const site = {
   contactEmail: "hello@example.com",
   contactHref: "mailto:hello@example.com?subject=Start%20a%20project%20with%20Reeveri",
   contactIsPlaceholder: true,
+  // The primary action: opens the contact form with the free audit pre-selected.
+  audit: { label: "Book a free audit", href: "/#book-audit" },
   nav: [
     { label: "Audits", href: "/audits" },
     { label: "Services", href: "/#services" },

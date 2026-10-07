@@ -10,7 +10,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
         href={href}
         aria-disabled={placeholder || undefined}
         title={placeholder ? "Link coming soon" : undefined}
-        className="group inline-flex items-center gap-2 py-1 text-lg text-paper/80 transition-colors duration-300 hover:text-paper"
+        className="group inline-flex items-center gap-2 py-2.5 text-lg text-paper/80 transition-colors duration-300 hover:text-paper"
       >
         <span className="relative">
           {label}
@@ -34,16 +34,16 @@ export function Footer() {
       <div className="gutter mx-auto max-w-[110rem] pb-10 pt-12 md:pt-16">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-5">
-            <p className="display text-[clamp(2.2rem,4vw,3.25rem)] leading-[0.85]">
+            <p className="display whitespace-nowrap text-[clamp(2.2rem,4vw,3.25rem)] leading-[0.85]">
               {site.wordmark}
-              <span aria-hidden="true" className="ml-1 inline-block size-[0.14em] rounded-full bg-marker align-top" />
+              <span aria-hidden="true" className="ml-[0.08em] inline-block size-[0.2em] rounded-full bg-marker" />
             </p>
             <p className="mt-5 max-w-xs text-lg text-dim">{site.tagline}</p>
             <Link
-              href="/#start-project"
-              className="group mt-8 inline-flex items-center gap-2 font-semibold text-paper"
+              href={site.audit.href}
+              className="group mt-6 inline-flex items-center gap-2 py-2.5 font-semibold text-paper"
             >
-              <span className="border-b border-marker pb-0.5">Start a project</span>
+              <span className="border-b border-marker pb-0.5">{site.audit.label}</span>
               <ArrowUpRight
                 aria-hidden="true"
                 className="size-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -72,7 +72,7 @@ export function Footer() {
               <p className="edge mb-4 text-rebate">Say hello</p>
               <a
                 href={site.contactHref}
-                className="break-all text-lg text-paper/80 underline decoration-line-strong underline-offset-4 transition-colors hover:text-paper hover:decoration-paper"
+                className="inline-block break-all py-2 text-lg text-paper/80 underline decoration-line-strong underline-offset-4 transition-colors hover:text-paper hover:decoration-paper"
               >
                 {site.contactEmail}
               </a>

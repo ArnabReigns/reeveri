@@ -8,6 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines, SectionHead } from "@/components/ui";
 import { audits, getAudit } from "@/lib/audits";
+import { site } from "@/lib/site";
 
 export function generateStaticParams() {
   return audits.map((a) => ({ slug: a.slug }));
@@ -67,7 +68,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
 
               <p className="mt-8 max-w-xl text-[1.125rem] text-paper/90">{audit.lead}</p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-4">
+              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-4 md:mb-10">
                 <MagneticLink href="#demo">Open the live rebuild</MagneticLink>
                 <p className="edge max-w-[16rem] text-dim">
                   Independent concept. Not affiliated with or endorsed by {audit.brand}.
@@ -240,7 +241,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
             <div className="flex flex-col items-start gap-4">
               <p className="max-w-xs text-dim">Send us your site. We will tell you what we would change, and show you.</p>
               <div className="flex flex-wrap gap-3">
-                <MagneticLink href="/#start-project">Start a project</MagneticLink>
+                <MagneticLink href={site.audit.href}>{site.audit.label}</MagneticLink>
                 <MagneticLink href="/audits" variant="ghost" arrow={false}>
                   More audits
                 </MagneticLink>

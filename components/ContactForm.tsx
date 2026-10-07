@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useId, type FormEvent, type ReactNode } from "react";
+import { useId, useState, useSyncExternalStore, type FormEvent, type ReactNode } from "react";
 import { services } from "@/lib/content";
 import { Pencil } from "./Pencil";
 import { EASE } from "./ui";
@@ -26,10 +26,32 @@ function Field({ id, label, optional, children }: { id: string; label: string; o
   );
 }
 
-function Chip({ type, name, value, children }: { type: "checkbox" | "radio"; name: string; value: string; children: ReactNode }) {
+// True while the URL hash asks for the free audit (the "Book a free audit" buttons link to /#book-audit).
+const subscribeHash = (onChange: () => void) => {
+  window.addEventListener("hashchange", onChange);
+  return () => window.removeEventListener("hashchange", onChange);
+};
+const wantsAudit = () => window.location.hash === "#book-audit";
+
+function Chip({
+  type,
+  name,
+  value,
+  children,
+  checked,
+  onChange,
+}: {
+  type: "checkbox" | "radio";
+  name: string;
+  value: string;
+  children: ReactNode;
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
+}) {
+  const controlled = checked === undefined ? {} : { checked, onChange: (e: React.ChangeEvent<HTMLInputElement>) => onChange?.(e.target.checked) };
   return (
     <label className="cursor-pointer">
-      <input type={type} name={name} value={value} className="peer sr-only" />
+      <input type={type} name={name} value={value} className="peer sr-only" {...controlled} />
       <span className="inline-flex h-11 items-center rounded-full border border-paper/35 px-4 text-[0.95rem] font-medium text-paper transition-colors duration-300 hover:border-paper peer-checked:border-paper peer-checked:bg-paper peer-checked:text-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-marker">
         {children}
       </span>
@@ -41,6 +63,9 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
   const uid = useId();
   const reduce = useReducedMotion();
   const id = (k: string) => `${uid}-${k}`;
+  const fromHash = useSyncExternalStore(subscribeHash, wantsAudit, () => false);
+  const [picked, setPicked] = useState<boolean | null>(null); // null = follow the hash
+  const audit = picked ?? fromHash;
 
   return (
     <motion.div
@@ -51,6 +76,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
       transition={{ duration: 1, ease: EASE }}
       className="relative scroll-mt-36 border border-paper/20 bg-ink text-paper ring-1 ring-inset ring-paper/10 supports-[backdrop-filter]:bg-ink/82 supports-[backdrop-filter]:backdrop-blur-[6px] supports-[backdrop-filter]:backdrop-saturate-150"
     >
+      <span id="book-audit" aria-hidden="true" className="pointer-events-none absolute -top-36 left-0 h-px w-px" />
       <div aria-hidden="true" className="relative bg-ink-2 py-3">
         <div className="sprockets absolute inset-x-0 top-0.5 h-2" />
         <p className="edge flex justify-between px-6 pt-2.5 text-dim md:px-10">
@@ -86,9 +112,20 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
             </Field>
           </div>
 
+          {audit && (
+            <div className="md:col-span-2">
+              <Field id={id("website")} label="Your website">
+                <input id={id("website")} name="website" type="url" inputMode="url" autoComplete="url" placeholder="https://yourbrand.com" className={fieldBase} />
+              </Field>
+            </div>
+          )}
+
           <fieldset className="md:col-span-2">
             <legend className="edge text-dim">What do you need</legend>
             <div className="mt-4 flex flex-wrap gap-3">
+              <Chip type="checkbox" name="services" value="Free audit" checked={audit} onChange={setPicked}>
+                Free audit
+              </Chip>
               {services.map((s) => (
                 <Chip key={s.title} type="checkbox" name="services" value={s.title}>
                   {s.title}
@@ -114,7 +151,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
                 id={id("message")}
                 name="message"
                 rows={3}
-                placeholder="Tell us about the brand and what you want to change."
+                placeholder={audit ? "What feels off about the site, or what do you want it to do better?" : "Tell us about the brand and what you want to change."}
                 className={`${fieldBase} resize-none`}
               />
             </Field>
@@ -127,7 +164,7 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
                 whileTap={{ scale: 0.97 }}
                 className="group relative z-10 inline-flex h-14 items-center gap-3 rounded-full bg-marker px-8 text-base font-semibold tracking-[-0.01em] text-on-marker transition-colors duration-300 hover:bg-paper sm:h-16 sm:px-10 sm:text-lg"
               >
-                Send the brief
+                {audit ? "Book my free audit" : "Send the brief"}
                 <ArrowRight aria-hidden="true" className="size-[1.1em] transition-transform duration-500 ease-out-expo group-hover:translate-x-1" strokeWidth={2.2} />
               </motion.button>
               <Pencil

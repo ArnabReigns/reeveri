@@ -23,7 +23,7 @@ function Tile({ item, tall }: { item: FeedItem; tall: boolean }) {
             alt=""
             fill
             sizes="(min-width: 1024px) 17vw, (min-width: 640px) 26vw, 42vw"
-            className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.05]"
+            className="transform-gpu object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.05]"
           />
         ) : (
           <video src={`${mediaUrl(m.src)}#t=0.1`} muted playsInline preload="metadata" className="size-full object-cover" />

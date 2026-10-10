@@ -84,7 +84,8 @@ function Tile({ item, first, onOpen }: { item: FeedItem; first: boolean; onOpen:
         aria-label={`Open ${item.type}: ${item.title}`}
         className="group relative block size-full overflow-hidden bg-ink-2 text-left"
       >
-        <div className="relative size-full transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.04]">
+        {/* Reels do not zoom: scaling a playing video on its own layer shimmers. */}
+        <div className={`relative size-full transform-gpu overflow-hidden ${item.type === "reel" ? "" : "transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"}`}>
           <Thumb item={item} playing={playing} first={first} />
         </div>
         <span aria-hidden="true" className="absolute right-2 top-2 text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">

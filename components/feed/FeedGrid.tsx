@@ -5,6 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { mediaUrl, type FeedItem } from "@/lib/api";
 
 function Media({ item, index = 0, tile = false }: { item: FeedItem; index?: number; tile?: boolean }) {
+  // In the viewer the media keeps its own aspect ratio at full height, so there is no letterboxing.
+  const fit = tile ? "size-full object-cover" : "h-full w-auto max-w-full object-contain";
   const m = item.media[index] ?? item.media[0];
   if (!m) return <div className="size-full bg-ink-2" />;
   if (m.kind === "video") {
@@ -18,12 +20,12 @@ function Media({ item, index = 0, tile = false }: { item: FeedItem; index?: numb
         preload="metadata"
         controls={!tile}
         autoPlay={!tile}
-        className="size-full object-cover"
+        className={fit}
       />
     );
   }
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={mediaUrl(m.src)} alt={item.title} loading="lazy" draggable={false} className="size-full object-cover" />;
+  return <img src={mediaUrl(m.src)} alt={item.title} loading="lazy" draggable={false} className={fit} />;
 }
 
 function Tile({ item, onOpen }: { item: FeedItem; onOpen: () => void }) {
@@ -105,7 +107,7 @@ function Viewer({ items, start, onClose }: { items: FeedItem[]; start: number; o
 
   const round = "flex items-center justify-center rounded-full";
   return (
-    <div role="dialog" aria-modal="true" aria-label={item.title} className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/80 p-3 backdrop-blur-sm md:p-8" onClick={onClose}>
+    <div role="dialog" aria-modal="true" aria-label={item.title} className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/80 py-3 backdrop-blur-sm md:py-8" onClick={onClose}>
       {/* The site hides the native cursor; the viewer needs it. */}
       <style>{`html.has-cursor, html.has-cursor * { cursor: auto !important; } html.has-cursor button { cursor: pointer !important; }`}</style>
       <button type="button" onClick={onClose} aria-label="Close" className={`${round} absolute right-4 top-4 z-10 size-11 bg-ink text-paper ring-1 ring-line-strong`}>
@@ -118,9 +120,9 @@ function Viewer({ items, start, onClose }: { items: FeedItem[]; start: number; o
         <ChevronRight className="size-5" />
       </button>
 
-      <div onClick={(e) => e.stopPropagation()} className="grid max-h-full w-full max-w-5xl overflow-hidden border border-line-strong bg-ink md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-        <div className="relative flex h-[62vh] items-center justify-center bg-ink-2 md:h-[86vh]">
-          <div key={`${item.id}-${slide}`} className="size-full [&_img]:object-contain [&_video]:object-contain">
+      <div onClick={(e) => e.stopPropagation()} className="flex h-full max-w-full flex-col overflow-hidden bg-ink md:flex-row">
+        <div className="relative flex min-h-0 flex-1 items-center justify-center bg-ink-2 md:h-full md:flex-none">
+          <div key={`${item.id}-${slide}`} className="flex size-full items-center justify-center">
             <Media item={item} index={slide} />
           </div>
           {count > 1 && (
@@ -143,7 +145,7 @@ function Viewer({ items, start, onClose }: { items: FeedItem[]; start: number; o
             </>
           )}
         </div>
-        <div className="flex flex-col gap-3 overflow-y-auto p-5 md:p-7">
+        <div className="flex max-h-[28dvh] shrink-0 flex-col gap-3 overflow-y-auto p-5 md:max-h-none md:w-[22rem] md:p-7">
           <p className="edge text-rebate">
             {item.type}
             {item.client ? ` · ${item.client}` : ""}

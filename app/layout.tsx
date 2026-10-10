@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import { Cursor } from "@/components/Cursor";
 import { MotionProvider } from "@/components/MotionProvider";
+import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -14,23 +15,36 @@ const archivo = Archivo({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: site.title,
+  // Pages set a short title ("About"); the template turns it into "About | Reeveri".
+  title: { default: site.title, template: `%s | ${site.name}` },
   description: site.description,
+  keywords: [...site.keywords],
   applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
+  category: "Marketing",
   openGraph: {
     type: "website",
     siteName: site.name,
     title: site.title,
     description: site.description,
     url: "/",
-    locale: "en",
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
   },
-  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
+  // Set GOOGLE_SITE_VERIFICATION to the code from Google Search Console (HTML tag method).
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
@@ -41,7 +55,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       data-theme="dark"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
@@ -56,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="grain">
+        <JsonLd data={[organizationLd, websiteLd]} />
         <a
           href="#main"
           className="sr-only z-[80] rounded-full bg-marker px-5 py-3 font-semibold text-on-marker focus:not-sr-only focus:fixed focus:left-4 focus:top-4"

@@ -1,9 +1,22 @@
 export const site = {
   name: "Reeveri",
   wordmark: "REEVERI",
-  title: "Reeveri — Creative Marketing for Ambitious Brands",
+  title: "Reeveri — Creative Marketing Agency in Kolkata, India",
   description:
-    "Reeveri is a creative marketing agency helping ambitious brands turn attention into growth through social, content, performance marketing, websites, and growth strategy.",
+    "Reeveri is a creative marketing agency in Kolkata helping ambitious brands turn attention into growth with social media, content, performance marketing, websites and growth strategy.",
+  keywords: [
+    "Reeveri",
+    "marketing agency",
+    "creative marketing agency",
+    "digital marketing agency in Kolkata",
+    "marketing agency in Kolkata",
+    "social media marketing agency",
+    "performance marketing agency",
+    "branding agency Kolkata",
+    "website design agency",
+    "growth marketing",
+    "content marketing",
+  ],
   tagline: "Creative marketing for ambitious brands.",
   // The line under the home page headline. The plain tagline above stays for the footer and search listings.
   heroLine: "Creative that works as hard as you do, from the first idea to the last sale.",

@@ -9,33 +9,27 @@ import { Intro } from "@/components/Intro";
 import { Navbar } from "@/components/Navbar";
 import { Services } from "@/components/Services";
 import { Why } from "@/components/Why";
-import { site } from "@/lib/site";
+import type { Metadata } from "next";
+import { faqs } from "@/lib/content";
+import { JsonLd } from "@/lib/seo";
 import { WorkGlimpse } from "@/components/WorkGlimpse";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export const dynamic = "force-dynamic"; // the audits teaser reads live data
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "MarketingAgency",
-            name: site.name,
-            url: site.url,
-            description: site.description,
-            email: site.contactEmail,
-            sameAs: [site.instagram.href],
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: site.address.street,
-              addressLocality: site.address.city,
-              addressRegion: site.address.region,
-              addressCountry: "IN",
-            },
-          }),
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
         }}
       />
       <Navbar />

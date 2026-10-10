@@ -5,15 +5,16 @@ import { Navbar } from "@/components/Navbar";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
 import { services, steps } from "@/lib/content";
+import { JsonLd, breadcrumbLd, orgRef } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { getAbout } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "About — Reeveri",
+  title: "About us: a creative marketing agency in Kolkata",
   description:
-    "Reeveri is a creative marketing agency that puts strategy, creative, content, technology and distribution in one team. Meet the team and see how we work.",
+    "Reeveri is a creative marketing agency in Kolkata, India, that puts strategy, creative, content, technology and distribution in one team. Meet the team and see how we work.",
   alternates: { canonical: "/about" },
-  openGraph: { title: "About — Reeveri", type: "website", url: "/about" },
+  openGraph: { title: "About | Reeveri", type: "website", url: "/about" },
 };
 
 const wrap = "gutter mx-auto max-w-[110rem]";
@@ -38,6 +39,23 @@ export default async function AboutPage() {
   const { hero, story, beliefs, team, cta } = await getAbout();
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbLd([{ name: "About", path: "/about" }]),
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            url: `${site.url}/about`,
+            about: orgRef,
+            mainEntity: team.filter((m) => m.name).map((m) => ({
+              "@type": "Person",
+              name: m.name,
+              ...(m.role ? { jobTitle: m.role } : {}),
+              worksFor: orgRef,
+            })),
+          },
+        ]}
+      />
       <Navbar />
       <main id="main">
         {/* Hero */}

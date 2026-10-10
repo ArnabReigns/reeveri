@@ -6,13 +6,15 @@ import { Navbar } from "@/components/Navbar";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
 import { mediaUrl } from "@/lib/api";
 import { getAudits } from "@/lib/db";
+import { JsonLd, breadcrumbLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Audits — Reeveri",
+  title: "Website audits and rebuilds",
   description:
-    "Independent teardowns of brand websites, with a working rebuild you can click through. See what we would change and why.",
+    "Independent website audits by Reeveri, a creative marketing agency in Kolkata. Each teardown comes with a working rebuild you can click through.",
   alternates: { canonical: "/audits" },
+  openGraph: { title: "Website audits and rebuilds | Reeveri", url: "/audits" },
 };
 
 export const dynamic = "force-dynamic";
@@ -21,6 +23,7 @@ export default async function AuditsPage() {
   const audits = await getAudits();
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Audits", path: "/audits" }])} />
       <Navbar />
       <main id="main">
         <section id="top" className="gutter mx-auto max-w-[110rem] pb-[clamp(3.2rem,4.8vw,4.2rem)] pt-32 md:pt-44">

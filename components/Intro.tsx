@@ -25,8 +25,8 @@ export function Intro() {
             ones worth noticing.
           </p>
           <p className="max-w-md text-dim">
-            Reeveri helps brands earn attention through strategy, creative, content, and distribution, then turns that
-            attention into growth you can see.
+            Reeveri is a creative marketing agency in Kolkata. We help brands earn attention through strategy, creative,
+            content and distribution, then turn that attention into growth you can see.
           </p>
         </FadeUp>
       </div>

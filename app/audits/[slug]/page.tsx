@@ -9,6 +9,7 @@ import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines, SectionHead } from "@/components/ui";
 import { mediaUrl } from "@/lib/api";
 import { getAudit } from "@/lib/db";
+import { JsonLd, breadcrumbLd, orgRef } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -17,12 +18,18 @@ export async function generateMetadata(props: PageProps<"/audits/[slug]">): Prom
   const { slug } = await props.params;
   const audit = await getAudit(slug);
   if (!audit) return {};
-  const title = `${audit.brand} audit and rebuild — Reeveri`;
+  const title = `${audit.brand} website audit and rebuild`;
   return {
     title,
     description: audit.summary,
     alternates: { canonical: `/audits/${audit.slug}` },
-    openGraph: { title, description: audit.summary, type: "article" },
+    openGraph: {
+      title: `${title} | Reeveri`,
+      description: audit.summary,
+      type: "article",
+      url: `/audits/${audit.slug}`,
+      images: audit.cover.map((c) => ({ url: c.src, alt: c.alt })),
+    },
   };
 }
 
@@ -36,6 +43,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
 
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Audits", path: "/audits" }, { name: audit.brand, path: `/audits/${audit.slug}` }])} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -46,8 +54,8 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
             description: audit.summary,
             datePublished: Number.isNaN(Date.parse(audit.date)) ? undefined : new Date(audit.date).toISOString().slice(0, 10),
             image: audit.cover.map((c) => `${site.url}${c.src}`),
-            author: { "@type": "Organization", name: site.name, url: site.url },
-            publisher: { "@type": "Organization", name: site.name, url: site.url },
+            author: orgRef,
+            publisher: orgRef,
             mainEntityOfPage: `${site.url}/audits/${audit.slug}`,
           }),
         }}

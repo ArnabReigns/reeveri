@@ -9,6 +9,7 @@ import { Intro } from "@/components/Intro";
 import { Navbar } from "@/components/Navbar";
 import { Services } from "@/components/Services";
 import { Why } from "@/components/Why";
+import { WorkGlimpse } from "@/components/WorkGlimpse";
 
 export const dynamic = "force-dynamic"; // the audits teaser reads live data
 
@@ -21,6 +22,7 @@ export default function Home() {
         <Intro />
         <Services />
         <AuditsTeaser />
+        <WorkGlimpse />
         <Approach />
         <Why />
         <About />

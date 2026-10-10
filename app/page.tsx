@@ -9,6 +9,7 @@ import { Intro } from "@/components/Intro";
 import { Navbar } from "@/components/Navbar";
 import { Services } from "@/components/Services";
 import { Why } from "@/components/Why";
+import { site } from "@/lib/site";
 import { WorkGlimpse } from "@/components/WorkGlimpse";
 
 export const dynamic = "force-dynamic"; // the audits teaser reads live data
@@ -16,6 +17,18 @@ export const dynamic = "force-dynamic"; // the audits teaser reads live data
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MarketingAgency",
+            name: site.name,
+            url: site.url,
+            description: site.description,
+          }),
+        }}
+      />
       <Navbar />
       <main id="main">
         <Hero />

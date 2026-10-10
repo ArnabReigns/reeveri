@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight, Monitor, RotateCcw, Smartphone } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = { src: string; label: string };
 
@@ -9,6 +9,16 @@ export function DemoFrame({ src, label }: Props) {
   const [device, setDevice] = useState<"desktop" | "phone">("desktop");
   const [nonce, setNonce] = useState(0);
   const phone = device === "phone";
+  // The demo is a whole store (about 1MB). Only start loading it once it is actually on screen.
+  const box = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && (setNear(true), io.disconnect()), { rootMargin: "200px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const toggle = (value: "desktop" | "phone", text: string, icon: React.ReactNode) => (
     <button
@@ -57,15 +67,16 @@ export function DemoFrame({ src, label }: Props) {
         <div
           className={`mx-auto transition-[max-width] duration-700 ease-out-expo ${phone ? "max-w-[24.5rem]" : "max-w-full"}`}
         >
-          <iframe
+          <div ref={box} className={near ? undefined : `bg-ink-2 ${phone ? "h-[min(46rem,82dvh)]" : "h-[min(52rem,80dvh)]"}`}>
+          {near && <iframe
             key={nonce}
             data-cursor-hide=""
             src={src}
             title={`${label}. Interactive preview: browse products, filter, and add to bag.`}
-            loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
             className={`block w-full bg-[#fbf6ee] ${phone ? "h-[min(46rem,82dvh)]" : "h-[min(52rem,80dvh)]"}`}
-          />
+          />}
+          </div>
         </div>
       </div>
       <p className="edge mt-3 text-rebate">

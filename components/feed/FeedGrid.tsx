@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight, Clapperboard, Grid3x3, Image as ImageIcon, Layers, Play, X } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { mediaUrl, type FeedItem } from "@/lib/api";
 
 function Media({ item, index = 0, tile = false }: { item: FeedItem; index?: number; tile?: boolean }) {
@@ -32,17 +32,31 @@ function Media({ item, index = 0, tile = false }: { item: FeedItem; index?: numb
 const TILE_SIZES = "(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw";
 
 // Grid thumbnails are resized by Next. A reel only loads its video while hovered, so the grid stays light.
-function Thumb({ item, playing }: { item: FeedItem; playing: boolean }) {
+function Thumb({ item, playing, first }: { item: FeedItem; playing: boolean; first: boolean }) {
   const m = item.media[0];
+  const video = useRef<HTMLVideoElement>(null);
+  // autoPlay only applies when a video first mounts, so start and stop it explicitly as hover changes.
+  useEffect(() => {
+    const v = video.current;
+    if (!v) return;
+    if (playing) {
+      v.muted = true;
+      void v.play().catch(() => {});
+    } else {
+      v.pause();
+      v.currentTime = 0;
+    }
+  }, [playing]);
   if (!m) return <div className="size-full bg-ink-2" />;
   const still = m.kind === "image" ? m.src : item.poster;
   return (
     <>
       {still ? (
-        <Image src={mediaUrl(still)} alt="" fill sizes={TILE_SIZES} className="object-cover" />
+        <Image src={mediaUrl(still)} alt="" fill sizes={TILE_SIZES} priority={first} className="object-cover" />
       ) : null}
       {m.kind === "video" && (playing || !still) && (
         <video
+          ref={video}
           src={`${mediaUrl(m.src)}${still ? "" : "#t=0.1"}`}
           muted
           loop
@@ -56,7 +70,7 @@ function Thumb({ item, playing }: { item: FeedItem; playing: boolean }) {
   );
 }
 
-function Tile({ item, onOpen }: { item: FeedItem; onOpen: () => void }) {
+function Tile({ item, first, onOpen }: { item: FeedItem; first: boolean; onOpen: () => void }) {
   const [playing, setPlaying] = useState(false);
   return (
     <li className="aspect-[3/4]">
@@ -71,7 +85,7 @@ function Tile({ item, onOpen }: { item: FeedItem; onOpen: () => void }) {
         className="group relative block size-full overflow-hidden bg-ink-2 text-left"
       >
         <div className="relative size-full transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.04]">
-          <Thumb item={item} playing={playing} />
+          <Thumb item={item} playing={playing} first={first} />
         </div>
         <span aria-hidden="true" className="absolute right-2 top-2 text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
           {item.type === "reel" ? <Play className="size-5 fill-white" /> : item.type === "carousel" ? <Layers className="size-5" /> : null}
@@ -206,7 +220,7 @@ export function FeedGrid({ items }: { items: FeedItem[] }) {
       </div>
       <ul className="grid grid-cols-2 gap-0.5 md:grid-cols-3 md:gap-1 xl:grid-cols-4 2xl:grid-cols-5" aria-label="Creative feed">
         {shown.map((item, i) => (
-          <Tile key={item.id} item={item} onOpen={() => setOpen(i)} />
+          <Tile key={item.id} item={item} first={i < 6} onOpen={() => setOpen(i)} />
         ))}
       </ul>
       {open !== null && <Viewer items={shown} start={open} onClose={close} />}

@@ -36,6 +36,22 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: `${audit.brand} audit and rebuild`,
+            description: audit.summary,
+            datePublished: Number.isNaN(Date.parse(audit.date)) ? undefined : new Date(audit.date).toISOString().slice(0, 10),
+            image: audit.cover.map((c) => `${site.url}${c.src}`),
+            author: { "@type": "Organization", name: site.name, url: site.url },
+            publisher: { "@type": "Organization", name: site.name, url: site.url },
+            mainEntityOfPage: `${site.url}/audits/${audit.slug}`,
+          }),
+        }}
+      />
       <Navbar />
       <main id="main">
         {/* Header */}

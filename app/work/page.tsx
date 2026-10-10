@@ -3,7 +3,7 @@ import { FeedGrid } from "@/components/feed/FeedGrid";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { FadeUp } from "@/components/ui";
-import { getFeed } from "@/lib/api";
+import { getFeed } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Work — Reeveri",

@@ -8,7 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines, SectionHead } from "@/components/ui";
 import { mediaUrl } from "@/lib/api";
-import { getAudit } from "@/lib/audits";
+import { getAudit } from "@/lib/db";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";

@@ -48,10 +48,6 @@ next-env.d.ts
 /.impeccable/questions/
 /.impeccable/review/
 
-# backend uploads (keep the seed images and db in git, ignore new uploads)
-/server/uploads/*
-!/server/uploads/seed/
-
-# per-package deps for the API image
-/server/node_modules
+# local runtime data (db.json and uploads written by the app)
+/data
 !.env*.example

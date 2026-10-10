@@ -5,8 +5,7 @@ export const site = {
   description:
     "Reeveri is a creative marketing agency helping ambitious brands turn attention into growth through social, content, performance marketing, websites, and growth strategy.",
   tagline: "Creative marketing for ambitious brands.",
-  // TODO(owner): replace with the real domain before launch.
-  url: "https://reeveri.example",
+  url: "https://reeveri.com",
   // TODO(owner): replace with the real enquiry address, then set contactIsPlaceholder to false.
   contactEmail: "hello@example.com",
   contactHref: "mailto:hello@example.com?subject=Start%20a%20project%20with%20Reeveri",

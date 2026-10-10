@@ -10,6 +10,8 @@ import { Navbar } from "@/components/Navbar";
 import { Services } from "@/components/Services";
 import { Why } from "@/components/Why";
 
+export const dynamic = "force-dynamic"; // the audits teaser reads live data
+
 export default function Home() {
   return (
     <>

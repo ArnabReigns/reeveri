@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
 import { mediaUrl } from "@/lib/api";
-import { getAudits } from "@/lib/audits";
+import { getAudits } from "@/lib/db";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {

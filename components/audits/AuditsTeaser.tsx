@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { mediaUrl } from "@/lib/api";
-import { getAudits } from "@/lib/audits";
+import { getAudits } from "@/lib/db";
 import { FadeUp, SectionHead } from "../ui";
 
 // Homepage entry to the audits: one image, one stat, one link.

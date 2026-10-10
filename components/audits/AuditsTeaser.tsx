@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { mediaUrl } from "@/lib/api";
 import { getAudits } from "@/lib/db";
 import { FadeUp, SectionHead } from "../ui";
@@ -22,7 +23,7 @@ export async function AuditsTeaser() {
       />
 
       <FadeUp className="mt-8 md:mt-12">
-        <a
+        <Link
           href={`/audits/${audit.slug}`}
           data-cursor="view"
           data-cursor-label="Open audit"
@@ -65,7 +66,7 @@ export async function AuditsTeaser() {
               </span>
             </span>
           </div>
-        </a>
+        </Link>
       </FadeUp>
     </section>
   );

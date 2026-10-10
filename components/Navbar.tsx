@@ -11,6 +11,8 @@ import { ThemeToggle } from "./ThemeToggle";
 import { EASE, MagneticLink } from "./ui";
 
 // "/#services" -> "services"; page links such as "/audits" have no section id.
+const MotionLink = motion.create(Link);
+
 const sectionId = (href: string) => (href.includes("#") ? href.split("#")[1] : null);
 
 export function Navbar() {
@@ -86,9 +88,12 @@ export function Navbar() {
         >
           <div className="relative z-10 flex items-center gap-5">
             <Link
-              href="/#top"
+              href="/"
               className="group display relative inline-flex min-h-11 shrink-0 items-center text-[1.35rem] tracking-[-0.02em] md:text-2xl"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                if (onHome) window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
             >
               <span className="whitespace-nowrap">
                 {site.wordmark}
@@ -124,7 +129,7 @@ export function Navbar() {
               const isActive = activeIndex === i;
               return (
                 <li key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
                     aria-current={isActive ? "location" : undefined}
                     className={`group relative flex items-start gap-1 rounded-full px-3.5 py-2 text-[0.95rem] font-medium transition-colors duration-300 hover:bg-ink-3 ${
@@ -144,7 +149,7 @@ export function Navbar() {
                         strokeWidth={2.4}
                       />
                     )}
-                  </a>
+                  </Link>
                 </li>
               );
             })}
@@ -197,7 +202,7 @@ export function Navbar() {
             <ul className="flex flex-1 flex-col justify-center gap-1">
               {site.nav.map((item, i) => (
                 <li key={item.href} className="overflow-hidden border-b border-line">
-                  <motion.a
+                  <MotionLink
                     ref={i === 0 ? firstLink : undefined}
                     href={item.href}
                     onClick={() => setOpen(false)}
@@ -209,7 +214,7 @@ export function Navbar() {
                   >
                     {item.label}
                     <span className="edge text-rebate">{String(i + 1).padStart(2, "0")}</span>
-                  </motion.a>
+                  </MotionLink>
                 </li>
               ))}
             </ul>

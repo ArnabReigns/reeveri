@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -36,7 +37,7 @@ export default async function AuditsPage() {
           <div className="grid gap-x-8 gap-y-14 md:grid-cols-12">
             {audits.map((a) => (
               <FadeUp key={a.slug} className="md:col-span-6">
-                <a
+                <Link
                   href={`/audits/${a.slug}`}
                   data-cursor="view"
                   data-cursor-label="Open audit"
@@ -75,7 +76,7 @@ export default async function AuditsPage() {
                       </p>
                     </div>
                   </div>
-                </a>
+                </Link>
               </FadeUp>
             ))}
 

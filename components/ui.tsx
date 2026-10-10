@@ -1,9 +1,12 @@
 "use client";
 
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useRef, type ReactNode } from "react";
 import { FINE_POINTER, useMediaQuery } from "@/lib/hooks";
+
+const MotionLink = motion.create(Link);
 
 export const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -57,7 +60,7 @@ export function MagneticLink({
   }[size];
 
   return (
-    <motion.a
+    <MotionLink
       ref={ref}
       href={href}
       onClick={onClick}
@@ -75,7 +78,7 @@ export function MagneticLink({
           strokeWidth={2.2}
         />
       )}
-    </motion.a>
+    </MotionLink>
   );
 }
 

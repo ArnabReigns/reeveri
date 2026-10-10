@@ -6,7 +6,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
   const placeholder = href === "#";
   return (
     <li>
-      <a
+      <Link
         href={href}
         aria-disabled={placeholder || undefined}
         title={placeholder ? "Link coming soon" : undefined}
@@ -20,7 +20,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
           aria-hidden="true"
           className="size-4 -translate-x-1 translate-y-1 opacity-0 transition-all duration-500 ease-out-expo group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
         />
-      </a>
+      </Link>
       {placeholder && <span className="edge ml-1 text-dim">Soon</span>}
     </li>
   );

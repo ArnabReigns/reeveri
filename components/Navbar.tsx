@@ -29,6 +29,32 @@ export function Navbar() {
 
   useMotionValueEvent(scrollY, "change", (v) => setCompact(v > 40));
 
+  // Links to a section of the page you are already on (e.g. "/#contact" from the home page) scroll to it directly.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element).closest?.("a");
+      if (!a || a.target === "_blank") return;
+      const url = new URL(a.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || !url.hash) return;
+      const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", url.pathname + url.hash);
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
+  // Arriving from another page with a hash (e.g. /about -> /#contact): scroll once the page has rendered.
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const t = window.setTimeout(() => document.getElementById(decodeURIComponent(hash))?.scrollIntoView({ block: "start" }), 120);
+    return () => window.clearTimeout(t);
+  }, [pathname]);
+
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {

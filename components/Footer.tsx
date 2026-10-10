@@ -77,6 +77,13 @@ export function Footer() {
                 {site.contactEmail}
               </a>
               {site.contactIsPlaceholder && <p className="edge mt-2 text-dim">Placeholder address</p>}
+              <address className="mt-4 text-[0.95rem] not-italic leading-relaxed text-dim">
+                {site.address.street},
+                <br />
+                {site.address.city}, {site.address.region},
+                <br />
+                {site.address.country}
+              </address>
             </div>
           </nav>
         </div>

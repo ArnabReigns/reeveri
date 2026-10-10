@@ -4,6 +4,7 @@ import crypto from "crypto";
 import fs from "fs";
 import path from "path";
 import type { FeedItem } from "./api";
+import { withAboutDefaults, type AboutContent } from "./about";
 import type { Audit } from "./audits";
 
 export const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), "data");
@@ -12,7 +13,7 @@ export const UPLOAD_DIR = path.join(DATA_DIR, "uploads");
 export const SEED_DIR = path.join(process.cwd(), "seed");
 const DB_FILE = path.join(DATA_DIR, "db.json");
 
-type Db = { audits: Audit[]; feed: FeedItem[] };
+type Db = { audits: Audit[]; feed: FeedItem[]; about?: Partial<AboutContent> };
 
 export function readDb(): Db {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
@@ -22,7 +23,7 @@ export function readDb(): Db {
     else fs.writeFileSync(DB_FILE, JSON.stringify({ audits: [], feed: [] }));
   }
   const db = JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
-  return { audits: db.audits ?? [], feed: db.feed ?? [] };
+  return { audits: db.audits ?? [], feed: db.feed ?? [], about: db.about };
 }
 
 export function writeDb(db: Db) {
@@ -33,6 +34,7 @@ export function writeDb(db: Db) {
 
 export const getAudits = async () => readDb().audits;
 export const getAudit = async (slug: string) => readDb().audits.find((a) => a.slug === slug);
+export const getAbout = async () => withAboutDefaults(readDb().about);
 export const getFeed = async () => readDb().feed.filter((f) => f.published !== false);
 
 // ---- Auth: one hardcoded admin from env, stateless signed token "<expiry>.<hmac>" ----

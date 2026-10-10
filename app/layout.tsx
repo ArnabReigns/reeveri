@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f1f0ea",
+  themeColor: "#0b0b0a",
   colorScheme: "light dark",
 };
 
@@ -42,16 +42,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      data-theme="light"
+      data-theme="dark"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${archivo.variable} antialiased`}
     >
       <head>
-        {/* Apply a saved theme before first paint so there is no flash. Light is the default. */}
+        {/* Apply a saved theme before first paint so there is no flash. Dark is the default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("reeveri-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;if(t==="dark"){var m=document.querySelector('meta[name="theme-color"]');m&&m.setAttribute("content","#0b0b0a")}}}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("reeveri-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;if(t==="light"){var m=document.querySelector('meta[name="theme-color"]');m&&m.setAttribute("content","#f1f0ea")}}}catch(e){}`,
           }}
         />
       </head>

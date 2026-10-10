@@ -26,6 +26,15 @@ export default function Home() {
             name: site.name,
             url: site.url,
             description: site.description,
+            email: site.contactEmail,
+            sameAs: [site.instagram.href],
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: site.address.street,
+              addressLocality: site.address.city,
+              addressRegion: site.address.region,
+              addressCountry: "IN",
+            },
           }),
         }}
       />

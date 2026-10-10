@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/lib/site";
 import { FrameArt, type FrameArtVariant } from "./FrameArt";
+import { HeroBackdrop } from "./HeroBackdrop";
 import { Pencil } from "./Pencil";
 import { EASE, MagneticLink } from "./ui";
 
@@ -68,8 +69,9 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="relative flex min-h-[min(44rem,86dvh)] flex-col justify-center pb-[clamp(3rem,6dvh,4.5rem)] pt-[clamp(6.5rem,12dvh,9rem)]"
+      className="relative isolate flex min-h-[min(44rem,86dvh)] flex-col justify-center pb-[clamp(3rem,6dvh,4.5rem)] pt-[clamp(6.5rem,12dvh,9rem)]"
     >
+      <HeroBackdrop />
       <div className="gutter mx-auto grid w-full max-w-[110rem] items-center gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-7">
           <h1 id="hero-title" className="display text-[clamp(2.6rem,5.6vw,4.6rem)] leading-[0.92]">
@@ -105,7 +107,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.8 }}
           >
-            <p className="max-w-md text-lg text-dim md:text-xl">{site.tagline}</p>
+            <p className="max-w-lg text-lg text-dim md:text-xl">{site.heroLine}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <MagneticLink href="#book-audit">{site.audit.label}</MagneticLink>
               <MagneticLink href="#audits" variant="ghost" arrow={false}>

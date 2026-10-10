@@ -4,7 +4,9 @@ import { Eye, EyeOff, Pencil, Plus, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { type FeedItem } from "@/lib/api";
 import { api, ApiError, getToken, setToken } from "@/lib/adminApi";
+import type { AboutContent } from "@/lib/about";
 import type { Audit } from "@/lib/audits";
+import { AboutEditor } from "./AboutEditor";
 import { AuditEditor, blankAudit } from "./AuditEditor";
 import { FeedEditor, blankFeed } from "./FeedEditor";
 import { Field, Thumb, btnGhost, btnPrimary, input } from "./ui";
@@ -13,7 +15,7 @@ import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, us
 import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-type Tab = "feed" | "audits";
+type Tab = "feed" | "audits" | "about";
 type FeedDraft = Omit<FeedItem, "id"> & { id?: string };
 
 function Login({ onDone }: { onDone: () => void }) {
@@ -82,6 +84,7 @@ function FeedCard({ f, onEarlier, onLater, onToggle, onEdit, onDelete }: { f: Fe
 export function AdminApp() {
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [tab, setTab] = useState<Tab>("feed");
+  const [about, setAbout] = useState<AboutContent | null>(null);
   const [audits, setAudits] = useState<Audit[]>([]);
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [auditEdit, setAuditEdit] = useState<{ audit: Audit; isNew: boolean } | null>(null);
@@ -102,9 +105,14 @@ export function AdminApp() {
 
   const load = useCallback(async () => {
     try {
-      const [a, f] = await Promise.all([api<Audit[]>("/api/audits"), api<FeedItem[]>("/api/feed?all=1")]);
+      const [a, f, ab] = await Promise.all([
+        api<Audit[]>("/api/audits"),
+        api<FeedItem[]>("/api/feed?all=1"),
+        api<AboutContent>("/api/about"),
+      ]);
       setAudits(a);
       setFeed(f);
+      setAbout(ab);
     } catch (e) {
       fail(e);
     }
@@ -136,6 +144,14 @@ export function AdminApp() {
     );
   }
 
+  const saveAbout = async (a: AboutContent) => {
+    try {
+      setAbout(await api<AboutContent>("/api/about", { method: "PUT", json: a }));
+      flash("About page saved");
+    } catch (e) {
+      fail(e);
+    }
+  };
   const saveAudit = async (a: Audit) => {
     try {
       if (auditEdit?.isNew) await api("/api/audits", { method: "POST", json: a });
@@ -206,9 +222,9 @@ export function AdminApp() {
           <span className="display text-[1.2rem]">REEVERI <span className="edge ml-2 text-rebate">Admin</span></span>
           {!editing && (
             <nav className="flex gap-1" aria-label="Sections">
-              {(["feed", "audits"] as const).map((t) => (
+              {(["feed", "audits", "about"] as const).map((t) => (
                 <button key={t} onClick={() => setTab(t)} aria-current={tab === t} className={`h-9 px-3 text-[0.9rem] font-semibold ${tab === t ? "bg-marker text-on-marker" : "text-dim hover:text-paper"}`}>
-                  {t === "feed" ? "Creative feed" : "Audits"}
+                  {t === "feed" ? "Creative feed" : t === "audits" ? "Audits" : "About page"}
                 </button>
               ))}
             </nav>
@@ -240,6 +256,8 @@ export function AdminApp() {
           />
         ) : feedEdit ? (
           <FeedEditor key={feedEdit.item.id || "new"} initial={feedEdit.item} isNew={feedEdit.isNew} onSave={saveFeed} onCancel={() => setFeedEdit(null)} onError={(m) => flash(m, true)} />
+        ) : tab === "about" ? (
+          about && <AboutEditor onSave={saveAbout} onError={(m) => flash(m, true)} initial={about} />
         ) : tab === "feed" ? (
           <>
             <div className="mb-6 flex items-center justify-between">

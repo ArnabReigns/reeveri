@@ -50,7 +50,7 @@ export default async function AuditsPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-[0.625rem]">
                     {a.cover.map((c) => (
-                      <div key={c.src} className="relative aspect-square overflow-hidden bg-ink-2">
+                      <div key={c.src} className="relative aspect-[3/4] overflow-hidden bg-ink-2">
                         <Image
                           src={mediaUrl(c.src)}
                           alt={c.alt}

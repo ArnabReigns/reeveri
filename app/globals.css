@@ -37,6 +37,7 @@
   --color-rebate: #63635d;
   --color-line: rgb(11 11 10 / 0.14);
   --color-line-strong: rgb(11 11 10 / 0.3);
+  --color-on-marker: #ffffff;
 }
 
 @layer base {

@@ -160,11 +160,11 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <div className={`grid gap-6 md:grid-cols-12 md:items-end ${className}`}>
-      <h2 id={id} className="display text-[clamp(2rem,3.8vw,3.25rem)] md:col-span-8">
+    <div className={`flex flex-col gap-4 ${className}`}>
+      <h2 id={id} className="display text-[clamp(2rem,3.8vw,3.25rem)]">
         {title}
       </h2>
-      {aside && <div className="text-dim md:col-span-4 md:justify-self-end">{aside}</div>}
+      {aside && <div className="max-w-xl text-dim">{aside}</div>}
     </div>
   );
 }

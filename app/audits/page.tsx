@@ -3,7 +3,8 @@ import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
-import { audits } from "@/lib/audits";
+import { mediaUrl } from "@/lib/api";
+import { getAudits } from "@/lib/audits";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,7 +14,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/audits" },
 };
 
-export default function AuditsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AuditsPage() {
+  const audits = await getAudits();
   return (
     <>
       <Navbar />
@@ -22,12 +26,10 @@ export default function AuditsPage() {
           <h1 className="display text-[clamp(2.4rem,5.2vw,4rem)]">
             <RiseLines lines={["Audits."]} inView={false} />
           </h1>
-          <div className="mt-10 grid gap-6 md:grid-cols-12">
-            <p className="max-w-2xl text-[1.125rem] text-dim md:col-span-7 md:col-start-6">
+          <p className="mt-5 max-w-2xl text-[1.125rem] text-dim">
               We pick a brand we admire, find what is holding its site back, then build the version we would
               have made. Every audit comes with a working front end you can open and use.
             </p>
-          </div>
         </section>
 
         <section aria-label="All audits" className="gutter mx-auto max-w-[110rem] pb-[clamp(4.8rem,7.2vw,6.6rem)]">
@@ -49,7 +51,8 @@ export default function AuditsPage() {
                     {a.cover.map((c) => (
                       <div key={c.src} className="relative aspect-square overflow-hidden bg-ink-2">
                         <Image
-                          src={c.src}
+                          src={mediaUrl(c.src)}
+                          unoptimized
                           alt={c.alt}
                           fill
                           sizes="(min-width: 768px) 30vw, 50vw"

@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+.next
+.git
+.claude
+.impeccable
+.env*
+deploy
+*.md
+!server/data/db.json
+tsconfig.tsbuildinfo
+server/uploads/*
+!server/uploads/seed

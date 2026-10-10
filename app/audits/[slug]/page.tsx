@@ -7,16 +7,15 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines, SectionHead } from "@/components/ui";
-import { audits, getAudit } from "@/lib/audits";
+import { mediaUrl } from "@/lib/api";
+import { getAudit } from "@/lib/audits";
 import { site } from "@/lib/site";
 
-export function generateStaticParams() {
-  return audits.map((a) => ({ slug: a.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(props: PageProps<"/audits/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
-  const audit = getAudit(slug);
+  const audit = await getAudit(slug);
   if (!audit) return {};
   const title = `${audit.brand} audit and rebuild — Reeveri`;
   return {
@@ -32,7 +31,7 @@ const sectionPad = "pb-[clamp(3.6rem,6vw,5rem)] pt-[clamp(2.4rem,4vw,3.5rem)]";
 
 export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
   const { slug } = await props.params;
-  const audit = getAudit(slug);
+  const audit = await getAudit(slug);
   if (!audit) notFound();
 
   return (
@@ -103,7 +102,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
               <div className="grid flex-1 grid-cols-2 gap-[0.625rem]">
                 {audit.cover.map((c) => (
                   <div key={c.src} className="relative aspect-[3/4] overflow-hidden bg-ink-2 md:aspect-auto md:min-h-[16rem]">
-                    <Image src={c.src} alt={c.alt} fill priority sizes="(min-width: 768px) 21vw, 48vw" className="object-cover" />
+                    <Image src={mediaUrl(c.src)} unoptimized alt={c.alt} fill priority sizes="(min-width: 768px) 21vw, 48vw" className="object-cover" />
                   </div>
                 ))}
               </div>

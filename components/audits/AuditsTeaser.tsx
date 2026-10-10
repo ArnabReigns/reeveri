@@ -1,10 +1,12 @@
 import Image from "next/image";
-import { audits } from "@/lib/audits";
+import { mediaUrl } from "@/lib/api";
+import { getAudits } from "@/lib/audits";
 import { FadeUp, SectionHead } from "../ui";
 
 // Homepage entry to the audits: one image, one stat, one link.
-export function AuditsTeaser() {
-  const audit = audits[0];
+export async function AuditsTeaser() {
+  const audit = (await getAudits())[0];
+  if (!audit) return null;
   const images = audit.stats[0];
 
   return (
@@ -29,7 +31,8 @@ export function AuditsTeaser() {
         >
           <div className="relative aspect-[4/3] overflow-hidden bg-ink-2 md:col-span-4">
             <Image
-              src={audit.cover[0].src}
+              src={mediaUrl(audit.cover[0].src)}
+              unoptimized
               alt={audit.cover[0].alt}
               fill
               sizes="(min-width: 768px) 30vw, 100vw"
@@ -44,7 +47,7 @@ export function AuditsTeaser() {
           </div>
 
           <div className="flex flex-col gap-4 md:col-span-3 md:items-end md:text-right">
-            <p>
+            {images && <p>
               <span className="edge text-dim">{images.label}</span>
               <span className="display mt-1 block text-[clamp(1.5rem,2.4vw,2rem)]">
                 <span className="text-dim line-through decoration-marker decoration-2">{images.before}</span>
@@ -54,7 +57,7 @@ export function AuditsTeaser() {
                 <span className="sr-only"> to </span>
                 {images.after}
               </span>
-            </p>
+            </p>}
             <span className="inline-flex items-center gap-2 font-semibold text-paper">
               <span className="border-b border-marker pb-0.5">Open the audit</span>
               <span aria-hidden="true" className="transition-transform duration-500 ease-out-expo group-hover:translate-x-1">

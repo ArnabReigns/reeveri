@@ -47,3 +47,11 @@ next-env.d.ts
 /.impeccable/hook.cache.json
 /.impeccable/questions/
 /.impeccable/review/
+
+# backend uploads (keep the seed images and db in git, ignore new uploads)
+/server/uploads/*
+!/server/uploads/seed/
+
+# per-package deps for the API image
+/server/node_modules
+!.env*.example

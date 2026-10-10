@@ -15,6 +15,7 @@ export const site = {
   audit: { label: "Book a free audit", href: "/#book-audit" },
   nav: [
     { label: "Audits", href: "/audits" },
+    { label: "Work", href: "/work" },
     { label: "Services", href: "/#services" },
     { label: "About", href: "/#about" },
     { label: "Contact", href: "/#contact" },

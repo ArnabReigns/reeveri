@@ -1,6 +1,7 @@
 "use client";
 
-import { API_URL } from "./api";
+import axios from "axios";
+import { http } from "./api";
 
 const KEY = "reeveri-admin-token";
 
@@ -27,19 +28,22 @@ export class ApiError extends Error {
   }
 }
 
-export async function api<T>(path: string, init: RequestInit & { json?: unknown } = {}): Promise<T> {
-  const headers = new Headers(init.headers);
+export async function api<T>(path: string, init: { method?: string; json?: unknown; body?: FormData } = {}): Promise<T> {
   const token = getToken();
-  if (token) headers.set("Authorization", `Bearer ${token}`);
-  let body = init.body;
-  if (init.json !== undefined) {
-    headers.set("Content-Type", "application/json");
-    body = JSON.stringify(init.json);
+  try {
+    const res = await http.request<T>({
+      url: path,
+      method: init.method || "GET",
+      data: init.json ?? init.body,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      throw new ApiError(e.response?.data?.error || e.message, e.response?.status ?? 0);
+    }
+    throw e;
   }
-  const res = await fetch(`${API_URL}${path}`, { ...init, headers, body });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new ApiError(data.error || `Request failed (${res.status})`, res.status);
-  return data as T;
 }
 
 export type Uploaded = { src: string; kind: "image" | "video"; name: string };

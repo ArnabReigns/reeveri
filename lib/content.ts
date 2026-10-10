@@ -9,51 +9,76 @@ export type Media = {
 
 export type Service = {
   n: string;
+  slug: string;
   title: string;
   line: string;
   description: string;
+  // Shown on the /services page.
+  includes: string[];
+  fit: string;
+  image: { src: string; alt: string };
   art: FrameArtVariant;
 };
 
 export const services: Service[] = [
   {
     n: "02",
+    slug: "social-media",
     title: "Social Media",
     line: "Channels run like publications.",
     description:
       "Platform strategy, content calendars, community management, and a voice that sounds like a person, not a press release.",
+    includes: ["Platform strategy and a content calendar","Posts, carousels, reels and stories","Community management and replies","A brand voice guide your team can follow","A regular look at what worked and what did not"],
+    fit: "You post often but without a clear voice or plan, or you want your channels to read like a publication instead of a noticeboard.",
+    image: { src: "/services/social-media.jpg", alt: "A hand holding a phone showing a social media feed, with city billboards above" },
     art: "grid",
   },
   {
     n: "03",
+    slug: "content-and-creative",
     title: "Content & Creative",
     line: "Work that earns the second look.",
     description:
       "Campaign concepts, shoots, short-form video, design, and copy. Ideas first, then the craft to make them land.",
+    includes: ["Campaign concepts and creative direction","Photo and video shoots","Short-form video and reels","Graphic design and ad creative","Copywriting for every channel"],
+    fit: "You need ideas and finished work, not only a plan, and you want it to look and sound like one brand.",
+    image: { src: "/services/content-and-creative.jpg", alt: "A camera body and lenses on a dark surface" },
     art: "halftone",
   },
   {
     n: "04",
+    slug: "performance-marketing",
     title: "Performance Marketing",
     line: "Paid media with better creative.",
     description:
       "Paid social and search, testing plans, and creative iteration, tied to the numbers that matter to your business.",
+    includes: ["Paid social and search campaigns","Audience, offer and creative testing","Creative iteration based on results","Tracking set up so the numbers can be trusted","Reporting tied to your goals, in plain language"],
+    fit: "You are spending on ads, or about to, and want the creative and the numbers working together.",
+    image: { src: "/services/performance-marketing.jpg", alt: "A laptop in a dark room showing a marketing analytics dashboard" },
     art: "bars",
   },
   {
     n: "05",
+    slug: "websites-and-digital-experiences",
     title: "Website & Digital Experiences",
     line: "Sites that feel as good as they look.",
     description:
       "Websites, landing pages, and launch experiences designed and built to be fast, clear, and hard to forget.",
+    includes: ["Websites and landing pages, designed and built","Fast, mobile-first pages with clean structure","Basic search (SEO) and analytics set up","Launch pages and small campaign sites","A handover your team can maintain"],
+    fit: "Your site is slow, dated or does not make it easy to buy or enquire, or you have a launch coming.",
+    image: { src: "/services/websites-and-digital-experiences.jpg", alt: "A designer’s desk with two monitors showing a website and code" },
     art: "phone",
   },
   {
     n: "06",
+    slug: "growth-strategy",
     title: "Growth Strategy",
     line: "Connecting attention to revenue.",
     description:
       "Funnels, channel mix, and a steady rhythm of experiments to find what compounds, and cut what doesn't.",
+    includes: ["A review of your funnel and channel mix","Clear priorities: what to do first and what to stop","Messaging and positioning","A testing plan with real questions to answer","A roadmap for the next quarter"],
+    fit: "You have attention but it is not turning into revenue, or you are not sure which channel deserves your next rupee.",
+    image: { src: "/services/growth-strategy.jpg", alt: "A hand-drawn growth chart on paper with a ruler and pens" },
     art: "stack",
   },
 ];

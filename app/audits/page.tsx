@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
 import { mediaUrl } from "@/lib/api";
 import { getAudits } from "@/lib/db";
@@ -24,7 +23,6 @@ export default async function AuditsPage() {
   return (
     <>
       <JsonLd data={breadcrumbLd([{ name: "Audits", path: "/audits" }])} />
-      <Navbar />
       <main id="main">
         <section id="top" className="gutter mx-auto max-w-[110rem] pb-[clamp(3.2rem,4.8vw,4.2rem)] pt-32 md:pt-44">
           <h1 className="display text-[clamp(2.4rem,5.2vw,4rem)]">

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import { Cursor } from "@/components/Cursor";
 import { MotionProvider } from "@/components/MotionProvider";
+import { Navbar } from "@/components/Navbar";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <MotionProvider>
+          <Navbar />
           {children}
           <Cursor />
         </MotionProvider>

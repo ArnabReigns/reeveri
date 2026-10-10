@@ -15,7 +15,13 @@ const MotionLink = motion.create(Link);
 
 const sectionId = (href: string) => (href.includes("#") ? href.split("#")[1] : null);
 
+// One instance lives in the root layout, so it stays mounted (no entry animation) while pages change.
 export function Navbar() {
+  const pathname = usePathname();
+  return pathname.startsWith("/admin") ? null : <SiteNavbar />;
+}
+
+function SiteNavbar() {
   const pathname = usePathname();
   const onHome = pathname === "/";
   const { scrollY, scrollYProgress } = useScroll();
@@ -74,10 +80,11 @@ export function Navbar() {
     return () => io.disconnect();
   }, [pathname]);
 
-  // On the home page the active link follows the section in view; on other pages it follows the route.
-  const activeIndex = onHome
-    ? site.nav.findIndex((n) => sectionId(n.href) === active)
-    : site.nav.findIndex((n) => !n.href.includes("#") && pathname.startsWith(n.href));
+  // Page links (Audits, Work, Services, About) are active only on their own page. Contact is a section of the home
+  // page, so it is the one link that follows scrolling.
+  const activeIndex = site.nav.findIndex((n) =>
+    n.href.includes("#") ? onHome && sectionId(n.href) === active : pathname.startsWith(n.href),
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -108,9 +115,7 @@ export function Navbar() {
       >
         <nav
           aria-label="Primary"
-          className={`mx-auto flex max-w-[110rem] items-center justify-between transition-[height] duration-500 ease-out-expo ${
-            compact ? "h-16" : "h-20 md:h-24"
-          }`}
+          className="mx-auto flex h-14 max-w-[110rem] items-center justify-between"
         >
           <div className="relative z-10 flex items-center gap-5">
             <Link

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { services } from "@/lib/content";
 import { FadeUp, SectionHead } from "./ui";
 
@@ -12,7 +13,14 @@ export function Services() {
       <SectionHead
         id="services-title"
         title="What we do"
-        aside={<p>Five disciplines, one team. Pick one, or let us join them up into something that compounds.</p>}
+        aside={
+          <p>
+            Five disciplines, one team. Pick one, or let us join them up into something that compounds.{" "}
+            <Link href="/services" className="text-paper underline decoration-marker underline-offset-4">
+              See all services
+            </Link>
+          </p>
+        }
       />
 
       <FadeUp className="mt-8 md:mt-12">

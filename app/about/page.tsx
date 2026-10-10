@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
 import { services, steps } from "@/lib/content";
@@ -56,7 +55,6 @@ export default async function AboutPage() {
           },
         ]}
       />
-      <Navbar />
       <main id="main">
         {/* Hero */}
         <section id="top" aria-labelledby="about-title" className={`${wrap} pb-[clamp(2.5rem,4vw,3.5rem)] pt-28 md:pt-36`}>

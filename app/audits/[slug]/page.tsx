@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { DemoFrame } from "@/components/audits/DemoFrame";
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines, SectionHead } from "@/components/ui";
 import { mediaUrl } from "@/lib/api";
@@ -60,7 +59,6 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
           }),
         }}
       />
-      <Navbar />
       <main id="main">
         {/* Header */}
         <section id="top" aria-labelledby="audit-title" className={`${wrap} pb-[clamp(2.63rem,4.5vw,3.75rem)] pt-28 md:pt-36`}>

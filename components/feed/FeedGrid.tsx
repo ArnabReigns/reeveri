@@ -202,7 +202,7 @@ export function FeedGrid({ items }: { items: FeedItem[] }) {
   const shown = items.filter((i) => matches(i, tab));
   const available = tabs.filter((t) => items.some((i) => matches(i, t.v)));
 
-  if (items.length === 0) return <p className="edge py-16 text-center text-dim">New work is on its way.</p>;
+  if (items.length === 0) return <p className="edge py-16 text-center text-dim">New creatives are on their way.</p>;
 
   return (
     <>

@@ -80,7 +80,7 @@ function SiteNavbar() {
     return () => io.disconnect();
   }, [pathname]);
 
-  // Page links (Audits, Work, Services, About) are active only on their own page. Contact is a section of the home
+  // Page links (Audits, Creatives, Services, About) are active only on their own page. Contact is a section of the home
   // page, so it is the one link that follows scrolling.
   const activeIndex = site.nav.findIndex((n) =>
     n.href.includes("#") ? onHome && sectionId(n.href) === active : pathname.startsWith(n.href),

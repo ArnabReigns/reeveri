@@ -11,7 +11,7 @@ import { Why } from "@/components/Why";
 import type { Metadata } from "next";
 import { faqs } from "@/lib/content";
 import { JsonLd } from "@/lib/seo";
-import { WorkGlimpse } from "@/components/WorkGlimpse";
+import { CreativesGlimpse } from "@/components/CreativesGlimpse";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -36,7 +36,7 @@ export default function Home() {
         <Intro />
         <Services />
         <AuditsTeaser />
-        <WorkGlimpse />
+        <CreativesGlimpse />
         <Approach />
         <Why />
         <About />

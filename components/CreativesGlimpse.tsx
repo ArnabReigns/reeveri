@@ -12,7 +12,7 @@ function Tile({ item, tall }: { item: FeedItem; tall: boolean }) {
   return (
     <li className={`mr-3 shrink-0 md:mr-4 ${tall ? "w-[42vw] sm:w-[26vw] lg:w-[17vw]" : "w-[34vw] sm:w-[21vw] lg:w-[13.5vw]"}`}>
       <Link
-        href="/work"
+        href="/creatives"
         tabIndex={-1}
         aria-hidden="true"
         className="group relative block aspect-[3/4] overflow-hidden bg-ink-2"
@@ -51,8 +51,8 @@ function Row({ items, reverse, duration }: { items: FeedItem[]; reverse?: boolea
   );
 }
 
-// Home page glimpse of the Work feed: a drifting two-row strip that links through to /work.
-export async function WorkGlimpse() {
+// Home page glimpse of the Creatives feed: a drifting two-row strip that links through to /creatives.
+export async function CreativesGlimpse() {
   const feed = (await getFeed()).filter((f) => f.media.length > 0);
   if (feed.length === 0) return null;
 
@@ -67,13 +67,13 @@ export async function WorkGlimpse() {
 
   return (
     <section
-      id="work"
-      aria-labelledby="work-title"
+      id="creatives"
+      aria-labelledby="creatives-title"
       className="pb-[clamp(3.6rem,6vw,5.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]"
     >
       <div className="gutter mx-auto max-w-[110rem]">
         <SectionHead
-          id="work-title"
+          id="creatives-title"
           title={
             <>
               Made for
@@ -93,8 +93,8 @@ export async function WorkGlimpse() {
       </FadeUp>
 
       <div className="gutter mx-auto mt-10 max-w-[110rem]">
-        <MagneticLink href="/work" variant="ghost">
-          See all work
+        <MagneticLink href="/creatives" variant="ghost">
+          See all creatives
         </MagneticLink>
       </div>
     </section>

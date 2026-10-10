@@ -231,7 +231,7 @@ export function AdminApp() {
           )}
         </div>
         <div className="flex gap-2">
-          <a className={btnGhost} href="/work" target="_blank" rel="noreferrer">View Work</a>
+          <a className={btnGhost} href="/creatives" target="_blank" rel="noreferrer">View Creatives</a>
           <a className={btnGhost} href="/audits" target="_blank" rel="noreferrer">View Audits</a>
           <button className={btnGhost} onClick={() => { setToken(""); setAuthed(false); }}>Sign out</button>
         </div>
@@ -261,7 +261,7 @@ export function AdminApp() {
         ) : tab === "feed" ? (
           <>
             <div className="mb-6 flex items-center justify-between">
-              <p className="text-dim">{feed.length} creatives. Drag tiles to rearrange: this is the order on the Work page.</p>
+              <p className="text-dim">{feed.length} creatives. Drag tiles to rearrange: this is the order on the Creatives page.</p>
               <button className={btnPrimary} onClick={() => setFeedEdit({ item: blankFeed(), isNew: true })}><Plus className="size-4" /> Add creative</button>
             </div>
             {feed.length === 0 && <p className="border border-line p-8 text-dim">Nothing yet. Add your first poster, reel or carousel.</p>}

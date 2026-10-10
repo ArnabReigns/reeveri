@@ -133,7 +133,7 @@ export function FeedEditor({
 
       <label className="flex items-center gap-2">
         <input type="checkbox" checked={f.published !== false} onChange={(e) => set("published", e.target.checked)} />
-        <span>Published (visible on the Work page)</span>
+        <span>Published (visible on the Creatives page)</span>
       </label>
     </form>
   );

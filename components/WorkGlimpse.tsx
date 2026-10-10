@@ -1,4 +1,5 @@
 import { Layers, Play } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { mediaUrl, type FeedItem } from "@/lib/api";
 import { getFeed } from "@/lib/db";
@@ -7,6 +8,7 @@ import { FadeUp, MagneticLink, SectionHead } from "./ui";
 function Tile({ item, tall }: { item: FeedItem; tall: boolean }) {
   const m = item.media[0];
   if (!m) return null;
+  const still = m.kind === "image" ? m.src : item.poster;
   return (
     <li className={`mr-3 shrink-0 md:mr-4 ${tall ? "w-[42vw] sm:w-[26vw] lg:w-[17vw]" : "w-[34vw] sm:w-[21vw] lg:w-[13.5vw]"}`}>
       <Link
@@ -15,24 +17,16 @@ function Tile({ item, tall }: { item: FeedItem; tall: boolean }) {
         aria-hidden="true"
         className="group relative block aspect-[3/4] overflow-hidden bg-ink-2"
       >
-        {m.kind === "video" ? (
-          <video
-            src={`${mediaUrl(m.src)}${item.poster ? "" : "#t=0.1"}`}
-            poster={item.poster ? mediaUrl(item.poster) : undefined}
-            muted
-            playsInline
-            preload="metadata"
-            className="size-full object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.05]"
+        {still ? (
+          <Image
+            src={mediaUrl(still)}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 17vw, (min-width: 640px) 26vw, 42vw"
+            className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.05]"
           />
         ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={mediaUrl(m.src)}
-            alt=""
-            loading="lazy"
-            draggable={false}
-            className="size-full object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.05]"
-          />
+          <video src={`${mediaUrl(m.src)}#t=0.1`} muted playsInline preload="metadata" className="size-full object-cover" />
         )}
         <span className="absolute right-2 top-2 text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
           {item.type === "reel" ? <Play className="size-4 fill-white" /> : item.type === "carousel" ? <Layers className="size-4" /> : null}

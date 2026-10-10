@@ -102,7 +102,7 @@ export default async function AuditPage(props: PageProps<"/audits/[slug]">) {
               <div className="grid flex-1 grid-cols-2 gap-[0.625rem]">
                 {audit.cover.map((c) => (
                   <div key={c.src} className="relative aspect-[3/4] overflow-hidden bg-ink-2 md:aspect-auto md:min-h-[16rem]">
-                    <Image src={mediaUrl(c.src)} unoptimized alt={c.alt} fill priority sizes="(min-width: 768px) 21vw, 48vw" className="object-cover" />
+                    <Image src={mediaUrl(c.src)} alt={c.alt} fill priority sizes="(min-width: 768px) 21vw, 48vw" className="object-cover" />
                   </div>
                 ))}
               </div>

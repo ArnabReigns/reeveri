@@ -33,7 +33,6 @@ export async function AuditsTeaser() {
           <div className="relative aspect-[4/3] overflow-hidden bg-ink-2 md:col-span-4">
             <Image
               src={mediaUrl(audit.cover[0].src)}
-              unoptimized
               alt={audit.cover[0].alt}
               fill
               sizes="(min-width: 768px) 30vw, 100vw"

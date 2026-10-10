@@ -1,4 +1,5 @@
 import fs from "fs";
+import { Readable } from "stream";
 import path from "path";
 import { SEED_DIR, UPLOAD_DIR } from "@/lib/db";
 
@@ -33,7 +34,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ path: string[] 
   const headers: Record<string, string> = {
     "Content-Type": TYPES[path.extname(file).toLowerCase()] || "application/octet-stream",
     "Accept-Ranges": "bytes",
-    "Cache-Control": "public, max-age=604800",
+    "Cache-Control": "public, max-age=31536000, immutable",
   };
   const range = /bytes=(\d*)-(\d*)/.exec(req.headers.get("range") || "");
   let start = 0;
@@ -50,5 +51,5 @@ export async function GET(req: Request, ctx: { params: Promise<{ path: string[] 
   }
   headers["Content-Length"] = String(end - start + 1);
   const stream = fs.createReadStream(file, { start, end });
-  return new Response(stream as unknown as ReadableStream, { status, headers });
+  return new Response(Readable.toWeb(stream) as ReadableStream, { status, headers });
 }

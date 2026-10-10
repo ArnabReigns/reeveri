@@ -1,7 +1,8 @@
 "use client";
 
 import { ChevronLeft, ChevronRight, Clapperboard, Grid3x3, Image as ImageIcon, Layers, Play, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 import { mediaUrl, type FeedItem } from "@/lib/api";
 
 function Media({ item, index = 0, tile = false }: { item: FeedItem; index?: number; tile?: boolean }) {
@@ -28,36 +29,49 @@ function Media({ item, index = 0, tile = false }: { item: FeedItem; index?: numb
   return <img src={mediaUrl(m.src)} alt={item.title} loading="lazy" draggable={false} className={fit} />;
 }
 
+const TILE_SIZES = "(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw";
+
+// Grid thumbnails are resized by Next. A reel only loads its video while hovered, so the grid stays light.
+function Thumb({ item, playing }: { item: FeedItem; playing: boolean }) {
+  const m = item.media[0];
+  if (!m) return <div className="size-full bg-ink-2" />;
+  const still = m.kind === "image" ? m.src : item.poster;
+  return (
+    <>
+      {still ? (
+        <Image src={mediaUrl(still)} alt="" fill sizes={TILE_SIZES} className="object-cover" />
+      ) : null}
+      {m.kind === "video" && (playing || !still) && (
+        <video
+          src={`${mediaUrl(m.src)}${still ? "" : "#t=0.1"}`}
+          muted
+          loop
+          playsInline
+          autoPlay={playing}
+          preload={still ? "auto" : "metadata"}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
+    </>
+  );
+}
+
 function Tile({ item, onOpen }: { item: FeedItem; onOpen: () => void }) {
-  const wrap = useRef<HTMLButtonElement>(null);
-  const play = (on: boolean) => {
-    const v = wrap.current?.querySelector("video");
-    if (!v) return;
-    if (on) {
-      // Browsers only allow autoplay for muted video; set it on the element itself, not just the attribute.
-      v.muted = true;
-      void v.play().catch(() => {});
-    }
-    else {
-      v.pause();
-      v.currentTime = 0;
-    }
-  };
+  const [playing, setPlaying] = useState(false);
   return (
     <li className="aspect-[3/4]">
       <button
-        ref={wrap}
         type="button"
         onClick={onOpen}
-        onPointerEnter={(e) => e.pointerType !== "touch" && play(true)}
-        onPointerLeave={() => play(false)}
-        onFocus={() => play(true)}
-        onBlur={() => play(false)}
+        onPointerEnter={(e) => e.pointerType !== "touch" && setPlaying(true)}
+        onPointerLeave={() => setPlaying(false)}
+        onFocus={() => setPlaying(true)}
+        onBlur={() => setPlaying(false)}
         aria-label={`Open ${item.type}: ${item.title}`}
         className="group relative block size-full overflow-hidden bg-ink-2 text-left"
       >
-        <div className="size-full transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.04]">
-          <Media item={item} tile />
+        <div className="relative size-full transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.04]">
+          <Thumb item={item} playing={playing} />
         </div>
         <span aria-hidden="true" className="absolute right-2 top-2 text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
           {item.type === "reel" ? <Play className="size-5 fill-white" /> : item.type === "carousel" ? <Layers className="size-5" /> : null}

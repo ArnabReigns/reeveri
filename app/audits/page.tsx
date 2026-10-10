@@ -53,7 +53,6 @@ export default async function AuditsPage() {
                       <div key={c.src} className="relative aspect-square overflow-hidden bg-ink-2">
                         <Image
                           src={mediaUrl(c.src)}
-                          unoptimized
                           alt={c.alt}
                           fill
                           sizes="(min-width: 768px) 30vw, 50vw"

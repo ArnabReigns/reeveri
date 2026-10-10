@@ -39,11 +39,12 @@ export function UploadButton({
   label: string;
   accept?: string;
   multiple?: boolean;
-  onUploaded: (files: Uploaded[]) => void;
+  onUploaded: (files: Uploaded[], originals: File[]) => void | Promise<void>;
   onError: (msg: string) => void;
 }) {
   const ref = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
+  const [pct, setPct] = useState(0);
   return (
     <>
       <input
@@ -56,8 +57,10 @@ export function UploadButton({
           const files = e.target.files;
           if (!files?.length) return;
           setBusy(true);
+          setPct(0);
           try {
-            onUploaded(await uploadFiles(files));
+            const originals = Array.from(files);
+            await onUploaded(await uploadFiles(originals, (p) => setPct(Math.round(p * 100))), originals);
           } catch (err) {
             onError(err instanceof Error ? err.message : "Upload failed");
           } finally {
@@ -68,7 +71,7 @@ export function UploadButton({
       />
       <button type="button" className={btnGhost} disabled={busy} onClick={() => ref.current?.click()}>
         {busy ? <Loader2 className="size-4 animate-spin" /> : <Upload className="size-4" />}
-        {busy ? "Uploading…" : label}
+        {busy ? `Uploading… ${pct}%` : label}
       </button>
     </>
   );

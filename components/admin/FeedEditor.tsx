@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import type { FeedItem } from "@/lib/api";
+import { makePoster } from "@/lib/adminApi";
 import { Field, ImageField, RemoveButton, Thumb, UploadButton, btnGhost, btnPrimary, input } from "./ui";
 
 export const blankFeed = (): Omit<FeedItem, "id"> => ({
@@ -115,12 +116,19 @@ export function FeedEditor({
           accept={f.type === "poster" ? "image/*" : f.type === "reel" ? "video/*" : "image/*,video/*"}
           multiple={!single}
           onError={onError}
-          onUploaded={(files) => set("media", single ? files.slice(0, 1).map(({ src, kind }) => ({ src, kind })) : [...f.media, ...files.map(({ src, kind }) => ({ src, kind }))])}
+          onUploaded={async (files, originals) => {
+            set("media", single ? files.slice(0, 1).map(({ src, kind }) => ({ src, kind })) : [...f.media, ...files.map(({ src, kind }) => ({ src, kind }))]);
+            // A reel gets a cover image automatically, so the grid shows a picture instead of loading the video.
+            if (f.type === "reel" && files[0]?.kind === "video") {
+              const poster = await makePoster(originals[0]);
+              if (poster) set("poster", poster.src);
+            }
+          }}
         />
       </div>
 
       {f.type === "reel" && (
-        <ImageField label="Cover image (optional)" value={f.poster ?? ""} onChange={(v) => set("poster", v)} onError={onError} />
+        <ImageField label="Cover image (made automatically from the video, or upload your own)" value={f.poster ?? ""} onChange={(v) => set("poster", v)} onError={onError} />
       )}
 
       <label className="flex items-center gap-2">

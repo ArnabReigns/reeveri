@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Reeveri — We make brands impossible to ignore.";
+export const alt = "Reeveri — Digital marketing agency. We make brands impossible to ignore.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -22,7 +22,7 @@ export default function OpengraphImage() {
       >
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 4, color: "#6d6d68" }}>
           <span>REEVERI</span>
-          <span>CREATIVE MARKETING FOR AMBITIOUS BRANDS</span>
+          <span>DIGITAL MARKETING FOR AMBITIOUS BRANDS</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 108, fontWeight: 800, lineHeight: 0.92, letterSpacing: -4 }}>
           <span>We make brands</span>

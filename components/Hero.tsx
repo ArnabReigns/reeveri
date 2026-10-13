@@ -74,7 +74,10 @@ export function Hero() {
       <HeroBackdrop />
       <div className="gutter mx-auto grid w-full max-w-[110rem] items-center gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-7">
-          <h1 id="hero-title" className="display text-[clamp(2.6rem,5.6vw,4.6rem)] leading-[0.92]">
+          <h1 id="hero-title" className="edge mb-5 text-rebate">
+            → Digital marketing agency for ambitious brands
+          </h1>
+          <h2 id="hero-headline" className="display text-[clamp(2.6rem,5.6vw,4.6rem)] leading-[0.92]">
             <span className="block overflow-hidden pb-[0.06em]">
               <motion.span className="block" {...rise(0)}>
                 We make brands
@@ -99,7 +102,7 @@ export function Hero() {
                 strokeWidth={2.4}
               />
             </span>
-          </h1>
+          </h2>
 
           <motion.div
             className="mt-8 md:mt-10"

@@ -20,7 +20,7 @@ export const defaultAbout: AboutContent = {
   hero: {
     headline: ["Strategy and creative,", "in the same room."],
     intro:
-      "Reeveri is a creative marketing agency for ambitious brands. We work out what to say, make the work that says it, and put it in front of the people who matter.",
+      "Reeveri is a digital marketing agency for ambitious brands. We work out what to say, make the work that says it, and put it in front of the people who matter.",
   },
   story: {
     statement: "Creative without strategy is decoration. Strategy without creativity is invisible.",

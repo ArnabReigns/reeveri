@@ -13,7 +13,7 @@ export const organizationLd = {
   "@type": "MarketingAgency",
   "@id": ORG_ID,
   name: site.name,
-  alternateName: [site.wordmark, "Reeveri Marketing", "Reeveri Creative Marketing Agency"],
+  alternateName: [site.wordmark, "Reeveri Digital Marketing", "Reeveri Digital Marketing Agency"],
   url: site.url,
   logo: `${site.url}/logo.png`,
   image: `${site.url}/opengraph-image`,
@@ -27,14 +27,10 @@ export const organizationLd = {
     addressRegion: site.address.region,
     addressCountry: "IN",
   },
-  areaServed: [
-    { "@type": "City", name: "Kolkata" },
-    { "@type": "Country", name: "India" },
-  ],
   knowsAbout: services.map((s) => s.title),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Marketing services",
+    name: "Digital marketing services",
     itemListElement: services.map((s) => ({
       "@type": "Offer",
       itemOffered: { "@type": "Service", name: s.title, description: s.description },

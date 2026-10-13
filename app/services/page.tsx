@@ -6,9 +6,9 @@ import { JsonLd, breadcrumbLd, orgRef } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Services: social media, content, performance marketing and websites",
+  title: "Digital marketing services: social media, performance marketing, content and websites",
   description:
-    "Reeveri is a creative marketing agency in Kolkata. We do social media, content and creative, performance marketing, websites and digital experiences, and growth strategy.",
+    "Digital marketing services from Reeveri: social media marketing, content and creative, performance marketing, websites and digital experiences, and growth strategy.",
   alternates: { canonical: "/services" },
   openGraph: { title: "Services | Reeveri", type: "website", url: "/services" },
 };
@@ -34,7 +34,6 @@ export default function ServicesPage() {
                 description: `${s.description} Includes: ${s.includes.join("; ")}.`,
                 url: `${site.url}/services#${s.slug}`,
                 provider: orgRef,
-                areaServed: "India",
               },
             })),
           },
@@ -46,8 +45,8 @@ export default function ServicesPage() {
             <RiseLines inView={false} lines={["Five disciplines,", "one team."]} />
           </h1>
           <p className="mt-6 max-w-xl text-[1.05rem] text-dim">
-            Pick one, or let us join them up into something that compounds. Every project is scoped individually, after
-            a first conversation.
+            Reeveri is a digital marketing agency. Pick one service, or let us join them up into something
+            that compounds. Every project is scoped individually, after a first conversation.
           </p>
           <nav aria-label="Jump to a service" className="mt-8 flex flex-wrap gap-2">
             {services.map((s) => (

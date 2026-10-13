@@ -7,7 +7,7 @@ import { JsonLd, breadcrumbLd } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Creatives: ad creatives, reels and posters",
   description:
-    "Ad creatives, social posts, reels and carousels made by Reeveri, a creative marketing agency in Kolkata. Browse the feed.",
+    "Ad creatives, social posts, reels and carousels made by Reeveri, a digital marketing agency. Browse the feed.",
   openGraph: { title: "Creatives | Reeveri", url: "/creatives" },
   alternates: { canonical: "/creatives" },
 };

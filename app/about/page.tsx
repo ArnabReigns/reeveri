@@ -9,9 +9,9 @@ import { site } from "@/lib/site";
 import { getAbout } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "About us: a creative marketing agency in Kolkata",
+  title: "About us: a digital marketing agency",
   description:
-    "Reeveri is a creative marketing agency in Kolkata, India, that puts strategy, creative, content, technology and distribution in one team. Meet the team and see how we work.",
+    "Reeveri is a digital marketing agency that puts strategy, creative, content, technology and distribution in one team. Meet the team and see how we work.",
   alternates: { canonical: "/about" },
   openGraph: { title: "About | Reeveri", type: "website", url: "/about" },
 };

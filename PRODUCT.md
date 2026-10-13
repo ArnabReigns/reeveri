@@ -12,11 +12,11 @@ Next.js (App Router), React, TypeScript, Tailwind CSS, Framer Motion, Lucide ico
 
 ## Users
 
-Founders, creators, and marketing leads at startups and ambitious companies who are evaluating a creative growth partner. They arrive from social, referrals, or a direct link, and are deciding within minutes whether Reeveri understands attention, branding, content, and growth well enough to trust with their brand.
+Founders, creators, and marketing leads at startups and ambitious companies who are evaluating a digital marketing partner. They arrive from social, referrals, or a direct link, and are deciding within minutes whether Reeveri understands attention, branding, content, and growth well enough to trust with their brand.
 
 ## Product Purpose
 
-Reeveri is a creative marketing agency. The website's job is to make Reeveri feel like a high-end creative growth agency and turn qualified visitors into project enquiries ("Start a project"). Success is a visitor who believes Reeveri is sharp, creative, and results-minded, and starts a conversation.
+Reeveri is a digital marketing agency. The website's job is to make Reeveri feel like a high-end digital growth agency and turn qualified visitors into project enquiries ("Start a project"). Success is a visitor who believes Reeveri is sharp, creative, and results-minded, and starts a conversation.
 
 ## Positioning
 
@@ -39,7 +39,7 @@ Visitors browse on phones (often from social) and desktops. They skim the hero, 
 - Personality: bold, creative, intelligent, modern, confident, slightly playful, human, results-oriented. Never corporate, formal, or old-school advertising.
 - Voice: conversational, direct, a little witty. Avoid "We help businesses grow" template copy.
 - Binding visual constraints from the owner: near-black ground with an off-white text system; one distinctive accent used sparingly; a modern premium sans-serif; large editorial typography; no stock photography, generic gradients, glassmorphism, heavy shadows, or card-grid SaaS look.
-- Tagline: "Creative marketing for ambitious brands."
+- Tagline: "Digital marketing for ambitious brands."
 
 ## Evidence on Hand
 

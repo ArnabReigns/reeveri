@@ -1,6 +1,6 @@
 ---
 name: Reeveri
-description: Creative marketing agency site set as a photographer's contact sheet, with one red china-marker choosing the keeper.
+description: Digital marketing agency site set as a photographer's contact sheet, with one red china-marker choosing the keeper.
 colors:
   ink: "#0b0b0a"
   ink-2: "#141413"

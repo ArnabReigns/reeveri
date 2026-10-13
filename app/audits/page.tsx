@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Website audits and rebuilds",
   description:
-    "Independent website audits by Reeveri, a creative marketing agency in Kolkata. Each teardown comes with a working rebuild you can click through.",
+    "Independent website audits by Reeveri, a digital marketing agency. Each teardown comes with a working rebuild you can click through.",
   alternates: { canonical: "/audits" },
   openGraph: { title: "Website audits and rebuilds | Reeveri", url: "/audits" },
 };

@@ -197,7 +197,7 @@ export const contentItems: ContentItem[] = [
 export const faqs = [
   {
     q: "What does Reeveri do?",
-    a: "We're a creative marketing agency. We help brands work out what to say, make the work that says it, and put it in front of the right people. That covers social media, content and creative, performance marketing, websites and digital experiences, and growth strategy.",
+    a: "We're a digital marketing agency. We help brands work out what to say, make the work that says it, and put it in front of the right people online. That covers social media marketing, content and creative, performance marketing (paid ads), websites and digital experiences, and growth strategy.",
   },
   {
     q: "Who do you work with?",

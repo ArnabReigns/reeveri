@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { Pencil } from "@/components/Pencil";
 import { FadeUp, MagneticLink, RiseLines } from "@/components/ui";
@@ -113,25 +112,17 @@ export default async function AboutPage() {
         {/* Team */}
         <section aria-labelledby="team-title" className={`${wrap} ${sectionPad} border-t border-line`}>
           <Head id="team-title" title="The team" note="The people you will talk to, from the first call to launch day." />
-          <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-8">
+          <ul className="mt-8 border-b border-line">
             {team.map((m, i) => (
-              <li key={m.name} style={{ width: "17.5rem", maxWidth: "100%" }}>
-                <FadeUp delay={i * 0.08}>
-                  <div className="relative flex aspect-square items-end overflow-hidden bg-ink-2 p-4">
-                    {m.photo ? (
-                      <Image src={m.photo} alt={m.name} fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[center_20%]" />
-                    ) : (
-                      <span
-                        aria-hidden="true"
-                        className="display select-none text-[clamp(4.5rem,8vw,7rem)] leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_var(--color-line-strong)]"
-                      >
-                        {m.name[0]}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="display mt-3 text-[1.1rem]">{m.name}</h3>
-                  {m.role && <p className="edge mt-1 text-rebate">{m.role}</p>}
-                  {m.bio && <p className="mt-2 max-w-sm text-[0.95rem] text-dim">{m.bio}</p>}
+              <li key={m.name} className="border-t border-line">
+                <FadeUp delay={i * 0.08} className="grid gap-1 py-5 md:grid-cols-12 md:items-baseline md:gap-8">
+                  <h3 className="display text-[clamp(1.4rem,2.2vw,1.9rem)] md:col-span-5">{m.name}</h3>
+                  {(m.role || m.bio) && (
+                    <div className="md:col-span-7">
+                      {m.role && <p className="edge text-rebate">{m.role}</p>}
+                      {m.bio && <p className="mt-2 max-w-xl text-[0.95rem] text-dim">{m.bio}</p>}
+                    </div>
+                  )}
                 </FadeUp>
               </li>
             ))}

@@ -3,7 +3,7 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import type { AboutContent } from "@/lib/about";
-import { Field, ImageField, RemoveButton, btnGhost, btnPrimary, input } from "./ui";
+import { Field, RemoveButton, btnGhost, btnPrimary, input } from "./ui";
 
 function Section({ title, children, action }: { title: string; children: React.ReactNode; action?: React.ReactNode }) {
   return (
@@ -28,11 +28,9 @@ const move = <T,>(arr: T[], i: number, d: number) => {
 export function AboutEditor({
   initial,
   onSave,
-  onError,
 }: {
   initial: AboutContent;
   onSave: (a: AboutContent) => Promise<void>;
-  onError: (m: string) => void;
 }) {
   const [a, setA] = useState<AboutContent>(initial);
   const [saving, setSaving] = useState(false);
@@ -137,7 +135,7 @@ export function AboutEditor({
       <Section
         title="The team"
         action={
-          <button type="button" className={btnGhost} onClick={() => set("team", [...a.team, { name: "", role: "", bio: "", photo: "" }])}>
+          <button type="button" className={btnGhost} onClick={() => set("team", [...a.team, { name: "", role: "", bio: "" }])}>
             <Plus className="size-4" /> Add person
           </button>
         }
@@ -154,7 +152,6 @@ export function AboutEditor({
                 <RemoveButton onClick={() => set("team", a.team.filter((_, j) => j !== i))} />
               </div>
               <textarea className={input} rows={2} value={m.bio} placeholder="One-line bio (optional)" onChange={(e) => upd("bio", e.target.value)} />
-              <ImageField label="Photo (optional)" value={m.photo} onChange={(v) => upd("photo", v)} onError={onError} />
             </div>
           );
         })}

@@ -257,7 +257,7 @@ export function AdminApp() {
         ) : feedEdit ? (
           <FeedEditor key={feedEdit.item.id || "new"} initial={feedEdit.item} isNew={feedEdit.isNew} onSave={saveFeed} onCancel={() => setFeedEdit(null)} onError={(m) => flash(m, true)} />
         ) : tab === "about" ? (
-          about && <AboutEditor onSave={saveAbout} onError={(m) => flash(m, true)} initial={about} />
+          about && <AboutEditor onSave={saveAbout} initial={about} />
         ) : tab === "feed" ? (
           <>
             <div className="mb-6 flex items-center justify-between">

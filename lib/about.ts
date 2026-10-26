@@ -4,8 +4,6 @@ export type TeamMember = {
   name: string;
   role: string;
   bio: string;
-  // e.g. "/uploads/…" from the dashboard, or a file in /public. Without one the card shows the initial.
-  photo: string;
 };
 
 export type AboutContent = {
@@ -48,8 +46,8 @@ export const defaultAbout: AboutContent = {
     },
   ],
   team: [
-    { name: "Arnab Chatterjee", role: "", bio: "", photo: "" },
-    { name: "Kinnori Bhattacharya", role: "", bio: "", photo: "/team/kinnori.jpg" },
+    { name: "Arnab Chatterjee", role: "", bio: "" },
+    { name: "Kinnori Bhattacharya", role: "", bio: "" },
   ],
   cta: {
     heading: "Let's make something worth noticing.",
@@ -64,7 +62,8 @@ export function withAboutDefaults(saved: Partial<AboutContent> | undefined): Abo
     hero: { ...d.hero, ...saved?.hero },
     story: { ...d.story, ...saved?.story },
     beliefs: saved?.beliefs ?? d.beliefs,
-    team: saved?.team ?? d.team,
+    // Team is names (plus optional role and bio). Portraits were removed, so a saved `photo` is dropped here.
+    team: (saved?.team ?? d.team).map((m) => ({ name: m.name ?? "", role: m.role ?? "", bio: m.bio ?? "" })),
     cta: { ...d.cta, ...saved?.cta },
   };
 }

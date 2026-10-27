@@ -45,7 +45,11 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
   // Set GOOGLE_SITE_VERIFICATION to the code from Google Search Console (HTML tag method).
-  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    // Bing Webmaster Tools. Keep this tag, or the site becomes unverified.
+    other: { "msvalidate.01": "F84D2A66D839443B80A3B4F7A197F881" },
+  },
   formatDetection: { telephone: false },
 };
 

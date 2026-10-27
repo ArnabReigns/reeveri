@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
+import { ClarityAnalytics } from "@/components/Clarity";
 import { Cursor } from "@/components/Cursor";
 import { MotionProvider } from "@/components/MotionProvider";
 import { Navbar } from "@/components/Navbar";
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar />
           {children}
           <Cursor />
+          <ClarityAnalytics />
         </MotionProvider>
       </body>
     </html>

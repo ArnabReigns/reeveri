@@ -120,14 +120,12 @@ function SiteNavbar() {
           <div className="relative z-10 flex items-center gap-5">
             <Link
               href="/"
-              className="group display relative inline-flex min-h-11 shrink-0 items-center gap-2.5 text-[1.35rem] tracking-[-0.02em] md:text-2xl"
+              className="group display relative inline-flex min-h-11 shrink-0 items-center text-[1.35rem] tracking-[-0.02em] md:text-2xl"
               onClick={() => {
                 setOpen(false);
                 if (onHome) window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="" width={28} height={28} className="size-7 rounded-md" />
               <span className="whitespace-nowrap">
                 {site.wordmark}
                 {/* The red dot is the wordmark's full stop: it sits on the baseline, right after the last letter. */}

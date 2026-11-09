@@ -1,5 +1,4 @@
 import fs from "fs";
-import { Readable } from "stream";
 import path from "path";
 import { SEED_DIR, UPLOAD_DIR } from "@/lib/db";
 
@@ -50,6 +49,50 @@ export async function GET(req: Request, ctx: { params: Promise<{ path: string[] 
     headers["Content-Range"] = `bytes ${start}-${end}/${size}`;
   }
   headers["Content-Length"] = String(end - start + 1);
+  return new Response(fileStream(file, start, end, req.signal), { status, headers });
+}
+
+// Streams a byte range of a file. Browsers cancel video requests all the time (seeking, scrolling past),
+// so a cancel just stops reading instead of writing into a closed stream and throwing.
+function fileStream(file: string, start: number, end: number, signal: AbortSignal) {
   const stream = fs.createReadStream(file, { start, end });
-  return new Response(Readable.toWeb(stream) as ReadableStream, { status, headers });
+  let done = false;
+  const stop = () => {
+    done = true;
+    stream.destroy();
+  };
+  signal.addEventListener("abort", stop, { once: true });
+  return new ReadableStream<Uint8Array>({
+    start(controller) {
+      stream.on("data", (chunk) => {
+        if (done) return;
+        try {
+          controller.enqueue(new Uint8Array(chunk as Buffer));
+          if ((controller.desiredSize ?? 1) <= 0) stream.pause();
+        } catch {
+          stop();
+        }
+      });
+      stream.on("end", () => {
+        if (done) return;
+        done = true;
+        try {
+          controller.close();
+        } catch {}
+      });
+      stream.on("error", (e) => {
+        if (done) return;
+        done = true;
+        try {
+          controller.error(e);
+        } catch {}
+      });
+    },
+    pull() {
+      stream.resume();
+    },
+    cancel() {
+      stop();
+    },
+  });
 }

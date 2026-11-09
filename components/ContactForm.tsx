@@ -66,6 +66,28 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
   const fromHash = useSyncExternalStore(subscribeHash, wantsAudit, () => false);
   const [picked, setPicked] = useState<boolean | null>(null); // null = follow the hash
   const audit = picked ?? fromHash;
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [error, setError] = useState("");
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const data = { ...Object.fromEntries(fd), services: fd.getAll("services") };
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!res.ok) throw new Error((await res.json().catch(() => null))?.error || "Something went wrong. Please try again.");
+      form.reset();
+      setPicked(null);
+      setStatus("sent");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setStatus("error");
+    }
+  };
 
   return (
     <motion.div
@@ -96,15 +118,14 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
 
         <form
           aria-label="Start a project"
-          noValidate
-          onSubmit={(e: FormEvent) => e.preventDefault()}
+          onSubmit={submit}
           className="mt-8 grid gap-x-10 md:grid-cols-2 lg:col-span-8 lg:mt-0"
         >
           <Field id={id("name")} label="Your name">
-            <input id={id("name")} name="name" autoComplete="name" placeholder="Who are we talking to?" className={fieldBase} />
+            <input id={id("name")} name="name" required autoComplete="name" placeholder="Who are we talking to?" className={fieldBase} />
           </Field>
           <Field id={id("email")} label="Email">
-            <input id={id("email")} name="email" type="email" autoComplete="email" placeholder="you@brand.com" className={fieldBase} />
+            <input id={id("email")} name="email" type="email" required autoComplete="email" placeholder="you@brand.com" className={fieldBase} />
           </Field>
           <div className="md:col-span-2">
             <Field id={id("brand")} label="Brand or company" optional>
@@ -161,10 +182,11 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
             <div className="relative inline-block">
               <motion.button
                 type="submit"
+                disabled={status === "sending"}
                 whileTap={{ scale: 0.97 }}
                 className="group relative z-10 inline-flex h-14 items-center gap-3 rounded-full bg-marker px-8 text-base font-semibold tracking-[-0.01em] text-on-marker transition-colors duration-300 hover:bg-paper sm:h-16 sm:px-10 sm:text-lg"
               >
-                {audit ? "Book my free audit" : "Send the brief"}
+                {status === "sending" ? "Sending…" : audit ? "Book my free audit" : "Send the brief"}
                 <ArrowRight aria-hidden="true" className="size-[1.1em] transition-transform duration-500 ease-out-expo group-hover:translate-x-1" strokeWidth={2.2} />
               </motion.button>
               <Pencil
@@ -177,6 +199,10 @@ export function ContactForm({ aside }: { aside?: ReactNode }) {
                 className="-left-[8%] -top-[30%] z-0 h-[160%] w-[116%]"
               />
             </div>
+            <p role="status" aria-live="polite" className="mt-5 text-[0.95rem] font-medium">
+              {status === "sent" && <span className="text-paper">Got it. We&rsquo;ll be in touch soon.</span>}
+              {status === "error" && <span className="text-marker">{error}</span>}
+            </p>
           </div>
         </form>
       </div>

@@ -61,6 +61,20 @@
     overflow-x: clip;
   }
 
+  /* Keep browser autofill from painting fields blue/yellow: hold off the background change and keep our text colour. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-text-fill-color: var(--color-paper);
+    caret-color: var(--color-paper);
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
+  input:autofill {
+    background-clip: text;
+  }
+
   ::selection {
     background: var(--color-marker);
     color: var(--color-ink);

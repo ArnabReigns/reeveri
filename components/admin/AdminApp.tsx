@@ -6,6 +6,7 @@ import { type FeedItem } from "@/lib/api";
 import { api, ApiError, getToken, setToken } from "@/lib/adminApi";
 import type { AboutContent } from "@/lib/about";
 import type { Audit } from "@/lib/audits";
+import type { Lead } from "@/lib/leads";
 import { AboutEditor } from "./AboutEditor";
 import { AuditEditor, blankAudit } from "./AuditEditor";
 import { FeedEditor, blankFeed } from "./FeedEditor";
@@ -15,7 +16,7 @@ import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, us
 import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-type Tab = "feed" | "audits" | "about";
+type Tab = "leads" | "feed" | "audits" | "about";
 type FeedDraft = Omit<FeedItem, "id"> & { id?: string };
 
 function Login({ onDone }: { onDone: () => void }) {
@@ -83,10 +84,11 @@ function FeedCard({ f, onEarlier, onLater, onToggle, onEdit, onDelete }: { f: Fe
 
 export function AdminApp() {
   const [authed, setAuthed] = useState<boolean | null>(null);
-  const [tab, setTab] = useState<Tab>("feed");
+  const [tab, setTab] = useState<Tab>("leads");
   const [about, setAbout] = useState<AboutContent | null>(null);
   const [audits, setAudits] = useState<Audit[]>([]);
   const [feed, setFeed] = useState<FeedItem[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [auditEdit, setAuditEdit] = useState<{ audit: Audit; isNew: boolean } | null>(null);
   const [feedEdit, setFeedEdit] = useState<{ item: FeedDraft; isNew: boolean } | null>(null);
   const [msg, setMsg] = useState<{ text: string; bad?: boolean } | null>(null);
@@ -105,11 +107,13 @@ export function AdminApp() {
 
   const load = useCallback(async () => {
     try {
-      const [a, f, ab] = await Promise.all([
+      const [a, f, ab, l] = await Promise.all([
         api<Audit[]>("/api/audits"),
         api<FeedItem[]>("/api/feed?all=1"),
         api<AboutContent>("/api/about"),
+        api<Lead[]>("/api/leads"),
       ]);
+      setLeads(l);
       setAudits(a);
       setFeed(f);
       setAbout(ab);
@@ -222,9 +226,9 @@ export function AdminApp() {
           <span className="display text-[1.2rem]">REEVERI <span className="edge ml-2 text-rebate">Admin</span></span>
           {!editing && (
             <nav className="flex gap-1" aria-label="Sections">
-              {(["feed", "audits", "about"] as const).map((t) => (
+              {(["leads", "feed", "audits", "about"] as const).map((t) => (
                 <button key={t} onClick={() => setTab(t)} aria-current={tab === t} className={`h-9 px-3 text-[0.9rem] font-semibold ${tab === t ? "bg-marker text-on-marker" : "text-dim hover:text-paper"}`}>
-                  {t === "feed" ? "Creative feed" : t === "audits" ? "Audits" : "About page"}
+                  {t === "leads" ? `Leads${leads.length ? ` (${leads.length})` : ""}` : t === "feed" ? "Creative feed" : t === "audits" ? "Audits" : "About page"}
                 </button>
               ))}
             </nav>
@@ -256,6 +260,33 @@ export function AdminApp() {
           />
         ) : feedEdit ? (
           <FeedEditor key={feedEdit.item.id || "new"} initial={feedEdit.item} isNew={feedEdit.isNew} onSave={saveFeed} onCancel={() => setFeedEdit(null)} onError={(m) => flash(m, true)} />
+        ) : tab === "leads" ? (
+          <>
+            <p className="mb-4 text-dim">{leads.length} enquiries from the contact form, newest first.</p>
+            {leads.length === 0 && <p className="border border-line p-6 text-dim">No enquiries yet.</p>}
+            <ul className="divide-y divide-line border-y border-line">
+              {leads.map((l) => (
+                <li key={l.id} className="flex gap-4 py-3 text-[0.9rem]">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold">
+                      {l.name} · <a className="underline hover:text-marker" href={`mailto:${l.email}`}>{l.email}</a>
+                      {l.brand && <span className="text-dim"> · {l.brand}</span>}
+                    </p>
+                    <p className="edge text-rebate">
+                      {new Date(l.createdAt).toLocaleString()}
+                      {l.timeline && ` · ${l.timeline}`}
+                      {l.services.length > 0 && ` · ${l.services.join(", ")}`}
+                    </p>
+                    {l.website && <a className="text-dim underline hover:text-paper" href={l.website} target="_blank" rel="noreferrer noopener">{l.website}</a>}
+                    {l.message && <p className="mt-1 whitespace-pre-wrap text-dim">{l.message}</p>}
+                  </div>
+                  <button className="flex size-8 shrink-0 items-center justify-center text-dim hover:text-marker" aria-label={`Delete lead from ${l.name}`} onClick={() => del(`/api/leads/${l.id}`, `the lead from ${l.name}`)}>
+                    <Trash2 className="size-4" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
         ) : tab === "about" ? (
           about && <AboutEditor onSave={saveAbout} initial={about} />
         ) : tab === "feed" ? (

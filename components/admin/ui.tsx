@@ -71,7 +71,7 @@ export function UploadButton({
       />
       <button type="button" className={btnGhost} disabled={busy} onClick={() => ref.current?.click()}>
         {busy ? <Loader2 className="size-4 animate-spin" /> : <Upload className="size-4" />}
-        {busy ? `Uploading… ${pct}%` : label}
+        {busy ? (pct < 100 ? `Uploading… ${pct}%` : "Optimising…") : label}
       </button>
     </>
   );

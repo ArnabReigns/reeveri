@@ -46,7 +46,7 @@ export async function api<T>(path: string, init: { method?: string; json?: unkno
   }
 }
 
-export type Uploaded = { src: string; kind: "image" | "video"; name: string };
+export type Uploaded = { src: string; kind: "image" | "video"; name: string; poster?: string };
 
 const MAX_SIDE = 3000;
 

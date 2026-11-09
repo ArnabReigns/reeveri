@@ -4,6 +4,7 @@ import path from "path";
 import { Readable } from "stream";
 import { pipeline } from "stream/promises";
 import { UPLOAD_DIR, isAuthed, unauthorized } from "@/lib/db";
+import { processImage, processVideo } from "@/lib/media";
 
 const MAX_BYTES = 300 * 1024 * 1024;
 
@@ -37,7 +38,21 @@ export async function POST(req: Request) {
     fs.rmSync(dest, { force: true });
     return Response.json({ error: e instanceof Error ? e.message : "Upload failed" }, { status: 400 });
   }
+  // Optimise for fast viewing (see lib/media.ts). Videos also get a cover frame.
+  const isVideo = type.startsWith("video/");
+  let final = dest;
+  let poster: string | undefined;
+  if (isVideo) ({ file: final, poster } = await processVideo(dest));
+  else final = await processImage(dest);
+
   return Response.json({
-    files: [{ src: `/uploads/${name}`, kind: type.startsWith("video/") ? "video" : "image", name: original }],
+    files: [
+      {
+        src: `/uploads/${path.basename(final)}`,
+        kind: isVideo ? "video" : "image",
+        name: original,
+        ...(poster ? { poster: `/uploads/${path.basename(poster)}` } : {}),
+      },
+    ],
   });
 }

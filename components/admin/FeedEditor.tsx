@@ -119,9 +119,10 @@ export function FeedEditor({
           onUploaded={async (files, originals) => {
             set("media", single ? files.slice(0, 1).map(({ src, kind }) => ({ src, kind })) : [...f.media, ...files.map(({ src, kind }) => ({ src, kind }))]);
             // A reel gets a cover image automatically, so the grid shows a picture instead of loading the video.
+            // The server makes one; fall back to a browser-made frame if it couldn't.
             if (f.type === "reel" && files[0]?.kind === "video") {
-              const poster = await makePoster(originals[0]);
-              if (poster) set("poster", poster.src);
+              const poster = files[0].poster ?? (await makePoster(originals[0]))?.src;
+              if (poster) set("poster", poster);
             }
           }}
         />
